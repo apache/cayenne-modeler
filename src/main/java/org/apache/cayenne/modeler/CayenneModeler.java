@@ -29,11 +29,11 @@ import org.apache.cayenne.di.Injector;
 import org.apache.cayenne.di.Module;
 import org.apache.cayenne.modeler.di.CayenneModelerModule;
 import org.apache.cayenne.modeler.model.CayenneModel;
-import org.apache.cayenne.modeler.view.BaseView;
 import org.apache.cayenne.modeler.view.MainWindowViewController;
 import org.apache.cayenne.project.CayenneProjectModule;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -57,14 +57,19 @@ public class CayenneModeler extends Application
 //
 //        Scene scene = new Scene(root);//, 470, 332);
 
-        MainWindowViewController mainWindow = (MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
+        Stage stage = new Stage();
 
-        primaryStage.setScene(mainWindow.getScene());
+//        MainWindowViewController mainWindow = (MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
+        MainWindowViewController mainWindow = new MainWindowViewController(stage);//(MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
+
+//        primaryStage.setScene(mainWindow.getScene());
 //        primaryStage.setTitle("Cayenne Modeler");
 
-        primaryStage.show();
+        Scene scene = new Scene(mainWindow);
+        stage.setScene(scene);
+        stage.show();
 
-        mainWindow.setTitle(); // Redundant for now.
+//        mainWindow.setTitle(); // Redundant for now.
         mainWindow.displayCayenneModel(cayenneModel);
 }
 

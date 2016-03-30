@@ -26,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+@Deprecated // I think this needs to be deleted.
 public abstract class BaseView
 {
     private Scene scene;

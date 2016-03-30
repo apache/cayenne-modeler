@@ -19,6 +19,8 @@
 
 package org.apache.cayenne.modeler.view;
 
+import java.io.IOException;
+
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.map.ObjEntity;
@@ -36,15 +38,17 @@ import org.apache.cayenne.modeler.utility.TreeViewUtilities;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainWindowViewController extends BaseView
+public class MainWindowViewController extends VBox
 {
     @FXML
     private TreeView<CayenneTreeViewModel> treeView;
@@ -71,6 +75,18 @@ public class MainWindowViewController extends BaseView
 
     private CayenneModel cayenneModel;
 
+    private Stage stage;
+
+    public MainWindowViewController(Stage stage) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindowView.fxml"));
+
+        this.stage = stage;
+
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+    }
+
     public CayenneModel getCayenneModel()
     {
         return cayenneModel;
@@ -78,7 +94,8 @@ public class MainWindowViewController extends BaseView
 
     public Stage getWindow()
     {
-        return (Stage) treeView.getScene().getWindow();
+        return stage;
+//        return (Stage) treeView.getScene().getWindow();
     }
     public void setTitle()
     {
