@@ -85,6 +85,7 @@ public class MainWindowViewController extends VBox
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+        fxmlLoader.load();
     }
 
     public CayenneModel getCayenneModel()
