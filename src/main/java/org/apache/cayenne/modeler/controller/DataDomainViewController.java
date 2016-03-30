@@ -21,8 +21,6 @@ package org.apache.cayenne.modeler.controller;
 
 import java.io.IOException;
 
-import org.apache.cayenne.modeler.view.MainWindowViewController;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 

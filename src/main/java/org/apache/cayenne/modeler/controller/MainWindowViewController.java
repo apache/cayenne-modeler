@@ -17,16 +17,13 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.view;
+package org.apache.cayenne.modeler.controller;
 
 import java.io.IOException;
 
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.map.ObjEntity;
-import org.apache.cayenne.modeler.controller.DataDomainViewController;
-import org.apache.cayenne.modeler.controller.DataMapViewController;
-import org.apache.cayenne.modeler.controller.ObjectEntityViewController;
 import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.modeler.model.CayenneTreeViewModel;
 import org.apache.cayenne.modeler.model.DataDomainTreeViewModel;

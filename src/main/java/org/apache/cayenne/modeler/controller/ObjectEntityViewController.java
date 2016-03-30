@@ -24,7 +24,6 @@ import java.io.IOException;
 import org.apache.cayenne.map.ObjAttribute;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
-import org.apache.cayenne.modeler.view.MainWindowViewController;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;

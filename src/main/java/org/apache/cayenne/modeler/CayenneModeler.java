@@ -27,9 +27,9 @@ import org.apache.cayenne.di.DIBootstrap;
 import org.apache.cayenne.di.Inject;
 import org.apache.cayenne.di.Injector;
 import org.apache.cayenne.di.Module;
+import org.apache.cayenne.modeler.controller.MainWindowViewController;
 import org.apache.cayenne.modeler.di.CayenneModelerModule;
 import org.apache.cayenne.modeler.model.CayenneModel;
-import org.apache.cayenne.modeler.view.MainWindowViewController;
 import org.apache.cayenne.project.CayenneProjectModule;
 
 import javafx.application.Application;
