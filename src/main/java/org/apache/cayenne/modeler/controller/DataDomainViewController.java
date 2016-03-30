@@ -21,7 +21,7 @@ package org.apache.cayenne.modeler.controller;
 
 import java.io.IOException;
 
-import org.apache.cayenne.modeler.view.MainWindow;
+import org.apache.cayenne.modeler.view.MainWindowViewController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -29,9 +29,9 @@ import javafx.scene.layout.AnchorPane;
 // org.apache.cayenne.modeler.controller.DataDomainViewController
 public class DataDomainViewController extends AnchorPane
 {
-    private MainWindow mainWindow;
+    private MainWindowViewController mainWindow;
 
-    public DataDomainViewController(MainWindow mainWindow) throws IOException
+    public DataDomainViewController(MainWindowViewController mainWindow) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DataDomainView.fxml"));
 

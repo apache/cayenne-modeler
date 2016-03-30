@@ -24,7 +24,7 @@ import java.io.IOException;
 import org.apache.cayenne.map.ObjAttribute;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
-import org.apache.cayenne.modeler.view.MainWindow;
+import org.apache.cayenne.modeler.view.MainWindowViewController;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -60,9 +60,9 @@ public class ObjectEntityViewController extends AnchorPane
     @FXML
     private TableColumn<ObjAttribute,Boolean> attributeIsInheritedColumn;
 
-    private MainWindow mainWindow;
+    private MainWindowViewController mainWindow;
 
-    public ObjectEntityViewController(MainWindow mainWindow) throws IOException
+    public ObjectEntityViewController(MainWindowViewController mainWindow) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ObjectEntityView.fxml"));
 

@@ -44,7 +44,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class MainWindow extends BaseView
+public class MainWindowViewController extends BaseView
 {
     @FXML
     private TreeView<CayenneTreeViewModel> treeView;

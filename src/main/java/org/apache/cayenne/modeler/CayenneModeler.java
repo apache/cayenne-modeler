@@ -30,7 +30,7 @@ import org.apache.cayenne.di.Module;
 import org.apache.cayenne.modeler.di.CayenneModelerModule;
 import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.modeler.view.BaseView;
-import org.apache.cayenne.modeler.view.MainWindow;
+import org.apache.cayenne.modeler.view.MainWindowViewController;
 import org.apache.cayenne.project.CayenneProjectModule;
 
 import javafx.application.Application;
@@ -57,7 +57,7 @@ public class CayenneModeler extends Application
 //
 //        Scene scene = new Scene(root);//, 470, 332);
 
-        MainWindow mainWindow = (MainWindow) BaseView.loadFXML(getClass().getResource("/view/MainScene.fxml"), primaryStage);
+        MainWindowViewController mainWindow = (MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
 
         primaryStage.setScene(mainWindow.getScene());
 //        primaryStage.setTitle("Cayenne Modeler");

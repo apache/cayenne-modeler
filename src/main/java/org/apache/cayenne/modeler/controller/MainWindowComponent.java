@@ -19,10 +19,10 @@
 
 package org.apache.cayenne.modeler.controller;
 
-import org.apache.cayenne.modeler.view.MainWindow;
+import org.apache.cayenne.modeler.view.MainWindowViewController;
 
 public interface MainWindowComponent
 {
-    void setMainWindow(MainWindow mainWindow);
-    MainWindow getMainWindow();
+    void setMainWindow(MainWindowViewController mainWindow);
+    MainWindowViewController getMainWindow();
 }

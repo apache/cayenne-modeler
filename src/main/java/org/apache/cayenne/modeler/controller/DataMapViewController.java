@@ -21,16 +21,16 @@ package org.apache.cayenne.modeler.controller;
 
 import java.io.IOException;
 
-import org.apache.cayenne.modeler.view.MainWindow;
+import org.apache.cayenne.modeler.view.MainWindowViewController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
 public class DataMapViewController extends AnchorPane
 {
-    private MainWindow mainWindow;
+    private MainWindowViewController mainWindow;
 
-    public DataMapViewController(MainWindow mainWindow) throws IOException
+    public DataMapViewController(MainWindowViewController mainWindow) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DataMapView.fxml"));
 
