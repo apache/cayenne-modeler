@@ -77,6 +77,8 @@ public class MainWindowViewController extends VBox
 
     private Stage stage;
 
+    private boolean dirty;
+
     public MainWindowViewController(Stage stage) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindowView.fxml"));
@@ -100,7 +102,8 @@ public class MainWindowViewController extends VBox
     }
     public void setTitle()
     {
-        String title = "Cayenne Modeler";
+        String edited = isDirty() ? "[edited] " : "";
+        String title = edited + "Cayenne Modeler";
 
         if (cayenneModel != null)
             title += " - " + cayenneModel.getPath();
@@ -322,4 +325,17 @@ public class MainWindowViewController extends VBox
             exception.printStackTrace();
         }
     }
+
+
+    public boolean isDirty()
+    {
+        return dirty;
+    }
+
+    public void setDirty(boolean dirty)
+    {
+        this.dirty = dirty;
+    }
+
+
 }
