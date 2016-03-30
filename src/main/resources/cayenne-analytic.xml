@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<domain project-version="6">
+	<property name="cayenne.DataDomain.usingExternalTransactions" value="true"/>
+	<property name="cayenne.DataDomain.validatingObjectsOnCommit" value="false"/>
+	<property name="cayenne.DataRowStore.remote.notify" value="true"/>
+
+	<map name="analytic"/>
+
+	<node name="analytic"
+		 factory="org.apache.cayenne.configuration.server.JNDIDataSourceFactory"
+		 parameters="jdbc/analytic-db"
+		>
+		<map-ref name="analytic"/>
+	</node>
+</domain>
