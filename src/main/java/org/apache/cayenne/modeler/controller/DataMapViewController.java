@@ -24,7 +24,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
-public class DataMapViewController extends AnchorPane
+public class DataMapViewController extends AnchorPane implements MainWindowSupport
 {
     private MainWindowViewController mainWindow;
 
@@ -42,5 +42,11 @@ public class DataMapViewController extends AnchorPane
     public void initialize()
     {
         System.out.println("fonzie");
+    }
+
+    @Override
+    public MainWindowViewController getMainWindow()
+    {
+        return mainWindow;
     }
 }

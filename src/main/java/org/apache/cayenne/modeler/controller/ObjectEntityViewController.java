@@ -38,7 +38,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-public class ObjectEntityViewController extends AnchorPane
+public class ObjectEntityViewController extends AnchorPane implements MainWindowSupport
 {
     @FXML
     private Button dbEntitySyncButton;
@@ -133,5 +133,11 @@ public class ObjectEntityViewController extends AnchorPane
     {
         System.out.println(event);
         mainWindow.getCayenneModel().getDataMaps();
+    }
+
+    @Override
+    public MainWindowViewController getMainWindow()
+    {
+        return mainWindow;
     }
 }

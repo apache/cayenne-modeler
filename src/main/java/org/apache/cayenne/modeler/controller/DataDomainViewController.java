@@ -25,7 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
 // org.apache.cayenne.modeler.controller.DataDomainViewController
-public class DataDomainViewController extends AnchorPane
+public class DataDomainViewController extends AnchorPane implements MainWindowSupport
 {
     private MainWindowViewController mainWindow;
 
@@ -43,5 +43,11 @@ public class DataDomainViewController extends AnchorPane
     public void initialize()
     {
         System.out.println("foobar");
+    }
+
+    @Override
+    public MainWindowViewController getMainWindow()
+    {
+        return mainWindow;
     }
 }
