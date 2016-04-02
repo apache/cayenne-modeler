@@ -27,7 +27,7 @@
 	<name>Cayenne Modeler Prototype</name>
 
 	<properties>
-		<cayenne.version>3.1</cayenne.version>
+		<cayenne.version>4.0.M3</cayenne.version>
 		<fontawesomefx.version>8.9</fontawesomefx.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
