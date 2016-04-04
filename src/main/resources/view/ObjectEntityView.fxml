@@ -48,7 +48,7 @@
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <GridPane vgap="4.0">
+                              <GridPane minHeight="-Infinity" vgap="4.0">
                                  <columnConstraints>
                                     <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="225.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
@@ -103,7 +103,7 @@
                                     <CheckBox mnemonicParsing="false" text="Exclude Default Listeners" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                  </children>
                               </GridPane>
-                              <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                              <TabPane minWidth="100.0" prefHeight="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                                 <tabs>
                                   <Tab text="JavaDoc">
                                     <content>
