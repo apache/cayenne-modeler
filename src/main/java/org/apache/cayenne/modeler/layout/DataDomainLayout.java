@@ -17,7 +17,7 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.controller;
+package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
@@ -25,13 +25,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
 // org.apache.cayenne.modeler.controller.DataDomainViewController
-public class DataDomainViewController extends AnchorPane implements MainWindowSupport
+public class DataDomainLayout extends AnchorPane implements MainWindowSupport
 {
-    private MainWindowViewController mainWindow;
+    private MainWindowLayout mainWindow;
 
-    public DataDomainViewController(MainWindowViewController mainWindow) throws IOException
+    public DataDomainLayout(MainWindowLayout mainWindow) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DataDomainView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DataDomainLayout.fxml"));
 
         this.mainWindow = mainWindow;
 
@@ -46,7 +46,7 @@ public class DataDomainViewController extends AnchorPane implements MainWindowSu
     }
 
     @Override
-    public MainWindowViewController getMainWindow()
+    public MainWindowLayout getMainWindow()
     {
         return mainWindow;
     }

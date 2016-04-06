@@ -17,36 +17,9 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.controller;
+package org.apache.cayenne.modeler.layout;
 
-import java.io.IOException;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-
-public class DataMapViewController extends AnchorPane implements MainWindowSupport
+public interface MainWindowSupport
 {
-    private MainWindowViewController mainWindow;
-
-    public DataMapViewController(MainWindowViewController mainWindow) throws IOException
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DataMapView.fxml"));
-
-        this.mainWindow = mainWindow;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
-    }
-
-    public void initialize()
-    {
-        System.out.println("fonzie");
-    }
-
-    @Override
-    public MainWindowViewController getMainWindow()
-    {
-        return mainWindow;
-    }
+    MainWindowLayout getMainWindow();
 }

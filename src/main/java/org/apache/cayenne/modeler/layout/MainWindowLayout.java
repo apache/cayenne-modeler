@@ -17,7 +17,7 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.controller;
+package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
@@ -45,7 +45,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainWindowViewController extends VBox
+public class MainWindowLayout extends VBox
 {
     @FXML
     private TreeView<CayenneTreeViewModel> treeView;
@@ -76,9 +76,9 @@ public class MainWindowViewController extends VBox
 
     private boolean dirty;
 
-    public MainWindowViewController(Stage stage) throws IOException
+    public MainWindowLayout(Stage stage) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindowView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/MainWindowLayout.fxml"));
 
         this.stage = stage;
 
@@ -292,7 +292,7 @@ public class MainWindowViewController extends VBox
 
 
 //    private Node objectEntityDetail; // TabPane
-    private ObjectEntityViewController objectEntityDetail; // TabPane
+    private ObjectEntityLayout objectEntityDetail; // TabPane
     private Node dataDomainDetail;
     private Node dataMapDetail;
 
@@ -307,9 +307,9 @@ public class MainWindowViewController extends VBox
 //          TabPane objectEntityTabs = (TabPane) loader.load();
 
 //            dataDomainDetail = FXMLLoader.load(MainWindow.class.getResource("/view/DataDomainView.fxml"));
-            dataDomainDetail = new DataDomainViewController(this);
-            dataMapDetail = new DataMapViewController(this);
-            objectEntityDetail = new ObjectEntityViewController(this);
+            dataDomainDetail = new DataDomainLayout(this);
+            dataMapDetail = new DataMapLayout(this);
+            objectEntityDetail = new ObjectEntityLayout(this);
 //            objectEntityDetail = BaseView.loadFXML(getClass().getResource("/view/ObjectEntityView.fxml"), getStage());
 //            objectEntityDetail = FXMLLoader.load(MainWindow.class.getResource("/view/ObjectEntityView.fxml"));
 

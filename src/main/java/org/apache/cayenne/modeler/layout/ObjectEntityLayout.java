@@ -17,7 +17,7 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.controller;
+package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
@@ -37,7 +37,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-public class ObjectEntityViewController extends AnchorPane implements MainWindowSupport
+public class ObjectEntityLayout extends AnchorPane implements MainWindowSupport
 {
     @FXML
     private TableView<ObjAttribute> attributesTableView;
@@ -58,13 +58,13 @@ public class ObjectEntityViewController extends AnchorPane implements MainWindow
     @FXML
     private AnchorPane classTabAnchorPane;
 
-    private MainWindowViewController mainWindow;
+    private MainWindowLayout mainWindow;
 
-    private ObjectEntityClassTabViewController objectEntityClassTabViewController;
+    private ObjectEntityClassTabLayout objectEntityClassTabViewController;
 
-    public ObjectEntityViewController(MainWindowViewController mainWindow) throws IOException
+    public ObjectEntityLayout(MainWindowLayout mainWindow) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ObjectEntityView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityLayout.fxml"));
 
         this.mainWindow = mainWindow;
 
@@ -127,7 +127,7 @@ public class ObjectEntityViewController extends AnchorPane implements MainWindow
     {
         try
         {
-            objectEntityClassTabViewController = new ObjectEntityClassTabViewController(this);
+            objectEntityClassTabViewController = new ObjectEntityClassTabLayout(this);
 
             loadTab(objectEntityClassTabViewController, classTabAnchorPane);
         }
@@ -168,7 +168,7 @@ public class ObjectEntityViewController extends AnchorPane implements MainWindow
     }
 
     @Override
-    public MainWindowViewController getMainWindow()
+    public MainWindowLayout getMainWindow()
     {
         return mainWindow;
     }

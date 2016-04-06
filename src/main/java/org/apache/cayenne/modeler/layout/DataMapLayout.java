@@ -17,57 +17,36 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.controller;
+package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.map.ObjEntity;
-
-import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
-public class ObjectEntityClassTabViewController extends AnchorPane implements MainWindowSupport
+public class DataMapLayout extends AnchorPane implements MainWindowSupport
 {
-    @FXML
-    private Button dbEntitySyncButton;
+    private MainWindowLayout mainWindow;
 
-
-    private MainWindowSupport parent;
-
-    public ObjectEntityClassTabViewController(MainWindowSupport parent) throws IOException
+    public DataMapLayout(MainWindowLayout mainWindow) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ObjectEntityClassTabView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DataMapLayout.fxml"));
 
-        this.parent = parent;
+        this.mainWindow = mainWindow;
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
     }
 
-
     public void initialize()
     {
-//        getScene().getWindow().getScene();
-//        getStage().getScene().getWindow().get
-//        System.out.println("mrg: " + getStage().getScene().getRoot());
-        System.out.println("oectv");
-
-        dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
-    }
-
-    public void display(ObjEntity objEntity)
-    {
-        System.out.println("trying to display: " + objEntity);
+        System.out.println("fonzie");
     }
 
     @Override
-    public MainWindowViewController getMainWindow()
+    public MainWindowLayout getMainWindow()
     {
-        return parent.getMainWindow();
+        return mainWindow;
     }
 }
