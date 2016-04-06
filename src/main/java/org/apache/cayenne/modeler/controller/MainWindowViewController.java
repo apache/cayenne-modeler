@@ -282,7 +282,6 @@ public class MainWindowViewController extends VBox
         AnchorPane.setBottomAnchor(detailView, 0.0);
 
         detailAnchorPane.getChildren().add(detailView);
-
     }
 
 //    private void displayDetailView(BaseView detailView)

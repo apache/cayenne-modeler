@@ -32,7 +32,6 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,9 +39,6 @@ import javafx.scene.layout.AnchorPane;
 
 public class ObjectEntityViewController extends AnchorPane implements MainWindowSupport
 {
-    @FXML
-    private Button dbEntitySyncButton;
-
     @FXML
     private TableView<ObjAttribute> attributesTableView;
 
@@ -59,7 +55,12 @@ public class ObjectEntityViewController extends AnchorPane implements MainWindow
     @FXML
     private TableColumn<ObjAttribute,Boolean> attributeIsInheritedColumn;
 
+    @FXML
+    private AnchorPane classTabAnchorPane;
+
     private MainWindowViewController mainWindow;
+
+    private ObjectEntityClassTabViewController objectEntityClassTabViewController;
 
     public ObjectEntityViewController(MainWindowViewController mainWindow) throws IOException
     {
@@ -81,10 +82,11 @@ public class ObjectEntityViewController extends AnchorPane implements MainWindow
 //        System.out.println("mrg: " + getStage().getScene().getRoot());
         System.out.println("oev");
 
+        loadComponents();
+
         attributeUsedForLockingColumn.setText(null);
         attributeIsInheritedColumn.setText(null);
 
-        dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
         attributeUsedForLockingColumn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LOCK, "16px"));
         attributeIsInheritedColumn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LEVEL_UP, "16px"));
 
@@ -121,10 +123,40 @@ public class ObjectEntityViewController extends AnchorPane implements MainWindow
 
     }
 
+    private void loadComponents()
+    {
+        try
+        {
+            objectEntityClassTabViewController = new ObjectEntityClassTabViewController(this);
+
+            loadTab(objectEntityClassTabViewController, classTabAnchorPane);
+        }
+        catch (Exception exception)
+        {
+            // TODO Auto-generated catch block
+            exception.printStackTrace();
+        }
+    }
+
+    private void loadTab(AnchorPane source, AnchorPane destination)
+    {
+        destination.getChildren().removeAll(destination.getChildren());
+
+        // Make the detail view fill the pane.
+        AnchorPane.setTopAnchor(source, 0.0);
+        AnchorPane.setLeftAnchor(source, 0.0);
+        AnchorPane.setRightAnchor(source, 0.0);
+        AnchorPane.setBottomAnchor(source, 0.0);
+
+        destination.getChildren().add(source);
+
+    }
+
     public void display(ObjEntity objEntity)
     {
         System.out.println("trying to display: " + objEntity);
         attributesTableView.setItems(FXCollections.observableArrayList(objEntity.getAttributes()));
+        objectEntityClassTabViewController.display(objEntity);
 //        objEntity.getAttributes()
     }
 

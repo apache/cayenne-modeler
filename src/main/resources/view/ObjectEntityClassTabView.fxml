@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="759.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" text="Toolbar really goes here..." />
+               </children>
+            </HBox>
+            <Label text="Java Class Configuration">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <GridPane minHeight="-Infinity" vgap="4.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="225.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label alignment="CENTER_RIGHT" text="Class Name: " GridPane.rowIndex="3" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="ClassName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Inheritance: " GridPane.rowIndex="5" />
+                  <CheckBox mnemonicParsing="false" text="Abstract Class" GridPane.columnIndex="1" />
+                  <ComboBox prefWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Mapped to Database Table/View: " GridPane.rowIndex="4" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <ComboBox prefWidth="200.0" />
+                        <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="20.0" />
+                        <Button fx:id="dbEntitySyncButton" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="140.0" text="Sync to DbEntity" textAlignment="CENTER" HBox.hgrow="SOMETIMES">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label text="Package Name: " GridPane.rowIndex="2" />
+                  <Label text="Superclass: " GridPane.rowIndex="1" />
+                  <Label text="Qualifier: " GridPane.rowIndex="6" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="some.package.here" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="some.package.here.SuperClass" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <HBox GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="Read Only">
+                           <padding>
+                              <Insets right="20.0" />
+                           </padding>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="Enable Optimistic Locking for this Class" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <CheckBox mnemonicParsing="false" text="Exclude Superclass Listeners" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <CheckBox mnemonicParsing="false" text="Exclude Default Listeners" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+               </children>
+            </GridPane>
+            <TabPane minWidth="100.0" prefHeight="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+               <tabs>
+                  <Tab text="JavaDoc">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea layoutX="-109.0" layoutY="3.0" prefHeight="100.0" promptText="Omit comment characters.  Press return to include newlines in output." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Imports">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea layoutX="75.0" layoutY="8.0" prefHeight="100.0" promptText="Omit the 'import' statement and add a single import per line." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</fx:root>
