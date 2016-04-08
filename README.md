@@ -16,7 +16,17 @@ A more modern version of Cayenne Modeler built upon JavaFX.
 
 ## Getting Started
 
-Inside Eclipse, you can run the main application (located in `src/main/java/org/apache/cayenne/modeler/CayenneModeler`) as a standard Java application.
+### Running Inside Eclipse
+
+Right-click on the main application,
+`src/main/java/org/apache/cayenne/modeler/CayenneModeler.java`,
+and choose `Run As` => `Java Application`.
+
+### Running With Maven
+
+From the top-level project, where the `pom.xml` file is located:
+
+`mvn exec:java -Dexec.mainClass=org.apache.cayenne.modeler.CayenneModeler`
 
 ## Thanks
 
