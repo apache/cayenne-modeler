@@ -24,10 +24,13 @@ import java.io.IOException;
 import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.preferences.ModelerPreferences;
 
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -39,6 +42,9 @@ public class SplashLayout extends AnchorPane
 {
     @FXML
     private ListView<String> projectListView;
+
+    @FXML
+    private Button newProjectButton, openProjectButton;
 
     private Stage stage;
 
@@ -74,6 +80,10 @@ public class SplashLayout extends AnchorPane
 
         projectListView.setItems(projects);
         projectListView.getSelectionModel().select(0);
+
+        newProjectButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS_SQUARE, "16px"));
+        openProjectButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FOLDER_OPEN, "16px"));
+
     }
 
     public void onOpenClicked()

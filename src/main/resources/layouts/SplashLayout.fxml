@@ -28,12 +28,12 @@
             </ListView>
             <HBox alignment="CENTER">
                <children>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#onOpenClicked" prefWidth="180.0" text="Open Different Project">
+                  <Button fx:id="openProjectButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#onOpenClicked" prefWidth="200.0" text="Open Different Project">
                      <HBox.margin>
                         <Insets right="4.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onNewClicked" prefWidth="180.0" text="Create New Project">
+                  <Button fx:id="newProjectButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#onNewClicked" prefWidth="200.0" text="Create New Project">
                      <HBox.margin>
                         <Insets left="4.0" />
                      </HBox.margin>
