@@ -29,24 +29,24 @@ import org.apache.cayenne.di.Injector;
 import org.apache.cayenne.di.Module;
 import org.apache.cayenne.modeler.di.CayenneModelerModule;
 import org.apache.cayenne.modeler.layout.MainWindowLayout;
+import org.apache.cayenne.modeler.layout.SplashLayout;
 import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.project.CayenneProjectModule;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class CayenneModeler extends Application
 {
     private Stage      primaryStage;
-    private BorderPane rootLayout;
+//    private BorderPane rootLayout;
 
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        CayenneModel cayenneModel = new CayenneModel("/cayenne-analytic.xml");
-        CayenneModelManager.addModel(cayenneModel);
+        this.primaryStage = primaryStage;
+
 
 //        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScene.fxml"));
 //
@@ -57,22 +57,40 @@ public class CayenneModeler extends Application
 //
 //        Scene scene = new Scene(root);//, 470, 332);
 
-        Stage stage = new Stage();
 
 //        MainWindowViewController mainWindow = (MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
-        MainWindowLayout mainWindow = new MainWindowLayout(stage);//(MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
 
 //        primaryStage.setScene(mainWindow.getScene());
 //        primaryStage.setTitle("Cayenne Modeler");
 
+
+//        openMainWindow();
+        openSplash();
+    }
+
+    private void openSplash() throws Exception
+    {
+        SplashLayout splashLayout = new SplashLayout(primaryStage);
+        Scene splashScene = new Scene(splashLayout);
+        primaryStage.setScene(splashScene);
+        primaryStage.show();
+    }
+
+    public static void openProject(String path) throws Exception
+    {
+//        CayenneModel cayenneModel = new CayenneModel("/cayenne-analytic.xml");
+        CayenneModel cayenneModel = new CayenneModel(path);
+        CayenneModelManager.addModel(cayenneModel);
+        Stage stage = new Stage();
+        MainWindowLayout mainWindow = new MainWindowLayout(stage);//(MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
         Scene scene = new Scene(mainWindow);
         stage.setScene(scene);
         stage.show();
 
 //        mainWindow.setTitle(); // Redundant for now.
         mainWindow.displayCayenneModel(cayenneModel);
-}
 
+    }
     /**
      * Initializes the root layout.
      */

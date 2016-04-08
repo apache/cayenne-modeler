@@ -19,6 +19,8 @@
 
 package org.apache.cayenne.modeler.model;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 
@@ -50,9 +52,11 @@ public class CayenneModel
     private Project project;
     private DataChannelDescriptor root;
 
-    public CayenneModel(String path)
+    // TODO: Handle this exception.
+    public CayenneModel(String path) throws MalformedURLException
     {
-        URL url = CayenneModeler.class.getResource(path);
+//        URL url = CayenneModeler.class.getResource(path);
+        URL url = new File(path).toURI().toURL();
         Resource rootSource = new URLResource(url);
         ProjectUpgrader upgrader = CayenneModeler.getInjector().getInstance(ProjectUpgrader.class);
         UpgradeHandler handler = upgrader.getUpgradeHandler(rootSource);
