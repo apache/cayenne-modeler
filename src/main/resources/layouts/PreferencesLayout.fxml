@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root maxWidth="-Infinity" minWidth="-Infinity" prefWidth="600.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="General">
+            <content>
+              <AnchorPane>
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label text="General Preferences">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="NEVER" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="File Encoding: " />
+                                    <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                    <ComboBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label text="Default (UTF8)" GridPane.columnIndex="2" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="40.0" />
+                                 </VBox.margin>
+                              </GridPane>
+                              <CheckBox mnemonicParsing="false" text="Automatically load previously open projects on startup.">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="20.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <Label text="Editor Preferences">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <CheckBox mnemonicParsing="false" text="Always delete items without prompting.">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="8.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Local Java Class Path">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <VBox layoutX="46.0" layoutY="-32.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label minHeight="-Infinity" prefHeight="40.0" text="Add local (to Cayenne Modeler) Java CLASSPATH entries here, which is mainly useful for JDBC drivers in the Local JDBC Data Sources tab." wrapText="true" VBox.vgrow="ALWAYS" />
+                              <ListView />
+                              <HBox spacing="8.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Add JAR/ZIP File" />
+                                    <Button mnemonicParsing="false" text="Add Folder" />
+                                    <Button mnemonicParsing="false" text="Remove Entry" />
+                                 </children>
+                                 <padding>
+                                    <Insets top="8.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab text="Local JDBC Data Sources">
+            <content>
+              <AnchorPane />
+            </content>
+          </Tab>
+            <Tab text="Templates???">
+              <content>
+                <AnchorPane>
+                     <children>
+                        <Label alignment="CENTER" layoutX="283.0" layoutY="175.0" text="I want these in the DataDomain..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <HBox alignment="CENTER_RIGHT">
+         <children>
+            <Button cancelButton="true" mnemonicParsing="false" text="Cancel" />
+            <Button defaultButton="true" mnemonicParsing="false" text="Save">
+               <HBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</fx:root>
