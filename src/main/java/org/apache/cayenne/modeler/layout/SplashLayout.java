@@ -29,17 +29,14 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class SplashLayout extends AnchorPane
+public class SplashLayout extends WindowLayout
 {
     @FXML
     private ListView<String> projectListView;
@@ -47,36 +44,16 @@ public class SplashLayout extends AnchorPane
     @FXML
     private Button newProjectButton, openProjectButton;
 
-    private Stage initialStage;
-
     public SplashLayout(Stage initialStage) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/SplashLayout.fxml"));
+        super(initialStage, "/layouts/SplashLayout.fxml");
 
-        this.initialStage = initialStage;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
-
-        Scene splashScene = new Scene(this);
-
-        initialStage.setScene(splashScene);
-//        initialStage.show();
+        initializeStyle(StageStyle.DECORATED);
+        setResizable(false);
     }
-
-//    public Stage getWindow()
-//    {
-//        return stage;
-//    }
-
-
 
     public void initialize()
     {
-        initialStage.initStyle(StageStyle.DECORATED);
-        initialStage.setResizable(false);
-
 //        final List<String> arr = ModelerPreferences.getLastProjFiles();
 
 //        URL url = CayenneModeler.class.getResource("/cayenne-analytic.xml");
@@ -89,7 +66,6 @@ public class SplashLayout extends AnchorPane
 
         newProjectButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS_SQUARE, "16px"));
         openProjectButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FOLDER_OPEN, "16px"));
-
     }
 
     public void onOpenClicked()
@@ -128,15 +104,5 @@ public class SplashLayout extends AnchorPane
             // TODO Auto-generated catch block
             exception.printStackTrace();
         }
-    }
-
-    public void show()
-    {
-        initialStage.show();
-    }
-
-    public void hide()
-    {
-        initialStage.hide();
     }
 }

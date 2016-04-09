@@ -78,13 +78,13 @@ public class CayenneModeler extends Application
         CayenneModelManager.addModel(cayenneModel);
 
         // TODO: Probably need to save this value off somewhere...
-        MainWindowLayout mainWindow = new MainWindowLayout(new Stage());
+        MainWindowLayout mainWindow = new MainWindowLayout();
 
         mainWindow.displayCayenneModel(cayenneModel);
         mainWindow.show();
 
         // For grins, this creates a second editor window:
-//        new MainWindowLayout(new Stage()).displayCayenneModel(cayenneModel);
+//        new MainWindowLayout().displayCayenneModel(cayenneModel);
     }
 
     private static PreferencesLayout preferencesLayout;
@@ -92,7 +92,7 @@ public class CayenneModeler extends Application
     public static void openPreferences() throws Exception
     {
         if (preferencesLayout == null)
-            preferencesLayout = new PreferencesLayout(new Stage());
+            preferencesLayout = new PreferencesLayout();
 
         preferencesLayout.show();
     }

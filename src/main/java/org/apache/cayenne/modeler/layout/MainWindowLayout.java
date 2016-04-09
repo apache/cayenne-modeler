@@ -36,18 +36,15 @@ import org.apache.cayenne.modeler.utility.TreeViewUtilities;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainWindowLayout extends VBox
+public class MainWindowLayout extends WindowLayout
 {
     @FXML
     private TreeView<CayenneTreeViewModel> treeView;
@@ -74,26 +71,13 @@ public class MainWindowLayout extends VBox
 
     private CayenneModel cayenneModel;
 
-    private Stage stage;
-
     private boolean dirty;
 
-    public MainWindowLayout(Stage stage) throws IOException
+    public MainWindowLayout() throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/MainWindowLayout.fxml"));
+        super(new Stage(), "/layouts/MainWindowLayout.fxml");
 
-        this.stage = stage;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
-
-        Scene scene = new Scene(this);
-
-        stage.setScene(scene);
-        stage.setMinWidth(900);
-        stage.setMinHeight(700);
-//        stage.show();
+        setMinimumWindowSize(900, 700);
     }
 
     public CayenneModel getCayenneModel()
@@ -101,11 +85,6 @@ public class MainWindowLayout extends VBox
         return cayenneModel;
     }
 
-    public Stage getWindow()
-    {
-        return stage;
-//        return (Stage) treeView.getScene().getWindow();
-    }
     public void setTitle()
     {
         String edited = isDirty() ? "[edited] " : "";
@@ -114,7 +93,7 @@ public class MainWindowLayout extends VBox
         if (cayenneModel != null)
             title += " - " + cayenneModel.getPath();
 
-        getWindow().setTitle(title);
+        super.setTitle(title);
     }
 
     public void displayCayenneModel(CayenneModel cayenneModel)
@@ -161,30 +140,25 @@ public class MainWindowLayout extends VBox
         loadComponents();
     }
 
-    private boolean toolbarNeedsInitialization = true;
+//    private boolean toolbarNeedsInitialization = true;
 
     private void configureMainToolbar()
     {
-        if (toolbarNeedsInitialization)
-        {
-            newButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS_SQUARE, "16px"));
-            openButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FOLDER_OPEN, "16px"));
-            saveButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FLOPPY_ALT, "16px"));
+        newButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS_SQUARE, "16px"));
+        openButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FOLDER_OPEN, "16px"));
+        saveButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FLOPPY_ALT, "16px"));
 
-            removeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.TRASH, "16px"));
+        removeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.TRASH, "16px"));
 
-            cutButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.SCISSORS, "16px"));
-            copyButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CLONE, "16px"));
-            pasteButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CLIPBOARD, "16px"));
+        cutButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.SCISSORS, "16px"));
+        copyButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CLONE, "16px"));
+        pasteButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CLIPBOARD, "16px"));
 
-            undoButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.UNDO, "16px"));
-            redoButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REPEAT, "16px"));
+        undoButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.UNDO, "16px"));
+        redoButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REPEAT, "16px"));
 
-            dataMapButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CUBES, "16px"));
-            dataNodeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.SERVER, "16px"));
-
-            toolbarNeedsInitialization = false;
-        }
+        dataMapButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CUBES, "16px"));
+        dataNodeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.SERVER, "16px"));
 
         newButton.setTooltip(new Tooltip("Create a new Cayenne Model project."));
         openButton.setTooltip(new Tooltip("Open an existing Cayenne Model project."));
@@ -345,15 +319,5 @@ public class MainWindowLayout extends VBox
     public void setDirty(boolean dirty)
     {
         this.dirty = dirty;
-    }
-
-    public void show()
-    {
-        stage.show();
-    }
-
-    public void hide()
-    {
-        stage.hide();
     }
 }

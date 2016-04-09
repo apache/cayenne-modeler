@@ -21,44 +21,17 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class PreferencesLayout extends VBox
+public class PreferencesLayout extends WindowLayout
 {
-    private Stage stage;
-
-    public PreferencesLayout(Stage stage) throws IOException
+    public PreferencesLayout() throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/PreferencesLayout.fxml"));
+        super(new Stage(), "/layouts/PreferencesLayout.fxml");
 
-        this.stage = stage;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
-
-        Scene splashScene = new Scene(this);
-
-        stage.setScene(splashScene);
-    }
-
-    public void initialize()
-    {
-        stage.initStyle(StageStyle.DECORATED);
-        stage.setResizable(false);
-    }
-
-    public void show()
-    {
-        stage.show();
-    }
-
-    public void hide()
-    {
-        stage.hide();
+        initializeStyle(StageStyle.DECORATED);
+        setResizable(false);
+        setTitle("Cayenne Modeler Preferences");
     }
 }
