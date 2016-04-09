@@ -38,13 +38,14 @@ import javafx.stage.Stage;
 
 public class CayenneModeler extends Application
 {
-    private Stage      primaryStage;
+//    private Stage      primaryStage;
+    private SplashLayout splashLayout;
 //    private BorderPane rootLayout;
 
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        this.primaryStage = primaryStage;
+//        this.primaryStage = primaryStage;
 
 
 //        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainScene.fxml"));
@@ -64,7 +65,7 @@ public class CayenneModeler extends Application
 
 
         // Create and display the Splash layout with recent document list.
-        new SplashLayout(primaryStage);
+        splashLayout = new SplashLayout(primaryStage);
     }
 
     public static void openProject(String path) throws Exception
