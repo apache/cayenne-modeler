@@ -37,6 +37,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
@@ -85,6 +86,13 @@ public class MainWindowLayout extends VBox
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
+
+        Scene scene = new Scene(this);
+
+        stage.setScene(scene);
+        stage.setMinWidth(900);
+        stage.setMinHeight(700);
+        stage.show();
     }
 
     public CayenneModel getCayenneModel()

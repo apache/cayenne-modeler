@@ -30,6 +30,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyEvent;
@@ -46,17 +47,22 @@ public class SplashLayout extends AnchorPane
     @FXML
     private Button newProjectButton, openProjectButton;
 
-    private Stage stage;
+    private Stage initialStage;
 
-    public SplashLayout(Stage stage) throws IOException
+    public SplashLayout(Stage initialStage) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/SplashLayout.fxml"));
 
-        this.stage = stage;
+        this.initialStage = initialStage;
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
+
+        Scene splashScene = new Scene(this);
+
+        initialStage.setScene(splashScene);
+        initialStage.show();
     }
 
 //    public Stage getWindow()
@@ -68,8 +74,8 @@ public class SplashLayout extends AnchorPane
 
     public void initialize()
     {
-        stage.initStyle(StageStyle.DECORATED);
-        stage.setResizable(false);
+        initialStage.initStyle(StageStyle.DECORATED);
+        initialStage.setResizable(false);
 
 //        final List<String> arr = ModelerPreferences.getLastProjFiles();
 
@@ -115,7 +121,7 @@ public class SplashLayout extends AnchorPane
         try
         {
             CayenneModeler.openProject(projectListView.getSelectionModel().getSelectedItem());
-            stage.hide();
+            initialStage.hide();
         }
         catch (Exception exception)
         {

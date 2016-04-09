@@ -34,7 +34,6 @@ import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.project.CayenneProjectModule;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class CayenneModeler extends Application
@@ -64,33 +63,25 @@ public class CayenneModeler extends Application
 //        primaryStage.setTitle("Cayenne Modeler");
 
 
-//        openMainWindow();
-        openSplash();
-    }
-
-    private void openSplash() throws Exception
-    {
-        SplashLayout splashLayout = new SplashLayout(primaryStage);
-        Scene splashScene = new Scene(splashLayout);
-        primaryStage.setScene(splashScene);
-        primaryStage.show();
+        // Create and display the Splash layout with recent document list.
+        new SplashLayout(primaryStage);
     }
 
     public static void openProject(String path) throws Exception
     {
-//        CayenneModel cayenneModel = new CayenneModel("/cayenne-analytic.xml");
         CayenneModel cayenneModel = new CayenneModel(path);
-        CayenneModelManager.addModel(cayenneModel);
-        Stage stage = new Stage();
-        MainWindowLayout mainWindow = new MainWindowLayout(stage);//(MainWindowViewController) BaseView.loadFXML(getClass().getResource("/view/MainWindowView.fxml"), primaryStage);
-        Scene scene = new Scene(mainWindow);
-        stage.setScene(scene);
-        stage.show();
 
-//        mainWindow.setTitle(); // Redundant for now.
+        CayenneModelManager.addModel(cayenneModel);
+
+        // TODO: Probably need to save this value off somewhere...
+        MainWindowLayout mainWindow = new MainWindowLayout(new Stage());
+
         mainWindow.displayCayenneModel(cayenneModel);
 
+        // For grins, this creates a second editor window:
+//        new MainWindowLayout(new Stage()).displayCayenneModel(cayenneModel);
     }
+
     /**
      * Initializes the root layout.
      */
