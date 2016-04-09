@@ -62,7 +62,7 @@ public class SplashLayout extends AnchorPane
         Scene splashScene = new Scene(this);
 
         initialStage.setScene(splashScene);
-        initialStage.show();
+//        initialStage.show();
     }
 
 //    public Stage getWindow()
@@ -121,12 +121,22 @@ public class SplashLayout extends AnchorPane
         try
         {
             CayenneModeler.openProject(projectListView.getSelectionModel().getSelectedItem());
-            initialStage.hide();
+            hide();
         }
         catch (Exception exception)
         {
             // TODO Auto-generated catch block
             exception.printStackTrace();
         }
+    }
+
+    public void show()
+    {
+        initialStage.show();
+    }
+
+    public void hide()
+    {
+        initialStage.hide();
     }
 }

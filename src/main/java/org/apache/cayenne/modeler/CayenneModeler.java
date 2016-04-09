@@ -29,6 +29,7 @@ import org.apache.cayenne.di.Injector;
 import org.apache.cayenne.di.Module;
 import org.apache.cayenne.modeler.di.CayenneModelerModule;
 import org.apache.cayenne.modeler.layout.MainWindowLayout;
+import org.apache.cayenne.modeler.layout.PreferencesLayout;
 import org.apache.cayenne.modeler.layout.SplashLayout;
 import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.project.CayenneProjectModule;
@@ -66,6 +67,8 @@ public class CayenneModeler extends Application
 
         // Create and display the Splash layout with recent document list.
         splashLayout = new SplashLayout(primaryStage);
+
+        splashLayout.show();
     }
 
     public static void openProject(String path) throws Exception
@@ -78,9 +81,20 @@ public class CayenneModeler extends Application
         MainWindowLayout mainWindow = new MainWindowLayout(new Stage());
 
         mainWindow.displayCayenneModel(cayenneModel);
+        mainWindow.show();
 
         // For grins, this creates a second editor window:
 //        new MainWindowLayout(new Stage()).displayCayenneModel(cayenneModel);
+    }
+
+    private static PreferencesLayout preferencesLayout;
+
+    public static void openPreferences() throws Exception
+    {
+        if (preferencesLayout == null)
+            preferencesLayout = new PreferencesLayout(new Stage());
+
+        preferencesLayout.show();
     }
 
     /**

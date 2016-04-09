@@ -24,6 +24,7 @@ import java.io.IOException;
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.map.ObjEntity;
+import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.modeler.model.CayenneTreeViewModel;
 import org.apache.cayenne.modeler.model.DataDomainTreeViewModel;
@@ -92,7 +93,7 @@ public class MainWindowLayout extends VBox
         stage.setScene(scene);
         stage.setMinWidth(900);
         stage.setMinHeight(700);
-        stage.show();
+//        stage.show();
     }
 
     public CayenneModel getCayenneModel()
@@ -330,6 +331,11 @@ public class MainWindowLayout extends VBox
         }
     }
 
+    public void openPreferences() throws Exception
+    {
+        System.out.println("opening prefs");
+        CayenneModeler.openPreferences();
+    }
 
     public boolean isDirty()
     {
@@ -341,5 +347,13 @@ public class MainWindowLayout extends VBox
         this.dirty = dirty;
     }
 
+    public void show()
+    {
+        stage.show();
+    }
 
+    public void hide()
+    {
+        stage.hide();
+    }
 }

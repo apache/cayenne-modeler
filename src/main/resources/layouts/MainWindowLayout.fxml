@@ -45,7 +45,7 @@
                   <MenuItem mnemonicParsing="false" text="Save As…" />
                   <MenuItem mnemonicParsing="false" text="Revert" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Preferences…" />
+                  <MenuItem mnemonicParsing="false" onAction="#openPreferences" text="Preferences…" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Quit" />
                 </items>
