@@ -19,6 +19,7 @@
 
 package org.apache.cayenne.modeler.layout;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.cayenne.modeler.CayenneModeler;
@@ -33,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -71,6 +73,32 @@ public class SplashLayout extends WindowLayout
     public void onOpenClicked()
     {
         System.out.println("open clicked");
+
+        try
+        {
+            FileChooser fileChooser = new FileChooser();
+
+            fileChooser.setTitle("Open Cayenne Model");
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+            fileChooser.getExtensionFilters().addAll
+                (
+                    new FileChooser.ExtensionFilter("Cayenne Projects", "cayenne*.xml"),
+                    new FileChooser.ExtensionFilter("All Files", "*.*")
+                );
+
+            File file = fileChooser.showOpenDialog(getStage());
+
+            if (file != null)
+                CayenneModeler.openProject(file.getAbsolutePath());
+            else
+                System.out.println("Open canceled");
+        }
+        catch (Exception exception)
+        {
+            // TODO Auto-generated catch block
+            exception.printStackTrace();
+        }
     }
 
     public void onNewClicked()
