@@ -40,6 +40,8 @@ From the top-level project, where the `pom.xml` file is located:
 
 The [FontAwesomeFX](https://bitbucket.org/Jerady/fontawesomefx) library is used to provide icons from [FontAwesome](https://fortawesome.github.io/Font-Awesome/).
 
+The [JFXtras Labs](http://jfxtras.org/) library is used for data synchronization.
+
 ## License
 
 [Apache Software Foundation](http://www.apache.org/licenses/LICENSE-2.0)

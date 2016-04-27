@@ -23,7 +23,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Map;
 
+import org.apache.cayenne.access.DataDomain;
 import org.apache.cayenne.configuration.DataChannelDescriptor;
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.CayenneModeler;
@@ -35,6 +37,7 @@ import org.apache.cayenne.project.upgrade.UpgradeMetaData;
 import org.apache.cayenne.project.upgrade.UpgradeType;
 import org.apache.cayenne.resource.Resource;
 import org.apache.cayenne.resource.URLResource;
+import org.apache.cayenne.util.Util;
 
 public class CayenneModel
 {
@@ -106,13 +109,82 @@ public class CayenneModel
         return project;
     }
 
+    public DataChannelDescriptor getDataDomain()
+    {
+        return root;
+    }
+
     public String getDataDomainName()
     {
         return root.getName();
     }
 
+    public boolean isDataDomainValidatingObjects()
+    {
+        return getDomainBooleanProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY,
+                                        Boolean.toString(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT));
+    }
+
+    public void setDataDomainValidatingObjects(boolean validatingObjects)
+    {
+        String value = validatingObjects ? "true" : "false";
+
+        setDomainProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY,
+                          value,
+                          Boolean.toString(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT));
+    }
+
+    public void setDataDomainName(String name)
+    {
+        root.setName(name);
+    }
     public Collection<DataMap> getDataMaps()
     {
         return root.getDataMaps();
     }
+
+    /**
+     * Helper method that updates domain properties. If a value equals to
+     * default, null value is used instead.
+     */
+    protected void setDomainProperty(String property, String value, String defaultValue)
+    {
+        if (getDataDomain() == null)
+            return;
+
+        // no empty strings
+        if ("".equals(value))
+            value = null;
+
+        // use NULL for defaults
+        if (value != null && value.equals(defaultValue))
+            value = null;
+
+        Map<String, String> properties = getDataDomain().getProperties();
+
+        Object oldValue = properties.get(property);
+
+        if (!Util.nullSafeEquals(value, oldValue))
+        {
+            properties.put(property, value);
+
+//            DomainEvent e = new DomainEvent(this, domain);
+//            projectController.fireDomainEvent(e);
+        }
+    }
+
+    public String getDomainProperty(String property, String defaultValue)
+    {
+        if (getDataDomain() == null)
+            return null;
+
+        String value = getDataDomain().getProperties().get(property);
+        return value != null ? value : defaultValue;
+    }
+
+    public boolean getDomainBooleanProperty(String property, String defaultValue)
+    {
+        return "true".equalsIgnoreCase(getDomainProperty(property, defaultValue));
+    }
+
 }

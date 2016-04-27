@@ -48,8 +48,8 @@
               </rowConstraints>
                <children>
                   <Label alignment="CENTER_RIGHT" text="Name: " />
-                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
-                  <CheckBox mnemonicParsing="false" text="Object Validation" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="dataDomainNameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <CheckBox fx:id="objectValidationCheckBox" mnemonicParsing="false" text="Object Validation" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <CheckBox mnemonicParsing="false" text="Container-Managed Transactions" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>

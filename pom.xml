@@ -30,6 +30,7 @@
 	<properties>
 		<cayenne.version>4.0.M3</cayenne.version>
 		<fontawesomefx.version>8.9</fontawesomefx.version>
+		<jfxtras.version>8.0-r4</jfxtras.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -83,5 +84,10 @@
 			<artifactId>fontawesomefx</artifactId>
 			<version>${fontawesomefx.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.jfxtras</groupId>
+            <artifactId>jfxtras-labs</artifactId>
+            <version>${jfxtras.version}</version>
+        </dependency>
 	</dependencies>
 </project>

@@ -83,8 +83,12 @@ public class CayenneModeler extends Application
         mainWindow.displayCayenneModel(cayenneModel);
         mainWindow.show();
 
-        // For grins, this creates a second editor window:
-//        new MainWindowLayout().displayCayenneModel(cayenneModel);
+        // For testing data sync across windows, this creates a second editor window:
+        MainWindowLayout mainWindow2 = new MainWindowLayout();
+
+        mainWindow2.displayCayenneModel(cayenneModel);
+        mainWindow2.show();
+
     }
 
     private static PreferencesLayout preferencesLayout;

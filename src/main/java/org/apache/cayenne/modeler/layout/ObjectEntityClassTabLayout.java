@@ -28,6 +28,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
 
 public class ObjectEntityClassTabLayout extends AnchorPane implements MainWindowSupport
@@ -35,6 +36,8 @@ public class ObjectEntityClassTabLayout extends AnchorPane implements MainWindow
     @FXML
     private Button dbEntitySyncButton;
 
+    @FXML
+    private CheckBox abstractClassCheckbox;
 
     private MainWindowSupport parent;
 
@@ -60,9 +63,13 @@ public class ObjectEntityClassTabLayout extends AnchorPane implements MainWindow
         dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
     }
 
-    public void display(ObjEntity objEntity)
+    private ObjEntity objectEntity;
+    public void display(ObjEntity objectEntity)
     {
-        System.out.println("trying to display: " + objEntity);
+        this.objectEntity = objectEntity;
+        System.out.println("trying to display: " + objectEntity);
+
+//        abstractClassCheckbox.selectedProperty().bind(objectEntity.isAbstract());
     }
 
     @Override

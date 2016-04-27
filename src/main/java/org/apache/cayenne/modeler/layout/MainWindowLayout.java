@@ -180,7 +180,7 @@ public class MainWindowLayout extends WindowLayout
     private void addDataDomain(CayenneModel model)
     {
         TreeItem<CayenneTreeViewModel> dataDomainBranch =
-            TreeViewUtilities.addNode(new TreeItem<>(new DataDomainTreeViewModel(model.getDataDomainName())),
+            TreeViewUtilities.addNode(new TreeItem<>(new DataDomainTreeViewModel(model.getDataDomain().getName())),
                                       treeRoot,
                                       FontAwesomeIcon.DATABASE);
 
@@ -220,9 +220,10 @@ public class MainWindowLayout extends WindowLayout
 //        TreeItem<String> dbEntityLeaf = TreeViewUtilities.addNode(dbEntity.getName(), dataMapBranch, FontAwesomeIcon.TABLE);
     }
 
+
     private void displayDataDomain(DataDomainTreeViewModel domain)
     {
-        System.out.println("data domain!!!");
+        System.out.println("data domain!!!  " + domain);
         displayDetailView(dataDomainDetail);
     }
 
@@ -256,6 +257,7 @@ public class MainWindowLayout extends WindowLayout
 
     private void displayDetailView(Node detailView)
     {
+        // TODO: Call endEditing() on children here.
         detailAnchorPane.getChildren().removeAll(detailAnchorPane.getChildren());
 
         // Make the detail view fill the pane.
@@ -265,6 +267,9 @@ public class MainWindowLayout extends WindowLayout
         AnchorPane.setBottomAnchor(detailView, 0.0);
 
         detailAnchorPane.getChildren().add(detailView);
+
+        if (detailView instanceof DetailEditorSupport)
+            ((DetailEditorSupport) detailView).beginEditing();
     }
 
 //    private void displayDetailView(BaseView detailView)
