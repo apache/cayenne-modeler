@@ -18,16 +18,16 @@ What will it look like?  Well, it has the same basic layout as the current Cayen
 
 The following screenshots show how the prototype is shaping up.  They'll be updated as work progresses.
 
-<div style="text-align: center;">**DataDomain Editor**</div>
+**DataDomain Editor**
 ![DataDomain](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/DataDomain.png)
 
-<div style="text-align: center;">**DataMap Editor**</div>
+**DataMap Editor**
 ![DataMap](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/DataMap.png)
 
-<div style="text-align: center;">**ObjEntity Class Editor**</div>
+**ObjEntity Class Editor**
 ![Object Entity Class Tab](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/ObjectEntity1.png)
 
-<div style="text-align: center;">**ObjEntity Attributes Editor**</div>
+**ObjEntity Attributes Editor**
 ![Object Entity Attributes Tab](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/ObjectEntity2.png)
 
 ## Development
