@@ -33,6 +33,16 @@ public class DataDomainTreeViewModel extends CayenneTreeViewModel
         this.dataDomain = dataDomain;
     }
 
+    public String getDataDomain()
+    {
+        return dataDomain;
+    }
+
+    public void setDataDomain(String dataDomain)
+    {
+        this.dataDomain = dataDomain;
+    }
+
     @Override
     public String toString()
     {

@@ -31,6 +31,10 @@ import org.apache.cayenne.modeler.model.DataDomainTreeViewModel;
 import org.apache.cayenne.modeler.model.DataMapTreeViewModel;
 import org.apache.cayenne.modeler.model.DatabaseEntityTreeViewModel;
 import org.apache.cayenne.modeler.model.ObjectEntityTreeViewModel;
+import org.apache.cayenne.modeler.notification.NotificationCenter;
+import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
+import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent.Type;
+import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
 import org.apache.cayenne.modeler.utility.TreeViewUtilities;
 
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -44,7 +48,9 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class MainWindowLayout extends WindowLayout
+public class MainWindowLayout
+    extends WindowLayout
+    implements DataDomainListener
 {
     @FXML
     private TreeView<CayenneTreeViewModel> treeView;
@@ -98,7 +104,9 @@ public class MainWindowLayout extends WindowLayout
 
     public void displayCayenneModel(CayenneModel cayenneModel)
     {
-        addDataDomain(this.cayenneModel = cayenneModel);
+        this.cayenneModel = cayenneModel;
+
+        addDataDomain(cayenneModel);
         // addDataDomain(CayenneModelManager.getModels().get(0));
         // System.out.println(CayenneModelManager.getModels().size());
 
@@ -131,6 +139,9 @@ public class MainWindowLayout extends WindowLayout
         });
 
         setTitle();
+
+        // Register for notifications.
+        NotificationCenter.addProjectListener(cayenneModel, this);
     }
 
     public void initialize()
@@ -324,5 +335,28 @@ public class MainWindowLayout extends WindowLayout
     public void setDirty(boolean dirty)
     {
         this.dirty = dirty;
+        setTitle();
+    }
+
+    @Override
+    public void handleDataDomainChange(DataDomainChangeEvent event)
+    {
+        System.out.println("Handling DataDomain Chain Event (Main Window)");
+        setDirty(true);
+
+        if (event.getEventType() == Type.NAME)
+        {
+            for (TreeItem<CayenneTreeViewModel> dataDomain : treeRoot.getChildren())
+            {
+                DataDomainTreeViewModel dataDomainTreeViewModel = (DataDomainTreeViewModel) dataDomain.getValue();
+
+                if (dataDomainTreeViewModel.getDataDomain().equals(event.getOldValue()))
+                {
+                    dataDomainTreeViewModel.setDataDomain((String) event.getNewValue());
+                    dataDomain.setValue(null); // This is a hack...let's us reset/redisplay it below.
+                    dataDomain.setValue(dataDomainTreeViewModel);
+                }
+            }
+        }
     }
 }
