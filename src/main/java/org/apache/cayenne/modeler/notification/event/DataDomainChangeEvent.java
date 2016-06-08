@@ -19,9 +19,9 @@
 
 package org.apache.cayenne.modeler.notification.event;
 
-import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.modeler.notification.listener.CayenneModelerListener;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 public class DataDomainChangeEvent extends CayenneModelerChangeEvent
 {
@@ -32,7 +32,7 @@ public class DataDomainChangeEvent extends CayenneModelerChangeEvent
 
     private final Type eventType;
 
-    public DataDomainChangeEvent(CayenneModel cayenneProject, Object eventSource, Type eventType, Object oldValue, Object newValue)
+    public DataDomainChangeEvent(CayenneProject cayenneProject, Object eventSource, Type eventType, Object oldValue, Object newValue)
     {
         super(cayenneProject, eventSource, DataDomainListener.class, oldValue, newValue);
 

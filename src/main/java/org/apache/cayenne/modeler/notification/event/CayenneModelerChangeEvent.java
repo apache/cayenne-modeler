@@ -19,14 +19,14 @@
 
 package org.apache.cayenne.modeler.notification.event;
 
-import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.modeler.notification.listener.CayenneModelerListener;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 public abstract class CayenneModelerChangeEvent extends CayenneModelerEvent
 {
     private final Object oldValue, newValue;
 
-    CayenneModelerChangeEvent(CayenneModel cayenneProject, Object eventSource, Class<? extends CayenneModelerListener> listenerClass, Object oldValue, Object newValue)
+    CayenneModelerChangeEvent(CayenneProject cayenneProject, Object eventSource, Class<? extends CayenneModelerListener> listenerClass, Object oldValue, Object newValue)
     {
         super(cayenneProject, eventSource, listenerClass);
 

@@ -20,38 +20,38 @@
 package org.apache.cayenne.modeler.adapters;
 
 import org.apache.cayenne.map.DataMap;
-import org.apache.cayenne.modeler.model.CayenneModel;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jfxtras.labs.scene.control.BeanPathAdapter;
 
-public class DataDomainAdapter implements AdapterSupport<CayenneModel>
+public class DataDomainAdapter implements AdapterSupport<CayenneProject>
 {
     public static final String NAME               = "dataDomainName";
     public static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";
 
-    private CayenneModel cayenneModel;
-    private BeanPathAdapter<CayenneModel> dataDomainAdapter;
+    private CayenneProject cayenneProject;
+    private BeanPathAdapter<CayenneProject> dataDomainAdapter;
     private ObservableList<DataMapAdapter> dataMapAdapters = FXCollections.emptyObservableList();
 
-    public DataDomainAdapter(CayenneModel cayenneModel)
+    public DataDomainAdapter(CayenneProject cayenneProject)
     {
-        this.cayenneModel      = cayenneModel;
-        this.dataDomainAdapter = new BeanPathAdapter<CayenneModel>(cayenneModel);
+        this.cayenneProject    = cayenneProject;
+        this.dataDomainAdapter = new BeanPathAdapter<CayenneProject>(cayenneProject);
     }
 
     @Override
-    public BeanPathAdapter<CayenneModel> getBeanPathAdapter()
+    public BeanPathAdapter<CayenneProject> getBeanPathAdapter()
     {
         return dataDomainAdapter;
     }
 
     public ObservableList<DataMapAdapter> getDataMapAdapters()
     {
-        if (dataMapAdapters.size() != cayenneModel.getDataMaps().size())
+        if (dataMapAdapters.size() != cayenneProject.getDataMaps().size())
         {
-            for (DataMap dataMap : cayenneModel.getDataMaps())
+            for (DataMap dataMap : cayenneProject.getDataMaps())
             {
                 dataMapAdapters.add(new DataMapAdapter(dataMap));
             }

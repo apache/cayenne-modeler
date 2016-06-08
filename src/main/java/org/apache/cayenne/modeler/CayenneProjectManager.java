@@ -17,27 +17,29 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.model;
+package org.apache.cayenne.modeler;
 
-import org.apache.cayenne.map.DataMap;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DataMapTreeViewModel extends CayenneTreeViewModel
+import org.apache.cayenne.modeler.project.CayenneProject;
+
+public class CayenneProjectManager
 {
-//    public enum CayenneModelItemType
-//    {
-//        DATA_DOMAIN, DATA_MAP, DATA_NODE, OBJECT_ENTITY, DATABASE_ENTITY;
-//    }
-//
-    private DataMap dataMap;
+    private static List<CayenneProject> projects = new ArrayList<CayenneProject>();
 
-    public DataMapTreeViewModel(DataMap dataMap)
+    public static List<CayenneProject> getProjects()
     {
-        this.dataMap = dataMap;
+        return projects;
     }
 
-    @Override
-    public String toString()
+    public static void addProject(CayenneProject project)
     {
-        return dataMap.getName();
+        projects.add(project);
+    }
+
+    public static void removeProject(CayenneProject project)
+    {
+        projects.remove(project);
     }
 }

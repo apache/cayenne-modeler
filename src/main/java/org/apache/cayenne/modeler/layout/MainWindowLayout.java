@@ -25,16 +25,16 @@ import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.CayenneModeler;
-import org.apache.cayenne.modeler.model.CayenneModel;
-import org.apache.cayenne.modeler.model.CayenneTreeViewModel;
-import org.apache.cayenne.modeler.model.DataDomainTreeViewModel;
-import org.apache.cayenne.modeler.model.DataMapTreeViewModel;
-import org.apache.cayenne.modeler.model.DatabaseEntityTreeViewModel;
-import org.apache.cayenne.modeler.model.ObjectEntityTreeViewModel;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent.Type;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
+import org.apache.cayenne.modeler.project.CayenneProject;
+import org.apache.cayenne.modeler.project.CayenneTreeViewModel;
+import org.apache.cayenne.modeler.project.DataDomainTreeViewModel;
+import org.apache.cayenne.modeler.project.DataMapTreeViewModel;
+import org.apache.cayenne.modeler.project.DatabaseEntityTreeViewModel;
+import org.apache.cayenne.modeler.project.ObjectEntityTreeViewModel;
 import org.apache.cayenne.modeler.utility.TreeViewUtilities;
 
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -75,7 +75,7 @@ public class MainWindowLayout
 
     private TreeItem<CayenneTreeViewModel> treeRoot = new TreeItem<>();
 
-    private CayenneModel cayenneModel;
+    private CayenneProject cayenneProject;
 
     private boolean dirty;
 
@@ -86,9 +86,9 @@ public class MainWindowLayout
         setMinimumWindowSize(900, 700);
     }
 
-    public CayenneModel getCayenneModel()
+    public CayenneProject getCayenneProject()
     {
-        return cayenneModel;
+        return cayenneProject;
     }
 
     public void setTitle()
@@ -96,17 +96,17 @@ public class MainWindowLayout
         String edited = isDirty() ? "[edited] " : "";
         String title = edited + "Cayenne Modeler";
 
-        if (cayenneModel != null)
-            title += " - " + cayenneModel.getPath();
+        if (cayenneProject != null)
+            title += " - " + cayenneProject.getPath();
 
         super.setTitle(title);
     }
 
-    public void displayCayenneModel(CayenneModel cayenneModel)
+    public void displayCayenneProject(CayenneProject cayenneProject)
     {
-        this.cayenneModel = cayenneModel;
+        this.cayenneProject = cayenneProject;
 
-        addDataDomain(cayenneModel);
+        addDataDomain(cayenneProject);
         // addDataDomain(CayenneModelManager.getModels().get(0));
         // System.out.println(CayenneModelManager.getModels().size());
 
@@ -141,7 +141,7 @@ public class MainWindowLayout
         setTitle();
 
         // Register for notifications.
-        NotificationCenter.addProjectListener(cayenneModel, this);
+        NotificationCenter.addProjectListener(cayenneProject, this);
     }
 
     public void initialize()
@@ -188,14 +188,14 @@ public class MainWindowLayout
         dataNodeButton.setTooltip(new Tooltip("Create a new Data Node to hold database connection settings."));
     }
 
-    private void addDataDomain(CayenneModel model)
+    private void addDataDomain(CayenneProject cayenneProject)
     {
         TreeItem<CayenneTreeViewModel> dataDomainBranch =
-            TreeViewUtilities.addNode(new TreeItem<>(new DataDomainTreeViewModel(model.getDataDomain().getName())),
+            TreeViewUtilities.addNode(new TreeItem<>(new DataDomainTreeViewModel(cayenneProject.getDataDomain().getName())),
                                       treeRoot,
                                       FontAwesomeIcon.DATABASE);
 
-        for (DataMap dataMap : model.getDataMaps())
+        for (DataMap dataMap : cayenneProject.getDataMaps())
             addDataMap(dataMap, dataDomainBranch);
     }
 

@@ -23,10 +23,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -46,7 +46,7 @@ public class DataDomainLayout
 {
     private MainWindowLayout mainWindow;
 
-    private static Map<CayenneModel, BeanPathAdapter<CayenneModel>> dataDomainPropertyAdapterMap = new HashMap<CayenneModel, BeanPathAdapter<CayenneModel>>();
+    private static Map<CayenneProject, BeanPathAdapter<CayenneProject>> dataDomainPropertyAdapterMap = new HashMap<CayenneProject, BeanPathAdapter<CayenneProject>>();
 
     @FXML
     private TextField dataDomainNameTextField;
@@ -84,22 +84,22 @@ public class DataDomainLayout
     {
         System.out.println("begin editing");
 
-        dataDomainNameTextField.setText(getMainWindow().getCayenneModel().getDataDomainName());
+        dataDomainNameTextField.setText(getMainWindow().getCayenneProject().getDataDomainName());
         dataDomainNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
             {
-                getMainWindow().getCayenneModel().setDataDomainName(newValue);
-                DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneModel(), this, DataDomainChangeEvent.Type.NAME, oldValue, newValue);
-                NotificationCenter.broadcastProjectEvent(getMainWindow().getCayenneModel(), ddce);
+                getMainWindow().getCayenneProject().setDataDomainName(newValue);
+                DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.NAME, oldValue, newValue);
+                NotificationCenter.broadcastProjectEvent(getMainWindow().getCayenneProject(), ddce);
 //            System.out.println("DataDomain Name Text Changed (newValue: " + newValue + ")");
             });
 
-        objectValidationCheckBox.setSelected(getMainWindow().getCayenneModel().isDataDomainValidatingObjects());
+        objectValidationCheckBox.setSelected(getMainWindow().getCayenneProject().isDataDomainValidatingObjects());
         objectValidationCheckBox.setOnAction((event) ->
         {
             Boolean selected = objectValidationCheckBox.isSelected();
-            getMainWindow().getCayenneModel().setDataDomainValidatingObjects(selected);
-            DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneModel(), this, DataDomainChangeEvent.Type.VALIDATION, !selected, selected);
-            NotificationCenter.broadcastProjectEvent(getMainWindow().getCayenneModel(), ddce);
+            getMainWindow().getCayenneProject().setDataDomainValidatingObjects(selected);
+            DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.VALIDATION, !selected, selected);
+            NotificationCenter.broadcastProjectEvent(getMainWindow().getCayenneProject(), ddce);
         });
 
 
@@ -121,13 +121,13 @@ public class DataDomainLayout
 //        dataDomainAdapter.fieldPathValueProperty().addListener(changeObserver);
 
         // Register for notifications.
-        NotificationCenter.addProjectListener(getMainWindow().getCayenneModel(), this);
+        NotificationCenter.addProjectListener(getMainWindow().getCayenneProject(), this);
     }
 
     @Override
     public void endEditing()
     {
-        NotificationCenter.removeProjectListener(getMainWindow().getCayenneModel(), this);
+        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
 //        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());
 //
 //        dataDomainAdapter.fieldPathValueProperty().removeListener(changeObserver);
@@ -136,15 +136,15 @@ public class DataDomainLayout
 //        dataDomainAdapter.unBindBidirectional("dataDomainValidatingObjects", objectValidationCheckBox.selectedProperty());
     }
 
-    private BeanPathAdapter<CayenneModel> getDataDomainPropertyAdapterMap(CayenneModel cayenneModel)
+    private BeanPathAdapter<CayenneProject> getDataDomainPropertyAdapterMap(CayenneProject cayenneProject)
     {
-        BeanPathAdapter<CayenneModel> dataDomainAdapter = dataDomainPropertyAdapterMap.get(cayenneModel);
+        BeanPathAdapter<CayenneProject> dataDomainAdapter = dataDomainPropertyAdapterMap.get(cayenneProject);
 
         if (dataDomainAdapter == null)
         {
-            dataDomainAdapter = new BeanPathAdapter<CayenneModel>(getMainWindow().getCayenneModel());
+            dataDomainAdapter = new BeanPathAdapter<CayenneProject>(getMainWindow().getCayenneProject());
 
-            dataDomainPropertyAdapterMap.put(cayenneModel, dataDomainAdapter);
+            dataDomainPropertyAdapterMap.put(cayenneProject, dataDomainAdapter);
         }
 
         return dataDomainAdapter;
@@ -162,7 +162,7 @@ public class DataDomainLayout
                 case CACHE:
                     break;
                 case NAME: // Name Changed.
-                    dataDomainNameTextField.setText(getMainWindow().getCayenneModel().getDataDomainName());
+                    dataDomainNameTextField.setText(getMainWindow().getCayenneProject().getDataDomainName());
                     break;
                 case VALIDATION: // Object Validation Changed
                     objectValidationCheckBox.setSelected((boolean) event.getNewValue());

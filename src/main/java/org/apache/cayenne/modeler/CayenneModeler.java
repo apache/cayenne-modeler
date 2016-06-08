@@ -31,7 +31,7 @@ import org.apache.cayenne.modeler.di.CayenneModelerModule;
 import org.apache.cayenne.modeler.layout.MainWindowLayout;
 import org.apache.cayenne.modeler.layout.PreferencesLayout;
 import org.apache.cayenne.modeler.layout.SplashLayout;
-import org.apache.cayenne.modeler.model.CayenneModel;
+import org.apache.cayenne.modeler.project.CayenneProject;
 import org.apache.cayenne.project.CayenneProjectModule;
 
 import javafx.application.Application;
@@ -73,20 +73,20 @@ public class CayenneModeler extends Application
 
     public static void openProject(String path) throws Exception
     {
-        CayenneModel cayenneModel = new CayenneModel(path);
+        CayenneProject cayenneProject = new CayenneProject(path);
 
-        CayenneModelManager.addModel(cayenneModel);
+        CayenneProjectManager.addProject(cayenneProject);
 
         // TODO: Probably need to save this value off somewhere...
         MainWindowLayout mainWindow = new MainWindowLayout();
 
-        mainWindow.displayCayenneModel(cayenneModel);
+        mainWindow.displayCayenneProject(cayenneProject);
         mainWindow.show();
 
         // For testing data sync across windows, this creates a second editor window:
         MainWindowLayout mainWindow2 = new MainWindowLayout();
 
-        mainWindow2.displayCayenneModel(cayenneModel);
+        mainWindow2.displayCayenneProject(cayenneProject);
         mainWindow2.show();
 
     }

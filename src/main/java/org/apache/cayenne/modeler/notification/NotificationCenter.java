@@ -24,15 +24,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.modeler.notification.event.CayenneModelerEvent;
 import org.apache.cayenne.modeler.notification.listener.CayenneModelerListener;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 public class NotificationCenter
 {
-    private static Map<CayenneModel, List<? super CayenneModelerListener>> projectListeners = new HashMap<CayenneModel, List<? super CayenneModelerListener>>(2);
+    private static Map<CayenneProject, List<? super CayenneModelerListener>> projectListeners = new HashMap<CayenneProject, List<? super CayenneModelerListener>>(2);
 
-    public static <T extends CayenneModelerListener> void addProjectListener(CayenneModel project, T listener)
+    public static <T extends CayenneModelerListener> void addProjectListener(CayenneProject project, T listener)
     {
         if (projectListeners.containsKey(project) == false)
             projectListeners.put(project, new ArrayList<CayenneModelerListener>());
@@ -42,7 +42,7 @@ public class NotificationCenter
 
 //  Class<? extends CayenneModelerListener> listenerClass = event.getListenerClass();
 
-    public static <T extends CayenneModelerEvent, L extends CayenneModelerListener> void broadcastProjectEvent(CayenneModel project, T event)
+    public static <T extends CayenneModelerEvent, L extends CayenneModelerListener> void broadcastProjectEvent(CayenneProject project, T event)
     {
         if (projectListeners.containsKey(project) == false)
             throw new RuntimeException("Cannot broadcast message -- unknown project.");
@@ -65,7 +65,7 @@ public class NotificationCenter
         event.fire(target);
     }
 
-    public static void removeProjectListener(CayenneModel project, CayenneModelerListener listener)
+    public static void removeProjectListener(CayenneProject project, CayenneModelerListener listener)
     {
 
     }

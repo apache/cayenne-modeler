@@ -19,24 +19,24 @@
 
 package org.apache.cayenne.modeler.notification.event;
 
-import org.apache.cayenne.modeler.model.CayenneModel;
 import org.apache.cayenne.modeler.notification.listener.CayenneModelerListener;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 public abstract class CayenneModelerEvent
 {
-    private final CayenneModel cayenneProject;
+    private final CayenneProject cayenneProject;
     private final Object eventSource;
 
     private final Class<? extends CayenneModelerListener> listenerClass;
 
-    CayenneModelerEvent(CayenneModel cayenneProject, Object eventSource, Class<? extends CayenneModelerListener> listenerClass)
+    CayenneModelerEvent(CayenneProject cayenneProject, Object eventSource, Class<? extends CayenneModelerListener> listenerClass)
     {
         this.cayenneProject = cayenneProject;
         this.eventSource    = eventSource;
         this.listenerClass  = listenerClass;
     }
 
-    public CayenneModel getCayenneProject()
+    public CayenneProject getCayenneProject()
     {
         return cayenneProject;
     }

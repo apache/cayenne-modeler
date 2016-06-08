@@ -19,7 +19,7 @@
 
 package org.apache.cayenne.modeler.utility;
 
-import org.apache.cayenne.modeler.model.CayenneTreeViewModel;
+import org.apache.cayenne.modeler.project.CayenneTreeViewModel;
 
 import de.jensd.fx.glyphs.GlyphIcons;
 import de.jensd.fx.glyphs.GlyphsDude;

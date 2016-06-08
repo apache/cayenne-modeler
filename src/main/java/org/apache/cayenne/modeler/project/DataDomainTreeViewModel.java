@@ -17,32 +17,35 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.model;
+package org.apache.cayenne.modeler.project;
 
-import org.apache.cayenne.map.ObjEntity;
-
-public class ObjectEntityTreeViewModel extends CayenneTreeViewModel
+public class DataDomainTreeViewModel extends CayenneTreeViewModel
 {
 //    public enum CayenneModelItemType
 //    {
 //        DATA_DOMAIN, DATA_MAP, DATA_NODE, OBJECT_ENTITY, DATABASE_ENTITY;
 //    }
 //
-    private ObjEntity objEntity;
+    private String dataDomain;
 
-    public ObjectEntityTreeViewModel(ObjEntity objEntity)
+    public DataDomainTreeViewModel(String dataDomain)
     {
-        this.objEntity = objEntity;
+        this.dataDomain = dataDomain;
     }
 
-    public ObjEntity getValue()
+    public String getDataDomain()
     {
-        return objEntity;
+        return dataDomain;
+    }
+
+    public void setDataDomain(String dataDomain)
+    {
+        this.dataDomain = dataDomain;
     }
 
     @Override
     public String toString()
     {
-        return objEntity.getName();
+        return dataDomain;
     }
 }

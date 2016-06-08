@@ -17,27 +17,32 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.model;
+package org.apache.cayenne.modeler.project;
 
-import org.apache.cayenne.map.DbEntity;
+import org.apache.cayenne.map.ObjEntity;
 
-public class DatabaseEntityTreeViewModel extends CayenneTreeViewModel
+public class ObjectEntityTreeViewModel extends CayenneTreeViewModel
 {
 //    public enum CayenneModelItemType
 //    {
 //        DATA_DOMAIN, DATA_MAP, DATA_NODE, OBJECT_ENTITY, DATABASE_ENTITY;
 //    }
 //
-    private DbEntity dbEntity;
+    private ObjEntity objEntity;
 
-    public DatabaseEntityTreeViewModel(DbEntity dbEntity)
+    public ObjectEntityTreeViewModel(ObjEntity objEntity)
     {
-        this.dbEntity = dbEntity;
+        this.objEntity = objEntity;
+    }
+
+    public ObjEntity getValue()
+    {
+        return objEntity;
     }
 
     @Override
     public String toString()
     {
-        return dbEntity.getName();
+        return objEntity.getName();
     }
 }

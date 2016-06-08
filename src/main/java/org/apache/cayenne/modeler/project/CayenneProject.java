@@ -17,7 +17,7 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.model;
+package org.apache.cayenne.modeler.project;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -39,9 +39,10 @@ import org.apache.cayenne.resource.Resource;
 import org.apache.cayenne.resource.URLResource;
 import org.apache.cayenne.util.Util;
 
-public class CayenneModel
+public class CayenneProject
 {
     private String path;
+
     public String getPath()
     {
         return path;
@@ -56,7 +57,7 @@ public class CayenneModel
     private DataChannelDescriptor root;
 
     // TODO: Handle this exception.
-    public CayenneModel(String path) throws MalformedURLException
+    public CayenneProject(String path) throws MalformedURLException
     {
 //        URL url = CayenneModeler.class.getResource(path);
         URL url = new File(path).toURI().toURL();

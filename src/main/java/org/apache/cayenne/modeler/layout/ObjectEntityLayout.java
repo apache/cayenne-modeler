@@ -101,7 +101,7 @@ public class ObjectEntityLayout extends AnchorPane implements MainWindowSupport
     public void tabChanged(Event event)
     {
         System.out.println(event);
-        mainWindow.getCayenneModel().getDataMaps();
+        mainWindow.getCayenneProject().getDataMaps();
     }
 
     @Override

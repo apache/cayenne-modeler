@@ -17,35 +17,27 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler.model;
+package org.apache.cayenne.modeler.project;
 
-public class DataDomainTreeViewModel extends CayenneTreeViewModel
+import org.apache.cayenne.map.DataMap;
+
+public class DataMapTreeViewModel extends CayenneTreeViewModel
 {
 //    public enum CayenneModelItemType
 //    {
 //        DATA_DOMAIN, DATA_MAP, DATA_NODE, OBJECT_ENTITY, DATABASE_ENTITY;
 //    }
 //
-    private String dataDomain;
+    private DataMap dataMap;
 
-    public DataDomainTreeViewModel(String dataDomain)
+    public DataMapTreeViewModel(DataMap dataMap)
     {
-        this.dataDomain = dataDomain;
-    }
-
-    public String getDataDomain()
-    {
-        return dataDomain;
-    }
-
-    public void setDataDomain(String dataDomain)
-    {
-        this.dataDomain = dataDomain;
+        this.dataMap = dataMap;
     }
 
     @Override
     public String toString()
     {
-        return dataDomain;
+        return dataMap.getName();
     }
 }

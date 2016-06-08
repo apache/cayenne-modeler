@@ -17,29 +17,27 @@
  *  under the License.
  ****************************************************************/
 
-package org.apache.cayenne.modeler;
+package org.apache.cayenne.modeler.project;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.cayenne.map.DbEntity;
 
-import org.apache.cayenne.modeler.model.CayenneModel;
-
-public class CayenneModelManager
+public class DatabaseEntityTreeViewModel extends CayenneTreeViewModel
 {
-    private static List<CayenneModel> models = new ArrayList<CayenneModel>();
+//    public enum CayenneModelItemType
+//    {
+//        DATA_DOMAIN, DATA_MAP, DATA_NODE, OBJECT_ENTITY, DATABASE_ENTITY;
+//    }
+//
+    private DbEntity dbEntity;
 
-    public static List<CayenneModel> getModels()
+    public DatabaseEntityTreeViewModel(DbEntity dbEntity)
     {
-        return models;
+        this.dbEntity = dbEntity;
     }
 
-    public static void addModel(CayenneModel model)
+    @Override
+    public String toString()
     {
-        models.add(model);
-    }
-
-    public static void removeModel(CayenneModel model)
-    {
-        models.remove(model);
+        return dbEntity.getName();
     }
 }
