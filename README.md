@@ -30,6 +30,9 @@ The following screenshots show how the prototype is shaping up.  They'll be upda
 **ObjEntity Attributes Editor**
 ![Object Entity Attributes Tab](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/ObjectEntity2.png)
 
+**Multiple Window Data Synchronization**
+![Multiple Window Data Synchronization](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/DataSynchronization.mov)
+
 ## Development
 
 ### Prerequisites
