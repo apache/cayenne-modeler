@@ -8,7 +8,7 @@ Why re-write Cayenne Modeler?  While Cayenne Modeler is stable and works well, i
 * Use JavaFX and Scene Builder for a more modern core and easier UI development.
 * Add JavaDoc support for all generated Java classes, getters/setters, and relationships.
 * Add custom annotation support for all generated Java classes, getters/setters, and relationships.
-* Add custom imports for all generated classes (mainly to support custom annoations).
+* Add custom imports for all generated classes (mainly to support custom annotations).
 * Add custom Velocity template editing and management.
 * Add multiple window support so multiple projects, including the same project, can be open at the same time.
 
