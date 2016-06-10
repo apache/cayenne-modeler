@@ -31,9 +31,7 @@ The following screenshots show how the prototype is shaping up.  They'll be upda
 ![Object Entity Attributes Tab](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/ObjectEntity2.png)
 
 **Multiple Window Data Synchronization**
-<video src="https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/DataSynchronization.mov" controls>
-Your browser does not implement html5 video.
-</ video>
+![Multiple Window Data Synchronization](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/DataSynchronization.gif)
 
 ## Development
 
