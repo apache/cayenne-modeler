@@ -65,6 +65,7 @@ The project is Maven-based and has a typical Maven layout.  That said, you can f
 
 * `src/main/resources/layouts` contains the FXML files for the UI (edit with Scene Builder).
 * `src/main/java/org/apache/cayenne/modeler/layout` contains the Java controllers for the FXML layouts (names should match up).
+* `src/main/resources/cayenne-analytic.xml` contains the sample model currently being used for testing purposes.
 * More to come as the prototype solidifies...
 
 ### To-Do
