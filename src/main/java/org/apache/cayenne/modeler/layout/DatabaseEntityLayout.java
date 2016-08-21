@@ -35,7 +35,8 @@ public class DatabaseEntityLayout extends AnchorPane implements MainWindowSuppor
 
     private MainWindowLayout mainWindow;
 
-    private DatabaseEntityTableTabLayout databaseEntityTableTabLayout;
+    private DatabaseEntityTableTabLayout   databaseEntityTableTabLayout;
+    private DatabaseEntityColumnsTabLayout databaseEntityColumnsTabLayout;
 //    private ObjectEntityClassTabLayout objectEntityClassTabLayout;
 //    private ObjectEntityAttributesTabLayout objectEntityAttributesTabLayout;
 
@@ -60,11 +61,11 @@ public class DatabaseEntityLayout extends AnchorPane implements MainWindowSuppor
     {
         try
         {
-            databaseEntityTableTabLayout      = new DatabaseEntityTableTabLayout(this);
-//            objectEntityAttributesTabLayout = new ObjectEntityAttributesTabLayout(this);
+            databaseEntityTableTabLayout   = new DatabaseEntityTableTabLayout(this);
+            databaseEntityColumnsTabLayout = new DatabaseEntityColumnsTabLayout(this);
 
             loadTab(databaseEntityTableTabLayout, tableTabAnchorPane);
-//            loadTab(objectEntityAttributesTabLayout, attributesTabAnchorPane);
+            loadTab(databaseEntityColumnsTabLayout, columnsTabAnchorPane);
         }
         catch (Exception exception)
         {

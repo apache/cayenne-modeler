@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="868.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="10.0" layoutY="10.0" minHeight="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" text="Toolbar goes here..." />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="attributesTableView" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="primaryKeyColumn" editable="false" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" resizable="false" sortable="false" text="K" />
+                  <TableColumn fx:id="mandatoryColumn" editable="false" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" resizable="false" sortable="false" text="M" />
+                  <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="225.0" text="Column Name" />
+                  <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="225.0" text="Column Type" />
+                  <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="126.0" text="Maximum Length" />
+                  <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="67.0" text="Scale" />
+               </columns>
+            </TableView>
+            <GridPane vgap="6.0" VBox.vgrow="NEVER">
+               <columnConstraints>
+                  <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="NEVER" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
+                  <ColumnConstraints fillWidth="false" halignment="RIGHT" />
+                  <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="210.0" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Column Name: " />
+                  <Label text="Maximum Length: " GridPane.rowIndex="1" />
+                  <Label text="Column Type: " GridPane.columnIndex="2" />
+                  <Label text="Scale: " GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Valid DB Column Name" GridPane.columnIndex="1" />
+                  <ComboBox editable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Choose..." GridPane.columnIndex="3" />
+                  <CheckBox mnemonicParsing="false" text="Primary Key" GridPane.columnIndex="4" />
+                  <TextField promptText="Integer" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField promptText="Integer" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <CheckBox mnemonicParsing="false" text="Mandatory" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+               </children>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </GridPane>
+            <TabPane maxHeight="200.0" minHeight="120.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab text="Comment">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <TextArea promptText="Omit comment characters.  Press return to include newlines in output." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" />
+               </padding>
+            </TabPane>
+         </children>
+      </VBox>
+   </children>
+</fx:root>
