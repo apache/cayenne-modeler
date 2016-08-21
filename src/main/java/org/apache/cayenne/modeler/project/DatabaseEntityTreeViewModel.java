@@ -35,6 +35,11 @@ public class DatabaseEntityTreeViewModel extends CayenneTreeViewModel
         this.dbEntity = dbEntity;
     }
 
+    public DbEntity getValue()
+    {
+        return dbEntity;
+    }
+
     @Override
     public String toString()
     {

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="759.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" text="Toolbar really goes here..." />
+               </children>
+            </HBox>
+            <Label text="Database Table Configuration">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <GridPane minHeight="-Infinity" vgap="4.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="125.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label alignment="CENTER_RIGHT" text="Schema: " GridPane.rowIndex="2" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="database_schema" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Catalog: " GridPane.rowIndex="1" />
+                  <Label text="Table Name: " />
+                  <Label text="Qualifier: " GridPane.rowIndex="3" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="database_catalog" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="database_table_name" GridPane.columnIndex="1" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="Cayenne Qualifier to Restrict Results (Inheritance)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+            <Label text="Primary Key Configuration">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <GridPane minHeight="-Infinity" prefWidth="739.0" vgap="4.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="125.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <RadioButton mnemonicParsing="false" selected="true" text="None">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="PKRadioGroup" />
+                     </toggleGroup>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" text="Default" toggleGroup="$PKRadioGroup" GridPane.rowIndex="1">
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" text="Generated" toggleGroup="$PKRadioGroup" GridPane.rowIndex="2">
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton mnemonicParsing="false" text="Sequence" toggleGroup="$PKRadioGroup" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets top="4.0" />
+                     </GridPane.margin>
+                  </RadioButton>
+                  <Label text="Cayenne will not generate PK (use for natural PKs)" GridPane.columnIndex="1" />
+                  <Label text="Cayenne will generate PKs from AUTO_PK_SUPPORT table" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox promptText="Select Generated Key Column" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <GridPane vgap="4.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="246.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="396.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Name: " />
+                        <Label text="Cache Size: " GridPane.rowIndex="1" />
+                        <Label text="Sequences are supported on Oracle and PostgreSQL" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="Custom Sequence Name" GridPane.columnIndex="1" />
+                        <HBox alignment="BASELINE_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
+                           <children>
+                              <TextField accessibleHelp="Number of PKs Produced by Sequence" accessibleText="Number of PKs Produced by Sequence" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" promptText="Integer" />
+                              <Label alignment="BASELINE_LEFT" text=" Must match database value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</fx:root>

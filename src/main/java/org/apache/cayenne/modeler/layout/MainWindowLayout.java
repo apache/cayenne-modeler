@@ -259,6 +259,8 @@ public class MainWindowLayout
     private void displayDatabaseEntity(DatabaseEntityTreeViewModel databaseEntity)
     {
         System.out.println("database entity!!!");
+        displayDetailView(databaseEntityDetail);
+        databaseEntityDetail.display(databaseEntity.getValue());
     }
 
     public void onNewButtonClicked()
@@ -292,6 +294,7 @@ public class MainWindowLayout
 
 //    private Node objectEntityDetail; // TabPane
     private ObjectEntityLayout objectEntityDetail; // TabPane
+    private DatabaseEntityLayout databaseEntityDetail; // TabPane
     private Node dataDomainDetail;
     private Node dataMapDetail;
 
@@ -309,6 +312,7 @@ public class MainWindowLayout
             dataDomainDetail = new DataDomainLayout(this);
             dataMapDetail = new DataMapLayout(this);
             objectEntityDetail = new ObjectEntityLayout(this);
+            databaseEntityDetail = new DatabaseEntityLayout(this);
 //            objectEntityDetail = BaseView.loadFXML(getClass().getResource("/view/ObjectEntityView.fxml"), getStage());
 //            objectEntityDetail = FXMLLoader.load(MainWindow.class.getResource("/view/ObjectEntityView.fxml"));
 
