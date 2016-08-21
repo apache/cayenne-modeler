@@ -31,9 +31,7 @@ import javafx.scene.layout.AnchorPane;
 public class ObjectEntityLayout extends AnchorPane implements MainWindowSupport
 {
     @FXML
-    private AnchorPane
-        classTabAnchorPane,
-        attributesTabAnchorPane;
+    private AnchorPane classTabAnchorPane, attributesTabAnchorPane;
 
     private MainWindowLayout mainWindow;
 
