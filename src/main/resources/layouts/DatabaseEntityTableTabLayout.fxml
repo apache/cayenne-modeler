@@ -109,14 +109,18 @@
                         <Label text="Cache Size: " GridPane.rowIndex="1" />
                         <Label text="Sequences are supported on Oracle and PostgreSQL" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
-                              <Font name="Arial Bold Italic" size="13.0" />
+                              <Font name="Helvetica Oblique" size="13.0" />
                            </font>
                         </Label>
                         <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="Custom Sequence Name" GridPane.columnIndex="1" />
                         <HBox alignment="BASELINE_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
                            <children>
                               <TextField accessibleHelp="Number of PKs Produced by Sequence" accessibleText="Number of PKs Produced by Sequence" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" promptText="Integer" />
-                              <Label alignment="BASELINE_LEFT" text=" Must match database value" />
+                              <Label alignment="BASELINE_LEFT" text=" Must match database sequence cache size">
+                                 <font>
+                                    <Font name="Helvetica Oblique" size="13.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </HBox>
                      </children>
