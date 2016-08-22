@@ -22,61 +22,51 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public abstract class WindowLayout extends AnchorPane
+public abstract class AbstractViewLayout extends AnchorPane implements MainWindowSupport
 {
-    private final Stage stage;
+    private MainWindowLayout mainWindow;
 
-    public WindowLayout(Stage stage, String fxmlPath) throws IOException
+    protected AbstractViewLayout(MainWindowLayout mainWindow, String layout) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(layout));
 
-        this.stage = stage;
+        this.mainWindow = mainWindow;
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         fxmlLoader.load();
-
-        stage.setScene(new Scene(this));
     }
 
-    public Stage getStage()
+    public void initialize()
     {
-        return stage;
+        System.out.println("init " + this.getClass().getCanonicalName());
+
+        loadSubViews();
     }
 
-    public void initializeStyle(StageStyle stageStyle)
+    protected void loadSubViews()
     {
-        stage.initStyle(stageStyle);
+        // Override in subclasses to load in any necessary sub-views.
     }
 
-    public void setMinimumWindowSize(int width, int height)
+    protected void loadTab(AnchorPane source, AnchorPane destination)
     {
-        stage.setMinWidth(900);
-        stage.setMinHeight(700);
+        destination.getChildren().removeAll(destination.getChildren());
+
+        // Make the detail view fill the pane.
+        AnchorPane.setTopAnchor(source, 0.0);
+        AnchorPane.setLeftAnchor(source, 0.0);
+        AnchorPane.setRightAnchor(source, 0.0);
+        AnchorPane.setBottomAnchor(source, 0.0);
+
+        destination.getChildren().add(source);
     }
 
-    public void setResizable(boolean resizable)
+    @Override
+    public MainWindowLayout getMainWindow()
     {
-        stage.setResizable(resizable);
-    }
-
-    public void setTitle(String title)
-    {
-        stage.setTitle(title);
-    }
-
-    public void show()
-    {
-        stage.show();
-    }
-
-    public void hide()
-    {
-        stage.hide();
+        return mainWindow;
     }
 }

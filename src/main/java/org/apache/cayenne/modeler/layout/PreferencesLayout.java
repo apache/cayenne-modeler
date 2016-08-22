@@ -24,7 +24,7 @@ import java.io.IOException;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class PreferencesLayout extends WindowLayout
+public class PreferencesLayout extends AbstractWindowLayout
 {
     public PreferencesLayout() throws IOException
     {

@@ -31,13 +31,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 
-public class ObjectEntityAttributesTabLayout extends AnchorPane implements MainWindowSupport
+public class ObjectEntityAttributesTabLayout extends AbstractViewLayout
 {
     @FXML
     private TableView<ObjAttribute> attributesTableView;
@@ -55,31 +53,34 @@ public class ObjectEntityAttributesTabLayout extends AnchorPane implements MainW
     @FXML
     private TableColumn<ObjAttribute,Boolean> attributeIsInheritedColumn;
 
-    private MainWindowSupport parent;
+//    private MainWindowSupport parent;
 
     private ObjectEntityClassTabLayout objectEntityClassTabViewController;
 
     public ObjectEntityAttributesTabLayout(MainWindowSupport parent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityAttributesTabLayout.fxml"));
-
-        this.parent = parent;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        super(parent.getMainWindow(), "/layouts/ObjectEntityAttributesTabLayout.fxml");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityAttributesTabLayout.fxml"));
+//
+//        this.parent = parent;
+//
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//        fxmlLoader.load();
     }
 
     private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.getRegisteredTypeNames());
 
+    @Override
     public void initialize()
     {
 //        getScene().getWindow().getScene();
 //        getStage().getScene().getWindow().get
 //        System.out.println("mrg: " + getStage().getScene().getRoot());
-        System.out.println("oeatv");
-
+//        System.out.println("oeatv");
+//
 //        loadComponents();
+        super.initialize();
 
         attributeUsedForLockingColumn.setText(null);
         attributeIsInheritedColumn.setText(null);
@@ -135,19 +136,19 @@ public class ObjectEntityAttributesTabLayout extends AnchorPane implements MainW
 //        }
 //    }
 
-    private void loadTab(AnchorPane source, AnchorPane destination)
-    {
-        destination.getChildren().removeAll(destination.getChildren());
-
-        // Make the detail view fill the pane.
-        AnchorPane.setTopAnchor(source, 0.0);
-        AnchorPane.setLeftAnchor(source, 0.0);
-        AnchorPane.setRightAnchor(source, 0.0);
-        AnchorPane.setBottomAnchor(source, 0.0);
-
-        destination.getChildren().add(source);
-
-    }
+//    @Override
+//    private void loadTab(AnchorPane source, AnchorPane destination)
+//    {
+//        destination.getChildren().removeAll(destination.getChildren());
+//
+//        // Make the detail view fill the pane.
+//        AnchorPane.setTopAnchor(source, 0.0);
+//        AnchorPane.setLeftAnchor(source, 0.0);
+//        AnchorPane.setRightAnchor(source, 0.0);
+//        AnchorPane.setBottomAnchor(source, 0.0);
+//
+//        destination.getChildren().add(source);
+//    }
 
     public void display(ObjEntity objEntity)
     {
@@ -163,10 +164,10 @@ public class ObjectEntityAttributesTabLayout extends AnchorPane implements MainW
         System.out.println(event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
-
-    @Override
-    public MainWindowLayout getMainWindow()
-    {
-        return parent.getMainWindow();
-    }
+//
+//    @Override
+//    public MainWindowLayout getMainWindow()
+//    {
+//        return parent.getMainWindow();
+//    }
 }

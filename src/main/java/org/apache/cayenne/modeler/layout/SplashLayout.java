@@ -38,7 +38,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class SplashLayout extends WindowLayout
+public class SplashLayout extends AbstractWindowLayout
 {
     @FXML
     private ListView<String> projectListView;

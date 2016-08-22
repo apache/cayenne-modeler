@@ -23,10 +23,7 @@ import java.io.IOException;
 
 import org.apache.cayenne.map.DbEntity;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-
-public class DatabaseEntityTableTabLayout extends AnchorPane implements MainWindowSupport
+public class DatabaseEntityTableTabLayout extends AbstractViewLayout
 {
 //    @FXML
 //    private Button dbEntitySyncButton;
@@ -38,20 +35,22 @@ public class DatabaseEntityTableTabLayout extends AnchorPane implements MainWind
 
     public DatabaseEntityTableTabLayout(MainWindowSupport parent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityTableTabLayout.fxml"));
-
-        this.parent = parent;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        super(parent.getMainWindow(), "/layouts/DatabaseEntityTableTabLayout.fxml");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityTableTabLayout.fxml"));
+//
+//        this.parent = parent;
+//
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//        fxmlLoader.load();
     }
 
 
-    public void initialize()
-    {
-//        dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
-    }
+//    @Override
+//    public void initialize()
+//    {
+////        dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
+//    }
 
 //    private ObjEntity objectEntity;
     public void display(DbEntity databaseEntity)
@@ -62,9 +61,15 @@ public class DatabaseEntityTableTabLayout extends AnchorPane implements MainWind
 //        abstractClassCheckbox.selectedProperty().bind(objectEntity.isAbstract());
     }
 
-    @Override
-    public MainWindowLayout getMainWindow()
-    {
-        return parent.getMainWindow();
-    }
+
+//    @Override
+//    protected void loadComponents()
+//    {
+//    }
+
+//    @Override
+//    public MainWindowLayout getMainWindow()
+//    {
+//        return parent.getMainWindow();
+//    }
 }

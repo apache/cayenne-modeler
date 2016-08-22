@@ -25,39 +25,41 @@ import org.apache.cayenne.map.DbEntity;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
-public class DatabaseEntityLayout extends AnchorPane implements MainWindowSupport
+public class DatabaseEntityLayout extends AbstractViewLayout
 {
     @FXML
     private AnchorPane tableTabAnchorPane, columnsTabAnchorPane;
 
-    private MainWindowLayout mainWindow;
+//    private MainWindowLayout mainWindow;
 
     private DatabaseEntityTableTabLayout   databaseEntityTableTabLayout;
     private DatabaseEntityColumnsTabLayout databaseEntityColumnsTabLayout;
 //    private ObjectEntityClassTabLayout objectEntityClassTabLayout;
 //    private ObjectEntityAttributesTabLayout objectEntityAttributesTabLayout;
 
-    public DatabaseEntityLayout(MainWindowLayout mainWindow) throws IOException
+    public DatabaseEntityLayout(MainWindowSupport parent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityLayout.fxml"));
-
-        this.mainWindow = mainWindow;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        super(parent.getMainWindow(), "/layouts/DatabaseEntityLayout.fxml");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityLayout.fxml"));
+//
+//        this.mainWindow = mainWindow;
+//
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//        fxmlLoader.load();
     }
 
-    public void initialize()
-    {
-        System.out.println("init DatabaseEntityLayout");
-        loadComponents();
-    }
+//    @Override
+//    public void initialize()
+//    {
+//        super.initialize();
+//        System.out.println("done with init DatabaseEntityLayout");
+//    }
 
-    private void loadComponents()
+    @Override
+    protected void loadSubViews()
     {
         try
         {
@@ -74,19 +76,18 @@ public class DatabaseEntityLayout extends AnchorPane implements MainWindowSuppor
         }
     }
 
-    private void loadTab(AnchorPane source, AnchorPane destination)
-    {
-        destination.getChildren().removeAll(destination.getChildren());
-
-        // Make the detail view fill the pane.
-        AnchorPane.setTopAnchor(source, 0.0);
-        AnchorPane.setLeftAnchor(source, 0.0);
-        AnchorPane.setRightAnchor(source, 0.0);
-        AnchorPane.setBottomAnchor(source, 0.0);
-
-        destination.getChildren().add(source);
-
-    }
+//    private void loadTab(AnchorPane source, AnchorPane destination)
+//    {
+//        destination.getChildren().removeAll(destination.getChildren());
+//
+//        // Make the detail view fill the pane.
+//        AnchorPane.setTopAnchor(source, 0.0);
+//        AnchorPane.setLeftAnchor(source, 0.0);
+//        AnchorPane.setRightAnchor(source, 0.0);
+//        AnchorPane.setBottomAnchor(source, 0.0);
+//
+//        destination.getChildren().add(source);
+//    }
 
     public void display(DbEntity dbEntity)
     {
@@ -100,12 +101,12 @@ public class DatabaseEntityLayout extends AnchorPane implements MainWindowSuppor
     public void tabChanged(Event event)
     {
         System.out.println(event);
-        mainWindow.getCayenneProject().getDataMaps();
+        getMainWindow().getCayenneProject().getDataMaps();
     }
 
-    @Override
-    public MainWindowLayout getMainWindow()
-    {
-        return mainWindow;
-    }
+//    @Override
+//    public MainWindowLayout getMainWindow()
+//    {
+//        return mainWindow;
+//    }
 }

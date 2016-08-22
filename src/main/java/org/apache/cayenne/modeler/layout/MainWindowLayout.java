@@ -49,8 +49,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class MainWindowLayout
-    extends WindowLayout
-    implements DataDomainListener
+    extends AbstractWindowLayout
+    implements DataDomainListener,
+               MainWindowSupport
 {
     @FXML
     private TreeView<CayenneTreeViewModel> treeView;
@@ -362,5 +363,11 @@ public class MainWindowLayout
                 }
             }
         }
+    }
+
+    @Override
+    public MainWindowLayout getMainWindow()
+    {
+        return this;
     }
 }

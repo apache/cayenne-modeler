@@ -26,12 +26,10 @@ import org.apache.cayenne.map.ObjEntity;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.layout.AnchorPane;
 
-public class ObjectEntityClassTabLayout extends AnchorPane implements MainWindowSupport
+public class ObjectEntityClassTabLayout extends AbstractViewLayout
 {
     @FXML
     private Button dbEntitySyncButton;
@@ -39,26 +37,30 @@ public class ObjectEntityClassTabLayout extends AnchorPane implements MainWindow
     @FXML
     private CheckBox abstractClassCheckbox;
 
-    private MainWindowSupport parent;
+//    private MainWindowSupport parent;
 
     public ObjectEntityClassTabLayout(MainWindowSupport parent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityClassTabLayout.fxml"));
-
-        this.parent = parent;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        super(parent.getMainWindow(), "/layouts/ObjectEntityClassTabLayout.fxml");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityClassTabLayout.fxml"));
+//
+//        this.parent = parent;
+//
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//        fxmlLoader.load();
     }
 
 
+    @Override
     public void initialize()
     {
 //        getScene().getWindow().getScene();
 //        getStage().getScene().getWindow().get
 //        System.out.println("mrg: " + getStage().getScene().getRoot());
-        System.out.println("oectv");
+//        System.out.println("oectv");
+
+        super.initialize();
 
         dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
     }
@@ -71,10 +73,10 @@ public class ObjectEntityClassTabLayout extends AnchorPane implements MainWindow
 
 //        abstractClassCheckbox.selectedProperty().bind(objectEntity.isAbstract());
     }
-
-    @Override
-    public MainWindowLayout getMainWindow()
-    {
-        return parent.getMainWindow();
-    }
+//
+//    @Override
+//    public MainWindowLayout getMainWindow()
+//    {
+//        return parent.getMainWindow();
+//    }
 }

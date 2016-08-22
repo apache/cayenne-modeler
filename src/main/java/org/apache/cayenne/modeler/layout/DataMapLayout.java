@@ -21,32 +21,30 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-
-public class DataMapLayout extends AnchorPane implements MainWindowSupport
+public class DataMapLayout extends AbstractViewLayout
 {
-    private MainWindowLayout mainWindow;
+//    private MainWindowLayout mainWindow;
 
-    public DataMapLayout(MainWindowLayout mainWindow) throws IOException
+    public DataMapLayout(MainWindowSupport parent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DataMapLayout.fxml"));
-
-        this.mainWindow = mainWindow;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        super(parent.getMainWindow(), "/layouts/DataMapLayout.fxml");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DataMapLayout.fxml"));
+//
+//        this.mainWindow = mainWindow;
+//
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//        fxmlLoader.load();
     }
 
-    public void initialize()
-    {
-        System.out.println("fonzie");
-    }
-
-    @Override
-    public MainWindowLayout getMainWindow()
-    {
-        return mainWindow;
-    }
+//    public void initialize()
+//    {
+//        System.out.println("fonzie");
+//    }
+//
+//    @Override
+//    public MainWindowLayout getMainWindow()
+//    {
+//        return mainWindow;
+//    }
 }

@@ -30,21 +30,18 @@ import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import jfxtras.labs.scene.control.BeanPathAdapter;
 import jfxtras.labs.scene.control.BeanPathAdapter.FieldPathValue;
 
 // org.apache.cayenne.modeler.controller.DataDomainViewController
 public class DataDomainLayout
-    extends AnchorPane
+    extends AbstractViewLayout
     implements DataDomainListener,
-               DetailEditorSupport,
-               MainWindowSupport
+               DetailEditorSupport
 {
-    private MainWindowLayout mainWindow;
+//    private MainWindowLayout mainWindow;
 
     private static Map<CayenneProject, BeanPathAdapter<CayenneProject>> dataDomainPropertyAdapterMap = new HashMap<CayenneProject, BeanPathAdapter<CayenneProject>>();
 
@@ -54,27 +51,29 @@ public class DataDomainLayout
     @FXML
     private CheckBox objectValidationCheckBox;
 
-    public DataDomainLayout(MainWindowLayout mainWindow) throws IOException
+    public DataDomainLayout(MainWindowSupport parent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DataDomainLayout.fxml"));
-
-        this.mainWindow = mainWindow;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        super(parent.getMainWindow(), "/layouts/DataDomainLayout.fxml");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DataDomainLayout.fxml"));
+//
+//        this.mainWindow = mainWindow;
+//
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//        fxmlLoader.load();
     }
 
-    public void initialize()
-    {
-        System.out.println("foobar");
-    }
+//    @Override
+//    public void initialize()
+//    {
+//        System.out.println("foobar");
+//    }
 
-    @Override
-    public MainWindowLayout getMainWindow()
-    {
-        return mainWindow;
-    }
+//    @Override
+//    public MainWindowLayout getMainWindow()
+//    {
+//        return mainWindow;
+//    }
 
     private ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
         System.out.println("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
@@ -171,6 +170,5 @@ public class DataDomainLayout
 //            dataDomainNameTextField.setText(value);
         }
         // TODO Auto-generated method stub
-
     }
 }

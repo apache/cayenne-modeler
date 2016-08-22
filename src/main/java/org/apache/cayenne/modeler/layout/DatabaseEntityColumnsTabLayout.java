@@ -31,11 +31,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
-import javafx.scene.layout.AnchorPane;
 
-public class DatabaseEntityColumnsTabLayout extends AnchorPane implements MainWindowSupport
+public class DatabaseEntityColumnsTabLayout extends AbstractViewLayout
 {
 //    @FXML
 //    private TableView<ObjAttribute> attributesTableView;
@@ -53,31 +51,35 @@ public class DatabaseEntityColumnsTabLayout extends AnchorPane implements MainWi
     @FXML
     private TableColumn<DbAttribute,Boolean> primaryKeyColumn;
 
-    private MainWindowSupport parent;
+//    private MainWindowSupport parent;
 
 //    private ObjectEntityClassTabLayout objectEntityClassTabViewController;
 
     public DatabaseEntityColumnsTabLayout(MainWindowSupport parent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityColumnsTabLayout.fxml"));
-
-        this.parent = parent;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        super(parent.getMainWindow(), "/layouts/DatabaseEntityColumnsTabLayout.fxml");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityColumnsTabLayout.fxml"));
+//
+//        this.parent = parent;
+//
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//        fxmlLoader.load();
     }
 
     private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.getRegisteredTypeNames());
 
+    @Override
     public void initialize()
     {
 //        getScene().getWindow().getScene();
 //        getStage().getScene().getWindow().get
 //        System.out.println("mrg: " + getStage().getScene().getRoot());
-        System.out.println("init DatabaseEntityColumnsTabLayout");
+//        System.out.println("init DatabaseEntityColumnsTabLayout");
+//
+//        loadComponents();
 
-        loadComponents();
+        super.initialize();
 
         primaryKeyColumn.setText(null);
         mandatoryColumn.setText(null);
@@ -118,7 +120,8 @@ public class DatabaseEntityColumnsTabLayout extends AnchorPane implements MainWi
 
     }
 
-    private void loadComponents()
+    @Override
+    protected void loadSubViews()
     {
         try
         {
@@ -133,19 +136,19 @@ public class DatabaseEntityColumnsTabLayout extends AnchorPane implements MainWi
         }
     }
 
-    private void loadTab(AnchorPane source, AnchorPane destination)
-    {
-        destination.getChildren().removeAll(destination.getChildren());
-
-        // Make the detail view fill the pane.
-        AnchorPane.setTopAnchor(source, 0.0);
-        AnchorPane.setLeftAnchor(source, 0.0);
-        AnchorPane.setRightAnchor(source, 0.0);
-        AnchorPane.setBottomAnchor(source, 0.0);
-
-        destination.getChildren().add(source);
-
-    }
+//    @Override
+//    private void loadTab(AnchorPane source, AnchorPane destination)
+//    {
+//        destination.getChildren().removeAll(destination.getChildren());
+//
+//        // Make the detail view fill the pane.
+//        AnchorPane.setTopAnchor(source, 0.0);
+//        AnchorPane.setLeftAnchor(source, 0.0);
+//        AnchorPane.setRightAnchor(source, 0.0);
+//        AnchorPane.setBottomAnchor(source, 0.0);
+//
+//        destination.getChildren().add(source);
+//    }
 
     public void display(DbEntity dbEntity)
     {
@@ -162,9 +165,9 @@ public class DatabaseEntityColumnsTabLayout extends AnchorPane implements MainWi
         getMainWindow().getCayenneProject().getDataMaps();
     }
 
-    @Override
-    public MainWindowLayout getMainWindow()
-    {
-        return parent.getMainWindow();
-    }
+//    @Override
+//    public MainWindowLayout getMainWindow()
+//    {
+//        return parent.getMainWindow();
+//    }
 }

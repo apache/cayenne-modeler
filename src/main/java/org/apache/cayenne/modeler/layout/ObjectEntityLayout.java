@@ -25,38 +25,38 @@ import org.apache.cayenne.map.ObjEntity;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
-public class ObjectEntityLayout extends AnchorPane implements MainWindowSupport
+public class ObjectEntityLayout extends AbstractViewLayout
 {
     @FXML
     private AnchorPane classTabAnchorPane, attributesTabAnchorPane;
 
-    private MainWindowLayout mainWindow;
+//    private MainWindowLayout mainWindow;
 
     private ObjectEntityClassTabLayout objectEntityClassTabLayout;
     private ObjectEntityAttributesTabLayout objectEntityAttributesTabLayout;
 
-    public ObjectEntityLayout(MainWindowLayout mainWindow) throws IOException
+    public ObjectEntityLayout(MainWindowSupport parent) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityLayout.fxml"));
-
-        this.mainWindow = mainWindow;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        super(parent.getMainWindow(), "/layouts/ObjectEntityLayout.fxml");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityLayout.fxml"));
+//
+//        this.mainWindow = mainWindow;
+//
+//        fxmlLoader.setRoot(this);
+//        fxmlLoader.setController(this);
+//        fxmlLoader.load();
     }
 
-    public void initialize()
-    {
-        System.out.println("oev");
+//    @Override
+//    public void initialize()
+//    {
+//        super.initialize();
+//    }
 
-        loadComponents();
-    }
-
-    private void loadComponents()
+    @Override
+    protected void loadSubViews()
     {
         try
         {
@@ -73,19 +73,19 @@ public class ObjectEntityLayout extends AnchorPane implements MainWindowSupport
         }
     }
 
-    private void loadTab(AnchorPane source, AnchorPane destination)
-    {
-        destination.getChildren().removeAll(destination.getChildren());
-
-        // Make the detail view fill the pane.
-        AnchorPane.setTopAnchor(source, 0.0);
-        AnchorPane.setLeftAnchor(source, 0.0);
-        AnchorPane.setRightAnchor(source, 0.0);
-        AnchorPane.setBottomAnchor(source, 0.0);
-
-        destination.getChildren().add(source);
-
-    }
+//    @Override
+//    private void loadTab(AnchorPane source, AnchorPane destination)
+//    {
+//        destination.getChildren().removeAll(destination.getChildren());
+//
+//        // Make the detail view fill the pane.
+//        AnchorPane.setTopAnchor(source, 0.0);
+//        AnchorPane.setLeftAnchor(source, 0.0);
+//        AnchorPane.setRightAnchor(source, 0.0);
+//        AnchorPane.setBottomAnchor(source, 0.0);
+//
+//        destination.getChildren().add(source);
+//    }
 
     public void display(ObjEntity objEntity)
     {
@@ -99,12 +99,12 @@ public class ObjectEntityLayout extends AnchorPane implements MainWindowSupport
     public void tabChanged(Event event)
     {
         System.out.println(event);
-        mainWindow.getCayenneProject().getDataMaps();
+        getMainWindow().getCayenneProject().getDataMaps();
     }
-
-    @Override
-    public MainWindowLayout getMainWindow()
-    {
-        return mainWindow;
-    }
+//
+//    @Override
+//    public MainWindowLayout getMainWindow()
+//    {
+//        return mainWindow;
+//    }
 }
