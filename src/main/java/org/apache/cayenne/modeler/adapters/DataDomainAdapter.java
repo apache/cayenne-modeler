@@ -22,30 +22,47 @@ package org.apache.cayenne.modeler.adapters;
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.project.CayenneProject;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import jfxtras.labs.scene.control.BeanPathAdapter;
 
-public class DataDomainAdapter implements AdapterSupport<CayenneProject>
+public class DataDomainAdapter // implements AdapterSupport<CayenneProject>
 {
-    public static final String NAME               = "dataDomainName";
-    public static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";
+//    public static final String NAME               = "dataDomainName";
+//    public static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";
 
     private CayenneProject cayenneProject;
-    private BeanPathAdapter<CayenneProject> dataDomainAdapter;
+//    private BeanPathAdapter<CayenneProject> dataDomainAdapter;
     private ObservableList<DataMapAdapter> dataMapAdapters = FXCollections.emptyObservableList();
+
+    private StringProperty  domainNameProperty;
+    private BooleanProperty validatingObjectsProperty;
 
     public DataDomainAdapter(CayenneProject cayenneProject)
     {
         this.cayenneProject    = cayenneProject;
-        this.dataDomainAdapter = new BeanPathAdapter<CayenneProject>(cayenneProject);
+
+        try
+        {
+            domainNameProperty        = JavaBeanStringPropertyBuilder.create().bean(cayenneProject).name("dataDomainName").build();
+            validatingObjectsProperty = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name("dataDomainValidatingObjects").build();
+        }
+        catch (NoSuchMethodException e)
+        {
+            throw new RuntimeException("Fix the builder.");
+        }
+
+//        this.dataDomainAdapter = new BeanPathAdapter<CayenneProject>(cayenneProject);
     }
 
-    @Override
-    public BeanPathAdapter<CayenneProject> getBeanPathAdapter()
-    {
-        return dataDomainAdapter;
-    }
+//    @Override
+//    public BeanPathAdapter<CayenneProject> getBeanPathAdapter()
+//    {
+//        return dataDomainAdapter;
+//    }
 
     public ObservableList<DataMapAdapter> getDataMapAdapters()
     {
