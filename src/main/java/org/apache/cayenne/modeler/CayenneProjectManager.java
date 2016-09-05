@@ -19,6 +19,7 @@
 
 package org.apache.cayenne.modeler;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,18 +29,46 @@ public class CayenneProjectManager
 {
     private static List<CayenneProject> projects = new ArrayList<CayenneProject>();
 
+    public static CayenneProject projectForPath(final String path)
+    {
+        CayenneProject project = null;
+
+        for (CayenneProject cayenneProject : projects)
+            if (cayenneProject.getPath().equals(path))
+                cayenneProject = project;
+
+        if (project == null)
+        {
+            try
+            {
+                project = addProject(new CayenneProject(path));
+            }
+            catch (final MalformedURLException exception) // FIXME: Need to handle this better.
+            {
+                // TODO Auto-generated catch block
+                exception.printStackTrace();
+            }
+        }
+
+        return project;
+    }
+
     public static List<CayenneProject> getProjects()
     {
         return projects;
     }
 
-    public static void addProject(CayenneProject project)
+    public static CayenneProject addProject(final CayenneProject project)
     {
         projects.add(project);
+
+        return project;
     }
 
-    public static void removeProject(CayenneProject project)
+    public static CayenneProject removeProject(final CayenneProject project)
     {
         projects.remove(project);
+
+        return project;
     }
 }
