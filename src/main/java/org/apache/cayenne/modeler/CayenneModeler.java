@@ -44,7 +44,7 @@ public class CayenneModeler extends Application
 //    private BorderPane rootLayout;
 
     @Override
-    public void start(Stage primaryStage) throws Exception
+    public void start(final Stage primaryStage) throws Exception
     {
 //        this.primaryStage = primaryStage;
 
@@ -71,20 +71,21 @@ public class CayenneModeler extends Application
         splashLayout.show();
     }
 
-    public static void openProject(String path) throws Exception
+    public static void openProject(final String path) throws Exception
     {
-        CayenneProject cayenneProject = new CayenneProject(path);
+        final CayenneProject cayenneProject = CayenneProjectManager.projectForPath(path);
+//        CayenneProject cayenneProject = new CayenneProject(path);
 
-        CayenneProjectManager.addProject(cayenneProject);
+//        CayenneProjectManager.addProject(cayenneProject);
 
         // TODO: Probably need to save this value off somewhere...
-        MainWindowLayout mainWindow = new MainWindowLayout();
+        final MainWindowLayout mainWindow = new MainWindowLayout();
 
         mainWindow.displayCayenneProject(cayenneProject);
         mainWindow.show();
 
         // For testing data sync across windows, this creates a second editor window:
-        MainWindowLayout mainWindow2 = new MainWindowLayout();
+        final MainWindowLayout mainWindow2 = new MainWindowLayout();
 
         mainWindow2.displayCayenneProject(cayenneProject);
         mainWindow2.show();
@@ -164,7 +165,7 @@ public class CayenneModeler extends Application
     }
 
 
-    protected static Collection<Module> appendModules(Collection<Module> modules)
+    protected static Collection<Module> appendModules(final Collection<Module> modules)
     {
         modules.add(new ServerModule("CayenneModeler"));
         modules.add(new CayenneProjectModule());
@@ -173,7 +174,7 @@ public class CayenneModeler extends Application
         return modules;
     }
 
-    public static void main(String[] args)
+    public static void main(final String[] args)
     {
 //        Font.loadFont(CayenneModeler.class.getResource("/font/fontawesome-webfont.ttf").toExternalForm(), 10);
 
