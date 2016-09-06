@@ -19,6 +19,7 @@
 
 package org.apache.cayenne.modeler.project;
 
+@Deprecated // FIXME: I think this whole class can go away soon.
 public class DataDomainTreeViewModel extends CayenneTreeViewModel
 {
 //    public enum CayenneModelItemType
@@ -28,7 +29,7 @@ public class DataDomainTreeViewModel extends CayenneTreeViewModel
 //
     private String dataDomain;
 
-    public DataDomainTreeViewModel(String dataDomain)
+    public DataDomainTreeViewModel(final String dataDomain)
     {
         this.dataDomain = dataDomain;
     }
@@ -38,7 +39,7 @@ public class DataDomainTreeViewModel extends CayenneTreeViewModel
         return dataDomain;
     }
 
-    public void setDataDomain(String dataDomain)
+    public void setDataDomain(final String dataDomain)
     {
         this.dataDomain = dataDomain;
     }

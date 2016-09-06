@@ -25,14 +25,14 @@ import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.CayenneModeler;
+import org.apache.cayenne.modeler.adapters.DataMapAdapter;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent.Type;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
 import org.apache.cayenne.modeler.project.CayenneProject;
-import org.apache.cayenne.modeler.project.CayenneTreeViewModel;
-import org.apache.cayenne.modeler.project.DataDomainTreeViewModel;
-import org.apache.cayenne.modeler.project.DataMapTreeViewModel;
+import org.apache.cayenne.modeler.project.DataDomainTreeItem;
+import org.apache.cayenne.modeler.project.DataMapTreeItem;
 import org.apache.cayenne.modeler.project.DatabaseEntityTreeViewModel;
 import org.apache.cayenne.modeler.project.ObjectEntityTreeViewModel;
 import org.apache.cayenne.modeler.utility.TreeViewUtilities;
@@ -54,7 +54,8 @@ public class MainWindowLayout
                MainWindowSupport
 {
     @FXML
-    private TreeView<CayenneTreeViewModel> treeView;
+    private TreeView<String> treeView;
+//    private TreeView<CayenneTreeItem<String>> treeView;
 
     @FXML
     private AnchorPane detailAnchorPane;
@@ -74,7 +75,9 @@ public class MainWindowLayout
     @FXML
     private Button dataMapButton, dataNodeButton;
 
-    private TreeItem<CayenneTreeViewModel> treeRoot = new TreeItem<>();
+//    private final TreeItem<CayenneTreeItem<String>> treeRoot = new CayenneTreeItem<>(); // = new TreeItem<>();
+//    private final TreeItem<CayenneTreeItem<String>> treeRoot = new TreeItem<CayenneTreeItem<String>>(); // = new TreeItem<>();
+    private final TreeItem<String> treeRoot = new TreeItem<>(); // = new TreeItem<>();
 
     private CayenneProject cayenneProject;
 
@@ -94,7 +97,7 @@ public class MainWindowLayout
 
     public void setTitle()
     {
-        String edited = isDirty() ? "[edited] " : "";
+        final String edited = isDirty() ? "[edited] " : "";
         String title = edited + "Cayenne Modeler";
 
         if (cayenneProject != null)
@@ -103,17 +106,19 @@ public class MainWindowLayout
         super.setTitle(title);
     }
 
-    public void displayCayenneProject(CayenneProject cayenneProject)
-    {
-        this.cayenneProject = cayenneProject;
+//    private DataDomainAdapter dataDomainAdapter;
 
-        addDataDomain(cayenneProject);
+    public void displayCayenneProject(final CayenneProject cayenneProject)
+    {
+        this.cayenneProject    = cayenneProject;
+//        this.dataDomainAdapter = new DataDomainAdapter(cayenneProject);
+
+      treeRoot.setExpanded(true);
+      treeView.setRoot(treeRoot);
+      treeView.setShowRoot(false);
+
         // addDataDomain(CayenneModelManager.getModels().get(0));
         // System.out.println(CayenneModelManager.getModels().size());
-
-        treeRoot.setExpanded(true);
-        treeView.setRoot(treeRoot);
-        treeView.setShowRoot(false);
 
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
@@ -125,24 +130,29 @@ public class MainWindowLayout
                 System.out.println(observable.getValue().getValue().getClass());
                 System.out.println(newValue.getValue().getClass());
 
-                if (newValue.getValue() instanceof DataDomainTreeViewModel)
-                    displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
-                else if (newValue.getValue() instanceof DataMapTreeViewModel)
-                    displayDataMap();
-                // else if (newValue.getValue() instanceof
-                // DataNodeTreeViewModel)
-                // displayDataNode();
-                else if (newValue.getValue() instanceof ObjectEntityTreeViewModel)
-                    displayObjectEntity((ObjectEntityTreeViewModel) newValue.getValue());
-                else if (newValue.getValue() instanceof DatabaseEntityTreeViewModel)
-                    displayDatabaseEntity((DatabaseEntityTreeViewModel) newValue.getValue());
+                if (newValue instanceof DataDomainTreeItem)
+                    displayDataDomain((DataDomainTreeItem) newValue);
+//                if (newValue.getValue() instanceof DataDomainTreeViewModel)
+//                    displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
+//                else if (newValue.getValue() instanceof DataMapTreeViewModel)
+//                    displayDataMap(((DataMapTreeViewModel) newValue.getValue()).getDataMap());
+//                // else if (newValue.getValue() instanceof
+//                // DataNodeTreeViewModel)
+//                // displayDataNode();
+//                else if (newValue.getValue() instanceof ObjectEntityTreeViewModel)
+//                    displayObjectEntity((ObjectEntityTreeViewModel) newValue.getValue());
+//                else if (newValue.getValue() instanceof DatabaseEntityTreeViewModel)
+//                    displayDatabaseEntity((DatabaseEntityTreeViewModel) newValue.getValue());
             }
         });
 
         setTitle();
+//        displayDataDomain(domain);
 
         // Register for notifications.
         NotificationCenter.addProjectListener(cayenneProject, this);
+
+        addDataDomain();
     }
 
     public void initialize()
@@ -189,43 +199,50 @@ public class MainWindowLayout
         dataNodeButton.setTooltip(new Tooltip("Create a new Data Node to hold database connection settings."));
     }
 
-    private void addDataDomain(CayenneProject cayenneProject)
+    private void addDataDomain()
     {
-        TreeItem<CayenneTreeViewModel> dataDomainBranch =
-            TreeViewUtilities.addNode(new TreeItem<>(new DataDomainTreeViewModel(cayenneProject.getDataDomain().getName())),
-                                      treeRoot,
-                                      FontAwesomeIcon.DATABASE);
+        final DataDomainTreeItem dataDomainBranch = new DataDomainTreeItem(cayenneProject.getDataDomainAdapter(), treeRoot);
 
-        for (DataMap dataMap : cayenneProject.getDataMaps())
-            addDataMap(dataMap, dataDomainBranch);
+
+//        final TreeItem<Object> dataDomainBranch =
+//            TreeViewUtilities.addNode(new TreeItem<>(new DataDomainTreeViewModel(dataDomainAdapter.getDataDomain().getName())),
+//                                      treeRoot,
+//                                      FontAwesomeIcon.DATABASE);
+
+        for (final DataMapAdapter dataMapAdapter : cayenneProject.getDataDomainAdapter().getDataMapAdapters())
+            addDataMap(dataMapAdapter, dataDomainBranch);
+
+        treeView.getSelectionModel().select(dataDomainBranch);
     }
 
-    private void addDataMap(DataMap dataMap, TreeItem<CayenneTreeViewModel> dataDomainBranch)
+    private void addDataMap(final DataMapAdapter dataMapAdapter, final TreeItem<String> dataDomainBranch)
     {
-        TreeItem<CayenneTreeViewModel> dataMapBranch =
-            TreeViewUtilities.addNode(new TreeItem<>(new DataMapTreeViewModel(dataMap)),
-                                      dataDomainBranch,
-                                      FontAwesomeIcon.CUBES);
+        final DataMapTreeItem dataMapBranch = new DataMapTreeItem(dataMapAdapter, dataDomainBranch);
 
-        for (ObjEntity objEntity : dataMap.getObjEntities())
-            addObjEntity(objEntity, dataMapBranch);
+//        final TreeItem<Object> dataMapBranch =
+//            TreeViewUtilities.addNode(new TreeItem<>(new DataMapTreeViewModel(dataMap)),
+//                                      dataDomainBranch,
+//                                      FontAwesomeIcon.CUBES);
 
-        for (DbEntity dbEntity : dataMap.getDbEntities())
-            addDbEntity(dbEntity, dataMapBranch);
+//        for (final ObjEntity objEntity : dataMap.getObjEntities())
+//            addObjEntity(objEntity, dataMapBranch);
+//
+//        for (final DbEntity dbEntity : dataMap.getDbEntities())
+//            addDbEntity(dbEntity, dataMapBranch);
     }
 
-    private void addObjEntity(ObjEntity objEntity, TreeItem<CayenneTreeViewModel> dataMapBranch)
+    private void addObjEntity(final ObjEntity objEntity, final TreeItem<Object> dataMapBranch)
     {
-        TreeItem<CayenneTreeViewModel> objEntityLeaf =
+        final TreeItem<Object> objEntityLeaf =
             TreeViewUtilities.addNode(new TreeItem<>(new ObjectEntityTreeViewModel(objEntity)),
                                       dataMapBranch,
                                       FontAwesomeIcon.FILE_TEXT);
 //        TreeItem<String> objEntityLeaf = TreeViewUtilities.addNode(objEntity.getName(), dataMapBranch, FontAwesomeIcon.FILE_TEXT);
     }
 
-    private void addDbEntity(DbEntity dbEntity, TreeItem<CayenneTreeViewModel> dataMapBranch)
+    private void addDbEntity(final DbEntity dbEntity, final TreeItem<Object> dataMapBranch)
     {
-        TreeItem<CayenneTreeViewModel> dbEntityLeaf =
+        final TreeItem<Object> dbEntityLeaf =
             TreeViewUtilities.addNode(new TreeItem<>(new DatabaseEntityTreeViewModel(dbEntity)),
                                       dataMapBranch,
                                       FontAwesomeIcon.TABLE);
@@ -233,16 +250,22 @@ public class MainWindowLayout
     }
 
 
-    private void displayDataDomain(DataDomainTreeViewModel domain)
+//    private void displayDataDomain(final DataDomainTreeViewModel domain)
+    private void displayDataDomain(final DataDomainTreeItem domain)
     {
         System.out.println("data domain!!!  " + domain);
         displayDetailView(dataDomainDetail);
+
+        dataDomainDetail.beginEditing(domain.getDataDomainAdapter());
     }
 
-    private void displayDataMap()
+    private void displayDataMap(final DataMap dataMap)
     {
         System.out.println("data map!!!");
         displayDetailView(dataMapDetail);
+
+        // Hack for now...
+//        dataMapDetail.disp
     }
 
     private void displayDataNode()
@@ -250,14 +273,14 @@ public class MainWindowLayout
         System.out.println("data node!!!");
     }
 
-    private void displayObjectEntity(ObjectEntityTreeViewModel objectEntity)
+    private void displayObjectEntity(final ObjectEntityTreeViewModel objectEntity)
     {
         System.out.println("object entity!!!");
         displayDetailView(objectEntityDetail);
         objectEntityDetail.display(objectEntity.getValue());
     }
 
-    private void displayDatabaseEntity(DatabaseEntityTreeViewModel databaseEntity)
+    private void displayDatabaseEntity(final DatabaseEntityTreeViewModel databaseEntity)
     {
         System.out.println("database entity!!!");
         displayDetailView(databaseEntityDetail);
@@ -269,7 +292,7 @@ public class MainWindowLayout
         System.out.println("new!");
     }
 
-    private void displayDetailView(Node detailView)
+    private void displayDetailView(final Node detailView)
     {
         // TODO: Call endEditing() on children here.
         detailAnchorPane.getChildren().removeAll(detailAnchorPane.getChildren());
@@ -282,8 +305,8 @@ public class MainWindowLayout
 
         detailAnchorPane.getChildren().add(detailView);
 
-        if (detailView instanceof DetailEditorSupport)
-            ((DetailEditorSupport) detailView).beginEditing();
+//        if (detailView instanceof DetailEditorSupport)
+//            ((DetailEditorSupport) detailView).beginEditing();
     }
 
 //    private void displayDetailView(BaseView detailView)
@@ -296,7 +319,7 @@ public class MainWindowLayout
 //    private Node objectEntityDetail; // TabPane
     private ObjectEntityLayout objectEntityDetail; // TabPane
     private DatabaseEntityLayout databaseEntityDetail; // TabPane
-    private Node dataDomainDetail;
+    private DataDomainLayout dataDomainDetail;
     private Node dataMapDetail;
 
     private void loadComponents()
@@ -319,7 +342,7 @@ public class MainWindowLayout
 
             // rootLayout.setCenter(personOverview);
         }
-        catch (Exception exception)
+        catch (final Exception exception)
         {
             // TODO Auto-generated catch block
             exception.printStackTrace();
@@ -337,31 +360,31 @@ public class MainWindowLayout
         return dirty;
     }
 
-    public void setDirty(boolean dirty)
+    public void setDirty(final boolean dirty)
     {
         this.dirty = dirty;
         setTitle();
     }
 
     @Override
-    public void handleDataDomainChange(DataDomainChangeEvent event)
+    public void handleDataDomainChange(final DataDomainChangeEvent event)
     {
         System.out.println("Handling DataDomain Chain Event (Main Window)");
         setDirty(true);
 
         if (event.getEventType() == Type.NAME)
         {
-            for (TreeItem<CayenneTreeViewModel> dataDomain : treeRoot.getChildren())
-            {
-                DataDomainTreeViewModel dataDomainTreeViewModel = (DataDomainTreeViewModel) dataDomain.getValue();
-
-                if (dataDomainTreeViewModel.getDataDomain().equals(event.getOldValue()))
-                {
-                    dataDomainTreeViewModel.setDataDomain((String) event.getNewValue());
-                    dataDomain.setValue(null); // This is a hack...let's us reset/redisplay it below.
-                    dataDomain.setValue(dataDomainTreeViewModel);
-                }
-            }
+//            for (final TreeItem<Object> dataDomain : treeRoot.getChildren())
+//            {
+//                final DataDomainTreeViewModel dataDomainTreeViewModel = (DataDomainTreeViewModel) dataDomain.getValue();
+//
+//                if (dataDomainTreeViewModel.getDataDomain().equals(event.getOldValue()))
+//                {
+//                    dataDomainTreeViewModel.setDataDomain((String) event.getNewValue());
+//                    dataDomain.setValue(null); // This is a hack...let's us reset/redisplay it below.
+//                    dataDomain.setValue(dataDomainTreeViewModel);
+//                }
+//            }
         }
     }
 

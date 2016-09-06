@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
@@ -51,7 +52,7 @@ public class DataDomainLayout
     @FXML
     private CheckBox objectValidationCheckBox;
 
-    public DataDomainLayout(MainWindowSupport parent) throws IOException
+    public DataDomainLayout(final MainWindowSupport parent) throws IOException
     {
         super(parent.getMainWindow(), "/layouts/DataDomainLayout.fxml");
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DataDomainLayout.fxml"));
@@ -75,8 +76,18 @@ public class DataDomainLayout
 //        return mainWindow;
 //    }
 
-    private ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
+    private final ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
         System.out.println("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
+
+    public void beginEditing(final DataDomainAdapter dataDomainAdapter)
+    {
+        System.out.println("rocking the adapter");
+
+        dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.getDomainNameProperty());
+        objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.getValidatingObjectsProperty());
+//        accessibleHelpProperty()setText(getMainWindow().getCayenneProject().getDataDomainName());
+//        dataDomainNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
+    }
 
     @Override
     public void beginEditing()
@@ -87,7 +98,7 @@ public class DataDomainLayout
         dataDomainNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
             {
                 getMainWindow().getCayenneProject().setDataDomainName(newValue);
-                DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.NAME, oldValue, newValue);
+                final DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.NAME, oldValue, newValue);
                 NotificationCenter.broadcastProjectEvent(getMainWindow().getCayenneProject(), ddce);
 //            System.out.println("DataDomain Name Text Changed (newValue: " + newValue + ")");
             });
@@ -95,9 +106,9 @@ public class DataDomainLayout
         objectValidationCheckBox.setSelected(getMainWindow().getCayenneProject().isDataDomainValidatingObjects());
         objectValidationCheckBox.setOnAction((event) ->
         {
-            Boolean selected = objectValidationCheckBox.isSelected();
+            final Boolean selected = objectValidationCheckBox.isSelected();
             getMainWindow().getCayenneProject().setDataDomainValidatingObjects(selected);
-            DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.VALIDATION, !selected, selected);
+            final DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.VALIDATION, !selected, selected);
             NotificationCenter.broadcastProjectEvent(getMainWindow().getCayenneProject(), ddce);
         });
 
@@ -135,7 +146,7 @@ public class DataDomainLayout
 //        dataDomainAdapter.unBindBidirectional("dataDomainValidatingObjects", objectValidationCheckBox.selectedProperty());
     }
 
-    private BeanPathAdapter<CayenneProject> getDataDomainPropertyAdapterMap(CayenneProject cayenneProject)
+    private BeanPathAdapter<CayenneProject> getDataDomainPropertyAdapterMap(final CayenneProject cayenneProject)
     {
         BeanPathAdapter<CayenneProject> dataDomainAdapter = dataDomainPropertyAdapterMap.get(cayenneProject);
 
@@ -150,7 +161,7 @@ public class DataDomainLayout
     }
 
     @Override
-    public void handleDataDomainChange(DataDomainChangeEvent event)
+    public void handleDataDomainChange(final DataDomainChangeEvent event)
     {
         if (event.getEventSource() != this)
         {

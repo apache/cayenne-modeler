@@ -21,9 +21,17 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
+import org.apache.cayenne.modeler.adapters.DataMapAdapter;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+
 public class DataMapLayout extends AbstractViewLayout
 {
 //    private MainWindowLayout mainWindow;
+
+    @FXML
+    private TextField dataMapName;
 
     public DataMapLayout(MainWindowSupport parent) throws IOException
     {
@@ -37,6 +45,10 @@ public class DataMapLayout extends AbstractViewLayout
 //        fxmlLoader.load();
     }
 
+    public void display(DataMapAdapter dataMapAdapter)
+    {
+
+    }
 //    public void initialize()
 //    {
 //        System.out.println("fonzie");

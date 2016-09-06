@@ -21,22 +21,123 @@ package org.apache.cayenne.modeler.adapters;
 
 import org.apache.cayenne.map.DataMap;
 
-import jfxtras.labs.scene.control.BeanPathAdapter;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
-public class DataMapAdapter implements AdapterSupport<DataMap>
+public class DataMapAdapter // implements AdapterSupport<DataMap>
 {
-    private DataMap dataMap;
-    private BeanPathAdapter<DataMap> dataMapAdapter;
+    private final DataMap dataMap;
+//    private BeanPathAdapter<DataMap> dataMapAdapter;
 
-    public DataMapAdapter(DataMap dataMap)
+    private StringProperty nameProperty;
+
+    private StringProperty locationProperty;
+
+    private BooleanProperty quoteSQLIdentifiersProperty;
+
+    private StringProperty defaultCatalogProperty;
+    private StringProperty defaultSchemaProperty;
+    private StringProperty defaultPackageProperty;
+
+    private StringProperty  defaultSuperclassProperty;
+    private IntegerProperty defaultLockTypeProperty;
+
+    private BooleanProperty clientSupportedProperty;
+    private StringProperty  defaultClientPackageProperty;
+    private StringProperty  defaultClientSuperclassProperty;
+
+    public DataMapAdapter(final DataMap dataMap)
     {
         this.dataMap = dataMap;
-        this.dataMapAdapter = new BeanPathAdapter<DataMap>(dataMap);
+
+        try
+        {
+            nameProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("name").build();
+//            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
+
+//            quoteSQLIdentifiersProperty = JavaBeanBooleanPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_QUOTE_SQL_IDENTIFIERS_PROPERTY).build();
+
+            defaultCatalogProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_CATALOG_PROPERTY).build();
+            defaultSchemaProperty  = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_SCHEMA_PROPERTY).build();
+            defaultPackageProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_PACKAGE_PROPERTY).build();
+
+            defaultSuperclassProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_SUPERCLASS_PROPERTY).build();
+            defaultLockTypeProperty   = JavaBeanIntegerPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_LOCK_TYPE_PROPERTY).build();
+
+            clientSupportedProperty         = JavaBeanBooleanPropertyBuilder.create().bean(dataMap).name(DataMap.CLIENT_SUPPORTED_PROPERTY).build();
+            defaultClientPackageProperty    = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_CLIENT_PACKAGE_PROPERTY).build();
+            defaultClientSuperclassProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_CLIENT_SUPERCLASS_PROPERTY).build();
+        }
+        catch (final NoSuchMethodException e)
+        {
+            throw new RuntimeException("Fix the builder.", e);
+        }
+
+//        this.dataMapAdapter = new BeanPathAdapter<DataMap>(dataMap);
     }
 
-    @Override
-    public BeanPathAdapter<DataMap> getBeanPathAdapter()
+    public StringProperty getNameProperty()
     {
-        return dataMapAdapter;
+        return nameProperty;
     }
+
+    public StringProperty getLocationProperty()
+    {
+        return locationProperty;
+    }
+
+    public BooleanProperty getQuoteSQLIdentifiersProperty()
+    {
+        return quoteSQLIdentifiersProperty;
+    }
+
+    public StringProperty getDefaultCatalogProperty()
+    {
+        return defaultCatalogProperty;
+    }
+
+    public StringProperty getDefaultSchemaProperty()
+    {
+        return defaultSchemaProperty;
+    }
+
+    public StringProperty getDefaultPackageProperty()
+    {
+        return defaultPackageProperty;
+    }
+
+    public StringProperty getDefaultSuperclassProperty()
+    {
+        return defaultSuperclassProperty;
+    }
+
+    public IntegerProperty getDefaultLockTypeProperty()
+    {
+        return defaultLockTypeProperty;
+    }
+
+    public BooleanProperty getClientSupportedProperty()
+    {
+        return clientSupportedProperty;
+    }
+
+    public StringProperty getDefaultClientPackageProperty()
+    {
+        return defaultClientPackageProperty;
+    }
+
+    public StringProperty getDefaultClientSuperclassProperty()
+    {
+        return defaultClientSuperclassProperty;
+    }
+
+//    @Override
+//    public BeanPathAdapter<DataMap> getBeanPathAdapter()
+//    {
+//        return dataMapAdapter;
+//    }
 }

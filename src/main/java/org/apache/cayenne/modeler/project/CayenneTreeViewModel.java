@@ -19,7 +19,8 @@
 
 package org.apache.cayenne.modeler.project;
 
+@Deprecated // FIXME: I think this whole class can go away soon.
 public class CayenneTreeViewModel
 {
-
+	// FIXME: OBE???
 }

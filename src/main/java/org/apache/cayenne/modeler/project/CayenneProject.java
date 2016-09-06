@@ -29,6 +29,7 @@ import org.apache.cayenne.access.DataDomain;
 import org.apache.cayenne.configuration.DataChannelDescriptor;
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.CayenneModeler;
+import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
 import org.apache.cayenne.project.Project;
 import org.apache.cayenne.project.ProjectLoader;
 import org.apache.cayenne.project.upgrade.ProjectUpgrader;
@@ -41,30 +42,32 @@ import org.apache.cayenne.util.Util;
 
 public class CayenneProject
 {
-    private String path;
+    private final String path;
+    private final DataDomainAdapter dataDomainAdapter;
 
     public String getPath()
     {
         return path;
     }
 
-    public void setPath(String path)
-    {
-        this.path = path;
-    }
+//    public void setPath(String path)
+//    {
+//        this.path = path;
+//    }
 
     private Project project;
     private DataChannelDescriptor root;
 
     // TODO: Handle this exception.
-    public CayenneProject(String path) throws MalformedURLException
+    public CayenneProject(final String path) throws MalformedURLException
     {
+//        this.path = path;
 //        URL url = CayenneModeler.class.getResource(path);
-        URL url = new File(path).toURI().toURL();
-        Resource rootSource = new URLResource(url);
-        ProjectUpgrader upgrader = CayenneModeler.getInjector().getInstance(ProjectUpgrader.class);
-        UpgradeHandler handler = upgrader.getUpgradeHandler(rootSource);
-        UpgradeMetaData md = handler.getUpgradeMetaData();
+        final URL url = new File(path).toURI().toURL();
+        final Resource rootSource = new URLResource(url);
+        final ProjectUpgrader upgrader = CayenneModeler.getInjector().getInstance(ProjectUpgrader.class);
+        final UpgradeHandler handler = upgrader.getUpgradeHandler(rootSource);
+        final UpgradeMetaData md = handler.getUpgradeMetaData();
 
         this.path = url.getPath();
         if (UpgradeType.DOWNGRADE_NEEDED == md.getUpgradeType())
@@ -98,12 +101,13 @@ public class CayenneProject
 //                    System.out.println("DbEntity: " + dbEntity.getName());
         }
 
+        dataDomainAdapter = new DataDomainAdapter(this);
     }
 
     // private Project openProjectResourse(Resource resource, CayenneModelerController controller)
-    private Project openProjectResourse(Resource resource)
+    private Project openProjectResourse(final Resource resource)
     {
-        Project project = CayenneModeler.getInjector().getInstance(ProjectLoader.class).loadProject(resource);
+        final Project project = CayenneModeler.getInjector().getInstance(ProjectLoader.class).loadProject(resource);
 
         // controller.projectOpenedAction(project);
 
@@ -126,16 +130,16 @@ public class CayenneProject
                                         Boolean.toString(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT));
     }
 
-    public void setDataDomainValidatingObjects(boolean validatingObjects)
+    public void setDataDomainValidatingObjects(final boolean validatingObjects)
     {
-        String value = validatingObjects ? "true" : "false";
+        final String value = validatingObjects ? "true" : "false";
 
         setDomainProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY,
                           value,
                           Boolean.toString(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT));
     }
 
-    public void setDataDomainName(String name)
+    public void setDataDomainName(final String name)
     {
         root.setName(name);
     }
@@ -148,7 +152,7 @@ public class CayenneProject
      * Helper method that updates domain properties. If a value equals to
      * default, null value is used instead.
      */
-    protected void setDomainProperty(String property, String value, String defaultValue)
+    protected void setDomainProperty(final String property, String value, final String defaultValue)
     {
         if (getDataDomain() == null)
             return;
@@ -161,9 +165,9 @@ public class CayenneProject
         if (value != null && value.equals(defaultValue))
             value = null;
 
-        Map<String, String> properties = getDataDomain().getProperties();
+        final Map<String, String> properties = getDataDomain().getProperties();
 
-        Object oldValue = properties.get(property);
+        final Object oldValue = properties.get(property);
 
         if (!Util.nullSafeEquals(value, oldValue))
         {
@@ -174,18 +178,23 @@ public class CayenneProject
         }
     }
 
-    public String getDomainProperty(String property, String defaultValue)
+    public String getDomainProperty(final String property, final String defaultValue)
     {
         if (getDataDomain() == null)
             return null;
 
-        String value = getDataDomain().getProperties().get(property);
+        final String value = getDataDomain().getProperties().get(property);
         return value != null ? value : defaultValue;
     }
 
-    public boolean getDomainBooleanProperty(String property, String defaultValue)
+    public boolean getDomainBooleanProperty(final String property, final String defaultValue)
     {
         return "true".equalsIgnoreCase(getDomainProperty(property, defaultValue));
     }
 
+
+    public DataDomainAdapter getDataDomainAdapter()
+    {
+        return dataDomainAdapter;
+    }
 }

@@ -47,7 +47,7 @@
                </rowConstraints>
                <children>
                   <Label alignment="CENTER_RIGHT" text="Name: " />
-                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="dataMapName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
                   <Label text="DataNode: " GridPane.rowIndex="2" />
                   <CheckBox mnemonicParsing="false" text="Quote SQL Identifiers" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="File: " GridPane.rowIndex="1" />
@@ -108,13 +108,13 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Client Java Package: " GridPane.rowIndex="1" />
-                  <Label text="Custom Superclass: " GridPane.rowIndex="2" />
-                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Client Java Package: " />
+                  <Label text="Custom Superclass: " GridPane.rowIndex="1" />
                   <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <Button mnemonicParsing="false" text="Update..." GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" text="Update..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" text="Update..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <CheckBox mnemonicParsing="false" text="Allow Client Entities" GridPane.columnIndex="1" />
+                  <CheckBox mnemonicParsing="false" text="Allow Client Entities" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

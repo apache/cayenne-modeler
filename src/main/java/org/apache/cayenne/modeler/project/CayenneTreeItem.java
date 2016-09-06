@@ -19,31 +19,8 @@
 
 package org.apache.cayenne.modeler.project;
 
-import org.apache.cayenne.map.DataMap;
-
-@Deprecated // FIXME: I think this whole class can go away soon.
-public class DataMapTreeViewModel extends CayenneTreeViewModel
+//public class CayenneTreeItem<T> extends TreeItem<T>
+public interface CayenneTreeItem
 {
-//    public enum CayenneModelItemType
-//    {
-//        DATA_DOMAIN, DATA_MAP, DATA_NODE, OBJECT_ENTITY, DATABASE_ENTITY;
-//    }
-//
-    private final DataMap dataMap;
-
-    public DataMapTreeViewModel(final DataMap dataMap)
-    {
-        this.dataMap = dataMap;
-    }
-
-    public DataMap getDataMap()
-    {
-        return dataMap;
-    }
-
-    @Override
-    public String toString()
-    {
-        return dataMap.getName();
-    }
+    public static final String TREE_ICON_SIZE = "16px";
 }

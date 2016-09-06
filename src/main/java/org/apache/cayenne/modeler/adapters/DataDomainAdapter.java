@@ -19,6 +19,9 @@
 
 package org.apache.cayenne.modeler.adapters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.project.CayenneProject;
 
@@ -26,31 +29,33 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class DataDomainAdapter // implements AdapterSupport<CayenneProject>
 {
 //    public static final String NAME               = "dataDomainName";
 //    public static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";
 
-    private CayenneProject cayenneProject;
+    private final CayenneProject cayenneProject;
 //    private BeanPathAdapter<CayenneProject> dataDomainAdapter;
-    private ObservableList<DataMapAdapter> dataMapAdapters = FXCollections.emptyObservableList();
+//    private final ObservableList<DataMapAdapter> dataMapAdapters = FXCollections.emptyObservableList();
+    private final List<DataMapAdapter> dataMapAdapters = new ArrayList<>(); //FXCollections.emptyObservableList();
 
     private StringProperty  domainNameProperty;
     private BooleanProperty validatingObjectsProperty;
 
-    public DataDomainAdapter(CayenneProject cayenneProject)
+    public DataDomainAdapter(final CayenneProject cayenneProject)
     {
-        this.cayenneProject    = cayenneProject;
+        this.cayenneProject = cayenneProject;
+
+        for (final DataMap dataMap : cayenneProject.getDataMaps())
+            dataMapAdapters.add(new DataMapAdapter(dataMap));
 
         try
         {
             domainNameProperty        = JavaBeanStringPropertyBuilder.create().bean(cayenneProject).name("dataDomainName").build();
             validatingObjectsProperty = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name("dataDomainValidatingObjects").build();
         }
-        catch (NoSuchMethodException e)
+        catch (final NoSuchMethodException e)
         {
             throw new RuntimeException("Fix the builder.");
         }
@@ -64,16 +69,26 @@ public class DataDomainAdapter // implements AdapterSupport<CayenneProject>
 //        return dataDomainAdapter;
 //    }
 
-    public ObservableList<DataMapAdapter> getDataMapAdapters()
+    public StringProperty getDomainNameProperty()
     {
-        if (dataMapAdapters.size() != cayenneProject.getDataMaps().size())
-        {
-            for (DataMap dataMap : cayenneProject.getDataMaps())
-            {
-                dataMapAdapters.add(new DataMapAdapter(dataMap));
-            }
-        }
+        return domainNameProperty;
+    }
 
-        return null;
+    public BooleanProperty getValidatingObjectsProperty()
+    {
+        return validatingObjectsProperty;
+    }
+
+    public List<DataMapAdapter> getDataMapAdapters()
+    {
+//        if (dataMapAdapters.size() != cayenneProject.getDataMaps().size())
+//        {
+//            for (final DataMap dataMap : cayenneProject.getDataMaps())
+//            {
+//                dataMapAdapters.add(new DataMapAdapter(dataMap));
+//            }
+//        }
+
+        return dataMapAdapters;
     }
 }

@@ -19,32 +19,31 @@
 
 package org.apache.cayenne.modeler.utility;
 
-import org.apache.cayenne.modeler.project.CayenneTreeViewModel;
-
 import de.jensd.fx.glyphs.GlyphIcons;
 import de.jensd.fx.glyphs.GlyphsDude;
 import javafx.scene.control.TreeItem;
 
+@Deprecated // FIXME: I think this whole class can go away soon.
 public class TreeViewUtilities
 {
     public static final String TREE_ICON_SIZE = "16px";
 
-    public static TreeItem<CayenneTreeViewModel> addNode(TreeItem<CayenneTreeViewModel> item, TreeItem<CayenneTreeViewModel> parent)
+    public static TreeItem<Object> addNode(final TreeItem<Object> item, final TreeItem<Object> parent)
     {
         return addNode(item, parent, true, null);
     }
 
-    public static TreeItem<CayenneTreeViewModel> addNode(TreeItem<CayenneTreeViewModel> item, TreeItem<CayenneTreeViewModel> parent, boolean expanded)
+    public static TreeItem<Object> addNode(final TreeItem<Object> item, final TreeItem<Object> parent, final boolean expanded)
     {
         return addNode(item, parent, expanded, null);
     }
 
-    public static TreeItem<CayenneTreeViewModel> addNode(TreeItem<CayenneTreeViewModel> item, TreeItem<CayenneTreeViewModel> parent, GlyphIcons icon)
+    public static TreeItem<Object> addNode(final TreeItem<Object> item, final TreeItem<Object> parent, final GlyphIcons icon)
     {
         return addNode(item, parent, true, icon);
     }
 
-    public static TreeItem<CayenneTreeViewModel> addNode(TreeItem<CayenneTreeViewModel> item, TreeItem<CayenneTreeViewModel> parent, boolean expanded, GlyphIcons icon)
+    public static TreeItem<Object> addNode(final TreeItem<Object> item, final TreeItem<Object> parent, final boolean expanded, final GlyphIcons icon)
     {
 //        TreeItem<String> item = new TreeItem<String>(title);
 

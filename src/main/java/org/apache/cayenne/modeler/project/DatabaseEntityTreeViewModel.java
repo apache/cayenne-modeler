@@ -21,6 +21,7 @@ package org.apache.cayenne.modeler.project;
 
 import org.apache.cayenne.map.DbEntity;
 
+@Deprecated // FIXME: I think this whole class can go away soon.
 public class DatabaseEntityTreeViewModel extends CayenneTreeViewModel
 {
 //    public enum CayenneModelItemType
@@ -28,9 +29,9 @@ public class DatabaseEntityTreeViewModel extends CayenneTreeViewModel
 //        DATA_DOMAIN, DATA_MAP, DATA_NODE, OBJECT_ENTITY, DATABASE_ENTITY;
 //    }
 //
-    private DbEntity dbEntity;
+    private final DbEntity dbEntity;
 
-    public DatabaseEntityTreeViewModel(DbEntity dbEntity)
+    public DatabaseEntityTreeViewModel(final DbEntity dbEntity)
     {
         this.dbEntity = dbEntity;
     }

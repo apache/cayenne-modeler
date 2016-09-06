@@ -19,31 +19,28 @@
 
 package org.apache.cayenne.modeler.project;
 
-import org.apache.cayenne.map.DataMap;
+import org.apache.cayenne.modeler.adapters.DataMapAdapter;
 
-@Deprecated // FIXME: I think this whole class can go away soon.
-public class DataMapTreeViewModel extends CayenneTreeViewModel
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.scene.control.TreeItem;
+
+public class DataMapTreeItem extends TreeItem<String> implements CayenneTreeItem
 {
-//    public enum CayenneModelItemType
-//    {
-//        DATA_DOMAIN, DATA_MAP, DATA_NODE, OBJECT_ENTITY, DATABASE_ENTITY;
-//    }
-//
-    private final DataMap dataMap;
+    private final DataMapAdapter dataMapAdapter;
 
-    public DataMapTreeViewModel(final DataMap dataMap)
+    public DataMapTreeItem(final DataMapAdapter dataMapAdapter, final TreeItem<String> parent)
     {
-        this.dataMap = dataMap;
+        this.dataMapAdapter = dataMapAdapter;
+
+        valueProperty().bindBidirectional(dataMapAdapter.getNameProperty());
+        setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CUBES, TREE_ICON_SIZE));
+        parent.getChildren().add(this);
+        setExpanded(true);
     }
 
-    public DataMap getDataMap()
+    public DataMapAdapter getDataMapAdapter()
     {
-        return dataMap;
-    }
-
-    @Override
-    public String toString()
-    {
-        return dataMap.getName();
+        return dataMapAdapter;
     }
 }
