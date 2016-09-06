@@ -19,7 +19,11 @@
 
 package org.apache.cayenne.modeler.adapters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.cayenne.map.DataMap;
+import org.apache.cayenne.map.ObjEntity;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -32,6 +36,8 @@ public class DataMapAdapter // implements AdapterSupport<DataMap>
 {
     private final DataMap dataMap;
 //    private BeanPathAdapter<DataMap> dataMapAdapter;
+
+    private final List<ObjectEntityAdapter> objectEntityAdapters = new ArrayList<>();
 
     private StringProperty nameProperty;
 
@@ -53,6 +59,9 @@ public class DataMapAdapter // implements AdapterSupport<DataMap>
     public DataMapAdapter(final DataMap dataMap)
     {
         this.dataMap = dataMap;
+
+        for (ObjEntity objEntity : dataMap.getObjEntities())
+            objectEntityAdapters.add(new ObjectEntityAdapter(objEntity));
 
         try
         {
@@ -133,6 +142,12 @@ public class DataMapAdapter // implements AdapterSupport<DataMap>
     public StringProperty getDefaultClientSuperclassProperty()
     {
         return defaultClientSuperclassProperty;
+    }
+
+
+    public List<ObjectEntityAdapter> getObjectEntityAdapters()
+    {
+        return objectEntityAdapters;
     }
 
 //    @Override

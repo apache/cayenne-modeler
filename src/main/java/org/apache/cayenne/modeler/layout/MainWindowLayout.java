@@ -21,11 +21,10 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.map.DbEntity;
-import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
+import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent.Type;
@@ -34,6 +33,7 @@ import org.apache.cayenne.modeler.project.CayenneProject;
 import org.apache.cayenne.modeler.project.DataDomainTreeItem;
 import org.apache.cayenne.modeler.project.DataMapTreeItem;
 import org.apache.cayenne.modeler.project.DatabaseEntityTreeViewModel;
+import org.apache.cayenne.modeler.project.ObjectEntityTreeItem;
 import org.apache.cayenne.modeler.project.ObjectEntityTreeViewModel;
 import org.apache.cayenne.modeler.utility.TreeViewUtilities;
 
@@ -132,6 +132,8 @@ public class MainWindowLayout
 
                 if (newValue instanceof DataDomainTreeItem)
                     displayDataDomain((DataDomainTreeItem) newValue);
+                else if (newValue instanceof DataMapTreeItem)
+                    displayDataMap((DataMapTreeItem) newValue);
 //                if (newValue.getValue() instanceof DataDomainTreeViewModel)
 //                    displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
 //                else if (newValue.getValue() instanceof DataMapTreeViewModel)
@@ -215,7 +217,7 @@ public class MainWindowLayout
         treeView.getSelectionModel().select(dataDomainBranch);
     }
 
-    private void addDataMap(final DataMapAdapter dataMapAdapter, final TreeItem<String> dataDomainBranch)
+    private void addDataMap(final DataMapAdapter dataMapAdapter, final DataDomainTreeItem dataDomainBranch)
     {
         final DataMapTreeItem dataMapBranch = new DataMapTreeItem(dataMapAdapter, dataDomainBranch);
 
@@ -224,6 +226,8 @@ public class MainWindowLayout
 //                                      dataDomainBranch,
 //                                      FontAwesomeIcon.CUBES);
 
+        for (ObjectEntityAdapter objectEntityAdapter : dataMapAdapter.getObjectEntityAdapters())
+            addObjEntity(objectEntityAdapter, dataMapBranch);
 //        for (final ObjEntity objEntity : dataMap.getObjEntities())
 //            addObjEntity(objEntity, dataMapBranch);
 //
@@ -231,12 +235,14 @@ public class MainWindowLayout
 //            addDbEntity(dbEntity, dataMapBranch);
     }
 
-    private void addObjEntity(final ObjEntity objEntity, final TreeItem<Object> dataMapBranch)
+//    private void addObjEntity(final ObjEntity objEntity, final TreeItem<Object> dataMapBranch)
+    private void addObjEntity(final ObjectEntityAdapter objectEntityAdapter, final DataMapTreeItem dataMapBranch)
     {
-        final TreeItem<Object> objEntityLeaf =
-            TreeViewUtilities.addNode(new TreeItem<>(new ObjectEntityTreeViewModel(objEntity)),
-                                      dataMapBranch,
-                                      FontAwesomeIcon.FILE_TEXT);
+        ObjectEntityTreeItem objectEntityLeaf = new ObjectEntityTreeItem(objectEntityAdapter, dataMapBranch);
+//        final TreeItem<Object> objEntityLeaf =
+//            TreeViewUtilities.addNode(new TreeItem<>(new ObjectEntityTreeViewModel(objEntity)),
+//                                      dataMapBranch,
+//                                      FontAwesomeIcon.FILE_TEXT);
 //        TreeItem<String> objEntityLeaf = TreeViewUtilities.addNode(objEntity.getName(), dataMapBranch, FontAwesomeIcon.FILE_TEXT);
     }
 
@@ -251,21 +257,20 @@ public class MainWindowLayout
 
 
 //    private void displayDataDomain(final DataDomainTreeViewModel domain)
-    private void displayDataDomain(final DataDomainTreeItem domain)
+    private void displayDataDomain(final DataDomainTreeItem dataDomainTreeItem)
     {
-        System.out.println("data domain!!!  " + domain);
+        System.out.println("data domain!!!  " + dataDomainTreeItem);
         displayDetailView(dataDomainDetail);
 
-        dataDomainDetail.beginEditing(domain.getDataDomainAdapter());
+        dataDomainDetail.beginEditing(dataDomainTreeItem.getDataDomainAdapter());
     }
 
-    private void displayDataMap(final DataMap dataMap)
+    private void displayDataMap(final DataMapTreeItem dataMapTreeItem)
     {
         System.out.println("data map!!!");
         displayDetailView(dataMapDetail);
 
-        // Hack for now...
-//        dataMapDetail.disp
+        dataMapDetail.beginEditing(dataMapTreeItem.getDataMapAdapter());
     }
 
     private void displayDataNode()
@@ -320,7 +325,7 @@ public class MainWindowLayout
     private ObjectEntityLayout objectEntityDetail; // TabPane
     private DatabaseEntityLayout databaseEntityDetail; // TabPane
     private DataDomainLayout dataDomainDetail;
-    private Node dataMapDetail;
+    private DataMapLayout dataMapDetail;
 
     private void loadComponents()
     {

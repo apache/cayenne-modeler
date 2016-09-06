@@ -45,10 +45,19 @@ public class DataMapLayout extends AbstractViewLayout
 //        fxmlLoader.load();
     }
 
-    public void display(DataMapAdapter dataMapAdapter)
+    public void beginEditing(DataMapAdapter dataMapAdapter)
     {
-
+        dataMapName.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
     }
+
+    public void endEditing(DataMapAdapter dataMapAdapter)
+    {
+        dataMapName.textProperty().unbindBidirectional(dataMapAdapter.getNameProperty());
+    }
+//    public void display(DataMapAdapter dataMapAdapter)
+//    {
+//
+//    }
 //    public void initialize()
 //    {
 //        System.out.println("fonzie");
