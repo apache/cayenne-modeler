@@ -32,7 +32,7 @@ import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
-public class DataMapAdapter // implements AdapterSupport<DataMap>
+public class DataMapAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
     private final DataMap dataMap;
 //    private BeanPathAdapter<DataMap> dataMapAdapter;

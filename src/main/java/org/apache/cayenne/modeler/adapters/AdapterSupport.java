@@ -19,10 +19,8 @@
 
 package org.apache.cayenne.modeler.adapters;
 
-import jfxtras.labs.scene.control.BeanPathAdapter;
-
 public interface AdapterSupport<T>
 {
-    public BeanPathAdapter<T> getBeanPathAdapter();
+//    public BeanPathAdapter<T> getBeanPathAdapter();
 
 }

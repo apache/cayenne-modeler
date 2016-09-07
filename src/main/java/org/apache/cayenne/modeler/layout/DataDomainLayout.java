@@ -40,7 +40,7 @@ import jfxtras.labs.scene.control.BeanPathAdapter.FieldPathValue;
 public class DataDomainLayout
     extends AbstractViewLayout
     implements DataDomainListener,
-               DetailEditorSupport
+               DetailEditorSupport<DataDomainAdapter>
 {
 //    private MainWindowLayout mainWindow;
 
@@ -51,6 +51,9 @@ public class DataDomainLayout
 
     @FXML
     private CheckBox objectValidationCheckBox;
+
+
+    private DataDomainAdapter dataDomainAdapter;
 
     public DataDomainLayout(final MainWindowSupport parent) throws IOException
     {
@@ -79,9 +82,13 @@ public class DataDomainLayout
     private final ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
         System.out.println("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
 
+
+    @Override
     public void beginEditing(final DataDomainAdapter dataDomainAdapter)
     {
-        System.out.println("rocking the adapter");
+        System.out.println("begin editing " + this);
+
+        this.dataDomainAdapter = dataDomainAdapter;
 
         dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.getDomainNameProperty());
         objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.getValidatingObjectsProperty());
@@ -89,8 +96,7 @@ public class DataDomainLayout
 //        dataDomainNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
     }
 
-    @Override
-    public void beginEditing()
+    public void beginEditingNotCalled()
     {
         System.out.println("begin editing");
 
@@ -137,28 +143,33 @@ public class DataDomainLayout
     @Override
     public void endEditing()
     {
-        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
-//        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());
-//
-//        dataDomainAdapter.fieldPathValueProperty().removeListener(changeObserver);
-//
-//        dataDomainAdapter.unBindBidirectional("dataDomainName", dataDomainNameTextField.textProperty());
-//        dataDomainAdapter.unBindBidirectional("dataDomainValidatingObjects", objectValidationCheckBox.selectedProperty());
+        System.out.println("end editing " + this);
+
+        dataDomainNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.getDomainNameProperty());
+        objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.getValidatingObjectsProperty());
+
+//        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
+////        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());
+////
+////        dataDomainAdapter.fieldPathValueProperty().removeListener(changeObserver);
+////
+////        dataDomainAdapter.unBindBidirectional("dataDomainName", dataDomainNameTextField.textProperty());
+////        dataDomainAdapter.unBindBidirectional("dataDomainValidatingObjects", objectValidationCheckBox.selectedProperty());
     }
 
-    private BeanPathAdapter<CayenneProject> getDataDomainPropertyAdapterMap(final CayenneProject cayenneProject)
-    {
-        BeanPathAdapter<CayenneProject> dataDomainAdapter = dataDomainPropertyAdapterMap.get(cayenneProject);
-
-        if (dataDomainAdapter == null)
-        {
-            dataDomainAdapter = new BeanPathAdapter<CayenneProject>(getMainWindow().getCayenneProject());
-
-            dataDomainPropertyAdapterMap.put(cayenneProject, dataDomainAdapter);
-        }
-
-        return dataDomainAdapter;
-    }
+//    private BeanPathAdapter<CayenneProject> getDataDomainPropertyAdapterMap(final CayenneProject cayenneProject)
+//    {
+//        BeanPathAdapter<CayenneProject> dataDomainAdapter = dataDomainPropertyAdapterMap.get(cayenneProject);
+//
+//        if (dataDomainAdapter == null)
+//        {
+//            dataDomainAdapter = new BeanPathAdapter<CayenneProject>(getMainWindow().getCayenneProject());
+//
+//            dataDomainPropertyAdapterMap.put(cayenneProject, dataDomainAdapter);
+//        }
+//
+//        return dataDomainAdapter;
+//    }
 
     @Override
     public void handleDataDomainChange(final DataDomainChangeEvent event)
@@ -182,4 +193,5 @@ public class DataDomainLayout
         }
         // TODO Auto-generated method stub
     }
+
 }

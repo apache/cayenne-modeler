@@ -108,6 +108,16 @@ public class MainWindowLayout
 
 //    private DataDomainAdapter dataDomainAdapter;
 
+    private DetailEditorSupport<?> getDetailEditor(TreeItem<String> treeItem)
+    {
+        if (treeItem instanceof DataDomainTreeItem)
+            return dataDomainDetail;
+        else if (treeItem instanceof DataMapTreeItem)
+            return dataMapDetail;
+
+        return null;
+    }
+
     public void displayCayenneProject(final CayenneProject cayenneProject)
     {
         this.cayenneProject    = cayenneProject;
@@ -122,10 +132,19 @@ public class MainWindowLayout
 
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
+            if (oldValue != null)
+            {
+                DetailEditorSupport<?> detailEditor = getDetailEditor(oldValue);
+
+                if (detailEditor != null)
+                    detailEditor.endEditing();
+            }
+
             if (newValue != null)
             {
                 observable.getValue().getParent();
-                System.out.println(observable.getValue() + " / " + newValue.getValue());
+//                System.out.println("observable: " + observable.getValue() + ", new: " + newValue.getValue() + ", old: " + oldValue.getValue());
+                System.out.println("observable: " + observable + ", new: " + newValue + ", old: " + oldValue);
 
                 System.out.println(observable.getValue().getValue().getClass());
                 System.out.println(newValue.getValue().getClass());
@@ -262,7 +281,7 @@ public class MainWindowLayout
         System.out.println("data domain!!!  " + dataDomainTreeItem);
         displayDetailView(dataDomainDetail);
 
-        dataDomainDetail.beginEditing(dataDomainTreeItem.getDataDomainAdapter());
+        dataDomainDetail.beginEditing(dataDomainTreeItem.getPropertyAdapter());
     }
 
     private void displayDataMap(final DataMapTreeItem dataMapTreeItem)
@@ -270,7 +289,7 @@ public class MainWindowLayout
         System.out.println("data map!!!");
         displayDetailView(dataMapDetail);
 
-        dataMapDetail.beginEditing(dataMapTreeItem.getDataMapAdapter());
+        dataMapDetail.beginEditing(dataMapTreeItem.getPropertyAdapter());
     }
 
     private void displayDataNode()

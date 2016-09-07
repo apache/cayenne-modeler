@@ -26,7 +26,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.control.TreeItem;
 
 //public class DataDomainTreeItem extends CayenneTreeItem<String>
-public class DataDomainTreeItem extends TreeItem<String> implements CayenneTreeItem
+public class DataDomainTreeItem extends TreeItem<String> implements CayenneTreeItem<DataDomainAdapter>
 {
     private final DataDomainAdapter dataDomainAdapter;
 
@@ -42,7 +42,13 @@ public class DataDomainTreeItem extends TreeItem<String> implements CayenneTreeI
         setExpanded(true);
     }
 
-    public DataDomainAdapter getDataDomainAdapter()
+//    public DataDomainAdapter getDataDomainAdapter()
+//    {
+//        return dataDomainAdapter;
+//    }
+
+    @Override
+    public DataDomainAdapter getPropertyAdapter()
     {
         return dataDomainAdapter;
     }

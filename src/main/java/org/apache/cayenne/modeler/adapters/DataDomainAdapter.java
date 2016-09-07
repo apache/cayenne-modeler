@@ -30,7 +30,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
-public class DataDomainAdapter // implements AdapterSupport<CayenneProject>
+public class DataDomainAdapter extends CayennePropertyAdapter // implements AdapterSupport<CayenneProject>
 {
 //    public static final String NAME               = "dataDomainName";
 //    public static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";

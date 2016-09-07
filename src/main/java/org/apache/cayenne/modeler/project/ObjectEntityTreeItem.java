@@ -25,7 +25,7 @@ import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.control.TreeItem;
 
-public class ObjectEntityTreeItem extends TreeItem<String> implements CayenneTreeItem
+public class ObjectEntityTreeItem extends TreeItem<String> implements CayenneTreeItem<ObjectEntityAdapter>
 {
     private final ObjectEntityAdapter objectEntityAdapter;
 
@@ -39,7 +39,8 @@ public class ObjectEntityTreeItem extends TreeItem<String> implements CayenneTre
         setExpanded(true);
     }
 
-    public ObjectEntityAdapter getObjectEntityAdapter()
+    @Override
+    public ObjectEntityAdapter getPropertyAdapter()
     {
         return objectEntityAdapter;
     }

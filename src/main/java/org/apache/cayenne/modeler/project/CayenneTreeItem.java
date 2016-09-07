@@ -19,8 +19,12 @@
 
 package org.apache.cayenne.modeler.project;
 
+import org.apache.cayenne.modeler.adapters.CayennePropertyAdapter;
+
 //public class CayenneTreeItem<T> extends TreeItem<T>
-public interface CayenneTreeItem
+public interface CayenneTreeItem<T extends CayennePropertyAdapter>
 {
     public static final String TREE_ICON_SIZE = "16px";
+
+    T getPropertyAdapter();
 }

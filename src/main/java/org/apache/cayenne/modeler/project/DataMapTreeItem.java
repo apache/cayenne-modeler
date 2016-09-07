@@ -25,7 +25,7 @@ import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.scene.control.TreeItem;
 
-public class DataMapTreeItem extends TreeItem<String> implements CayenneTreeItem
+public class DataMapTreeItem extends TreeItem<String> implements CayenneTreeItem<DataMapAdapter>
 {
     private final DataMapAdapter dataMapAdapter;
 
@@ -39,7 +39,8 @@ public class DataMapTreeItem extends TreeItem<String> implements CayenneTreeItem
         setExpanded(true);
     }
 
-    public DataMapAdapter getDataMapAdapter()
+    @Override
+    public DataMapAdapter getPropertyAdapter()
     {
         return dataMapAdapter;
     }

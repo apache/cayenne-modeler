@@ -26,12 +26,16 @@ import org.apache.cayenne.modeler.adapters.DataMapAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class DataMapLayout extends AbstractViewLayout
+public class DataMapLayout
+    extends AbstractViewLayout
+    implements DetailEditorSupport<DataMapAdapter>
 {
 //    private MainWindowLayout mainWindow;
 
     @FXML
     private TextField dataMapName;
+
+    private DataMapAdapter dataMapAdapter;
 
     public DataMapLayout(MainWindowSupport parent) throws IOException
     {
@@ -45,13 +49,21 @@ public class DataMapLayout extends AbstractViewLayout
 //        fxmlLoader.load();
     }
 
-    public void beginEditing(DataMapAdapter dataMapAdapter)
+    @Override
+    public void beginEditing(final DataMapAdapter dataMapAdapter)
     {
+        System.out.println("begin editing " + this);
+
+        this.dataMapAdapter = dataMapAdapter;
+
         dataMapName.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
     }
 
-    public void endEditing(DataMapAdapter dataMapAdapter)
+    @Override
+    public void endEditing()
     {
+        System.out.println("end editing " + this);
+
         dataMapName.textProperty().unbindBidirectional(dataMapAdapter.getNameProperty());
     }
 //    public void display(DataMapAdapter dataMapAdapter)

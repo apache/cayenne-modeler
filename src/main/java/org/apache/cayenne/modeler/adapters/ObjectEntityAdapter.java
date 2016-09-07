@@ -24,7 +24,7 @@ import org.apache.cayenne.map.ObjEntity;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
-public class ObjectEntityAdapter // implements AdapterSupport<DataMap>
+public class ObjectEntityAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
     private final ObjEntity objectEntity;
 //    private BeanPathAdapter<DataMap> dataMapAdapter;

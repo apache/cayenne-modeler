@@ -19,9 +19,11 @@
 
 package org.apache.cayenne.modeler.layout;
 
-public interface DetailEditorSupport
+import org.apache.cayenne.modeler.adapters.CayennePropertyAdapter;
+
+public interface DetailEditorSupport<T extends CayennePropertyAdapter>
 {
-    void beginEditing();
+    void beginEditing(T propertyAdapter);
     void endEditing();
 
 //    void windowWillClose();
