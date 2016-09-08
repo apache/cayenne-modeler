@@ -46,7 +46,7 @@ public class SplashLayout extends AbstractWindowLayout
     @FXML
     private Button newProjectButton, openProjectButton;
 
-    public SplashLayout(Stage initialStage) throws IOException
+    public SplashLayout(final Stage initialStage) throws IOException
     {
         super(initialStage, "/layouts/SplashLayout.fxml");
 
@@ -60,7 +60,7 @@ public class SplashLayout extends AbstractWindowLayout
 
 //        URL url = CayenneModeler.class.getResource("/cayenne-analytic.xml");
 
-        ObservableList<String> projects =
+        final ObservableList<String> projects =
             FXCollections.observableArrayList(ModelerPreferences.getLastProjFiles());
 
         projectListView.setItems(projects);
@@ -76,7 +76,7 @@ public class SplashLayout extends AbstractWindowLayout
 
         try
         {
-            FileChooser fileChooser = new FileChooser();
+            final FileChooser fileChooser = new FileChooser();
 
             fileChooser.setTitle("Open Cayenne Model");
             fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
@@ -87,14 +87,19 @@ public class SplashLayout extends AbstractWindowLayout
                     new FileChooser.ExtensionFilter("All Files", "*.*")
                 );
 
-            File file = fileChooser.showOpenDialog(getStage());
+            final File file = fileChooser.showOpenDialog(getStage());
 
             if (file != null)
+            {
                 CayenneModeler.openProject(file.getAbsolutePath());
+                hide();
+            }
             else
+            {
                 System.out.println("Open canceled");
+            }
         }
-        catch (Exception exception)
+        catch (final Exception exception)
         {
             // TODO Auto-generated catch block
             exception.printStackTrace();
@@ -106,13 +111,13 @@ public class SplashLayout extends AbstractWindowLayout
         System.out.println("new clicked");
     }
 
-    public void onOpenProjectSelected(MouseEvent event)
+    public void onOpenProjectSelected(final MouseEvent event)
     {
         if (event.getClickCount() == 2)
             openSelectedModel();
     }
 
-    public void onKeyTyped(KeyEvent event)
+    public void onKeyTyped(final KeyEvent event)
     {
 //        System.out.println(event);
 
@@ -127,7 +132,7 @@ public class SplashLayout extends AbstractWindowLayout
             CayenneModeler.openProject(projectListView.getSelectionModel().getSelectedItem());
             hide();
         }
-        catch (Exception exception)
+        catch (final Exception exception)
         {
             // TODO Auto-generated catch block
             exception.printStackTrace();
