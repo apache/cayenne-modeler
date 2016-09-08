@@ -113,6 +113,8 @@ public class MainWindowLayout
             return dataDomainDetail;
         else if (treeItem instanceof DataMapTreeItem)
             return dataMapDetail;
+        else if (treeItem instanceof ObjectEntityTreeItem)
+            return objectEntityDetail;
 
         return null;
     }

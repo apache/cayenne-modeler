@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import org.apache.cayenne.map.ObjAttribute;
 import org.apache.cayenne.map.ObjEntity;
+import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
 
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -35,7 +36,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ObjectEntityAttributesTabLayout extends AbstractViewLayout
+public class ObjectEntityAttributesTabLayout
+    extends AbstractViewLayout
+    implements DetailEditorSupport<ObjectEntityAdapter>
 {
     @FXML
     private TableView<ObjAttribute> attributesTableView;
@@ -56,6 +59,8 @@ public class ObjectEntityAttributesTabLayout extends AbstractViewLayout
 //    private MainWindowSupport parent;
 
     private ObjectEntityClassTabLayout objectEntityClassTabViewController;
+
+    private ObjectEntityAdapter objectEntityAdapter;
 
     public ObjectEntityAttributesTabLayout(MainWindowSupport parent) throws IOException
     {
@@ -170,4 +175,20 @@ public class ObjectEntityAttributesTabLayout extends AbstractViewLayout
 //    {
 //        return parent.getMainWindow();
 //    }
+
+    @Override
+    public void setPropertyAdapter(ObjectEntityAdapter objectEntityAdapter)
+    {
+        this.objectEntityAdapter = objectEntityAdapter;
+    }
+
+    @Override
+    public void beginEditing()
+    {
+    }
+
+    @Override
+    public void endEditing()
+    {
+    }
 }

@@ -97,7 +97,7 @@ public class ObjectEntityLayout
     {
         System.out.println("trying to display: " + objEntity);
 //        objectEntityClassTabLayout.display(objEntity);
-        objectEntityAttributesTabLayout.display(objEntity);
+//        objectEntityAttributesTabLayout.display(objEntity);
 //        objEntity.getAttributes()
     }
 
@@ -114,17 +114,20 @@ public class ObjectEntityLayout
         this.objectEntityAdapter = objectEntityAdapter;
 
         objectEntityClassTabLayout.setPropertyAdapter(objectEntityAdapter);
+        objectEntityAttributesTabLayout.setPropertyAdapter(objectEntityAdapter);
     }
 
     @Override
     public void beginEditing()
     {
         objectEntityClassTabLayout.beginEditing();
+        objectEntityAttributesTabLayout.beginEditing();
     }
 
     @Override
     public void endEditing()
     {
         objectEntityClassTabLayout.endEditing();
+        objectEntityAttributesTabLayout.endEditing();
     }
 }

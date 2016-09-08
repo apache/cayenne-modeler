@@ -95,6 +95,8 @@ public class ObjectEntityClassTabLayout
     @Override
     public void beginEditing()
     {
+        System.out.println("begin editing " + this);
+
         abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.getAbstractClassProperty());
     }
 
@@ -102,6 +104,8 @@ public class ObjectEntityClassTabLayout
     @Override
     public void endEditing()
     {
-        abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.getAbstractClassProperty());
+        System.out.println("end editing " + this);
+
+        abstractClassCheckbox.selectedProperty().unbindBidirectional(objectEntityAdapter.getAbstractClassProperty());
     }
 }
