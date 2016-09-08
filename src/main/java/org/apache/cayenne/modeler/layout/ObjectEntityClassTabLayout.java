@@ -21,7 +21,7 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.map.ObjEntity;
+import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -29,7 +29,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
-public class ObjectEntityClassTabLayout extends AbstractViewLayout
+public class ObjectEntityClassTabLayout
+    extends AbstractViewLayout
+    implements DetailEditorSupport<ObjectEntityAdapter>
 {
     @FXML
     private Button dbEntitySyncButton;
@@ -38,6 +40,8 @@ public class ObjectEntityClassTabLayout extends AbstractViewLayout
     private CheckBox abstractClassCheckbox;
 
 //    private MainWindowSupport parent;
+
+    private ObjectEntityAdapter objectEntityAdapter;
 
     public ObjectEntityClassTabLayout(MainWindowSupport parent) throws IOException
     {
@@ -65,18 +69,39 @@ public class ObjectEntityClassTabLayout extends AbstractViewLayout
         dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
     }
 
-    private ObjEntity objectEntity;
-    public void display(ObjEntity objectEntity)
-    {
-        this.objectEntity = objectEntity;
-        System.out.println("trying to display: " + objectEntity);
 
-//        abstractClassCheckbox.selectedProperty().bind(objectEntity.isAbstract());
-    }
+//    public void display(ObjEntity objectEntity)
+//    {
+//        this.objectEntity = objectEntity;
+//        System.out.println("trying to display: " + objectEntity);
+//
+////        abstractClassCheckbox.selectedProperty().bind(objectEntity.isAbstract());
+//    }
 //
 //    @Override
 //    public MainWindowLayout getMainWindow()
 //    {
 //        return parent.getMainWindow();
 //    }
+
+
+    @Override
+    public void setPropertyAdapter(ObjectEntityAdapter objectEntityAdapter)
+    {
+        this.objectEntityAdapter = objectEntityAdapter;
+    }
+
+
+    @Override
+    public void beginEditing()
+    {
+        abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.getAbstractClassProperty());
+    }
+
+
+    @Override
+    public void endEditing()
+    {
+        abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.getAbstractClassProperty());
+    }
 }

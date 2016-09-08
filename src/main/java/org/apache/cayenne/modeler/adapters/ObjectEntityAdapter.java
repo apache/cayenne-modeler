@@ -21,7 +21,9 @@ package org.apache.cayenne.modeler.adapters;
 
 import org.apache.cayenne.map.ObjEntity;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public class ObjectEntityAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
@@ -30,6 +32,7 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
 //    private BeanPathAdapter<DataMap> dataMapAdapter;
 
     private StringProperty nameProperty;
+    private BooleanProperty abstractClassProperty;
 
 //    private StringProperty locationProperty;
 //
@@ -53,6 +56,9 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
         try
         {
             nameProperty = JavaBeanStringPropertyBuilder.create().bean(objectEntity).name("name").build();
+            abstractClassProperty = JavaBeanBooleanPropertyBuilder.create().bean(objectEntity).name("abstract").build();
+
+
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
 
 //            quoteSQLIdentifiersProperty = JavaBeanBooleanPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_QUOTE_SQL_IDENTIFIERS_PROPERTY).build();
@@ -77,5 +83,10 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
     public StringProperty getNameProperty()
     {
         return nameProperty;
+    }
+
+    public BooleanProperty getAbstractClassProperty()
+    {
+        return abstractClassProperty;
     }
 }
