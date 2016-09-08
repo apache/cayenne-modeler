@@ -34,7 +34,6 @@ import org.apache.cayenne.modeler.project.DataDomainTreeItem;
 import org.apache.cayenne.modeler.project.DataMapTreeItem;
 import org.apache.cayenne.modeler.project.DatabaseEntityTreeViewModel;
 import org.apache.cayenne.modeler.project.ObjectEntityTreeItem;
-import org.apache.cayenne.modeler.project.ObjectEntityTreeViewModel;
 import org.apache.cayenne.modeler.utility.TreeViewUtilities;
 
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -153,6 +152,8 @@ public class MainWindowLayout
                     displayDataDomain((DataDomainTreeItem) newValue);
                 else if (newValue instanceof DataMapTreeItem)
                     displayDataMap((DataMapTreeItem) newValue);
+                else if (newValue instanceof ObjectEntityTreeItem)
+                    displayObjectEntity((ObjectEntityTreeItem) newValue);
 //                if (newValue.getValue() instanceof DataDomainTreeViewModel)
 //                    displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
 //                else if (newValue.getValue() instanceof DataMapTreeViewModel)
@@ -281,7 +282,8 @@ public class MainWindowLayout
         System.out.println("data domain!!!  " + dataDomainTreeItem);
         displayDetailView(dataDomainDetail);
 
-        dataDomainDetail.beginEditing(dataDomainTreeItem.getPropertyAdapter());
+        dataDomainDetail.setPropertyAdapter(dataDomainTreeItem.getPropertyAdapter());
+        dataDomainDetail.beginEditing();
     }
 
     private void displayDataMap(final DataMapTreeItem dataMapTreeItem)
@@ -289,7 +291,8 @@ public class MainWindowLayout
         System.out.println("data map!!!");
         displayDetailView(dataMapDetail);
 
-        dataMapDetail.beginEditing(dataMapTreeItem.getPropertyAdapter());
+        dataMapDetail.setPropertyAdapter(dataMapTreeItem.getPropertyAdapter());
+        dataMapDetail.beginEditing();
     }
 
     private void displayDataNode()
@@ -297,11 +300,14 @@ public class MainWindowLayout
         System.out.println("data node!!!");
     }
 
-    private void displayObjectEntity(final ObjectEntityTreeViewModel objectEntity)
+    private void displayObjectEntity(final ObjectEntityTreeItem objectEntityTreeItem)
     {
         System.out.println("object entity!!!");
         displayDetailView(objectEntityDetail);
-        objectEntityDetail.display(objectEntity.getValue());
+        objectEntityDetail.setPropertyAdapter(objectEntityTreeItem.getPropertyAdapter());
+        objectEntityDetail.beginEditing();
+//        displayDetailView(objectEntityDetail);
+//        objectEntityDetail.display(objectEntity.getValue());
     }
 
     private void displayDatabaseEntity(final DatabaseEntityTreeViewModel databaseEntity)

@@ -83,12 +83,17 @@ public class DataDomainLayout
         System.out.println("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
 
 
+
     @Override
-    public void beginEditing(final DataDomainAdapter dataDomainAdapter)
+    public void setPropertyAdapter(final DataDomainAdapter dataDomainAdapter)
+    {
+        this.dataDomainAdapter = dataDomainAdapter;
+    }
+
+    @Override
+    public void beginEditing()
     {
         System.out.println("begin editing " + this);
-
-        this.dataDomainAdapter = dataDomainAdapter;
 
         dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.getDomainNameProperty());
         objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.getValidatingObjectsProperty());
@@ -193,5 +198,4 @@ public class DataDomainLayout
         }
         // TODO Auto-generated method stub
     }
-
 }

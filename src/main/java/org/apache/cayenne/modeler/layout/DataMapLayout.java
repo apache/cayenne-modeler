@@ -50,11 +50,16 @@ public class DataMapLayout
     }
 
     @Override
-    public void beginEditing(final DataMapAdapter dataMapAdapter)
+    public void setPropertyAdapter(final DataMapAdapter dataMapAdapter)
+    {
+        this.dataMapAdapter = dataMapAdapter;
+    }
+
+    @Override
+    public void beginEditing()
     {
         System.out.println("begin editing " + this);
 
-        this.dataMapAdapter = dataMapAdapter;
 
         dataMapName.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
     }

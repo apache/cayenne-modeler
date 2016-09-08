@@ -23,7 +23,8 @@ import org.apache.cayenne.modeler.adapters.CayennePropertyAdapter;
 
 public interface DetailEditorSupport<T extends CayennePropertyAdapter>
 {
-    void beginEditing(T propertyAdapter);
+    void setPropertyAdapter(final T propertyAdapter);
+    void beginEditing();
     void endEditing();
 
 //    void windowWillClose();

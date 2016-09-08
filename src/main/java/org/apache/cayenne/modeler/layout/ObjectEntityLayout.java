@@ -22,12 +22,15 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.map.ObjEntity;
+import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
-public class ObjectEntityLayout extends AbstractViewLayout
+public class ObjectEntityLayout
+    extends AbstractViewLayout
+    implements DetailEditorSupport<ObjectEntityAdapter>
 {
     @FXML
     private AnchorPane classTabAnchorPane, attributesTabAnchorPane;
@@ -36,6 +39,8 @@ public class ObjectEntityLayout extends AbstractViewLayout
 
     private ObjectEntityClassTabLayout objectEntityClassTabLayout;
     private ObjectEntityAttributesTabLayout objectEntityAttributesTabLayout;
+
+    private ObjectEntityAdapter objectEntityAdapter;
 
     public ObjectEntityLayout(MainWindowSupport parent) throws IOException
     {
@@ -87,6 +92,7 @@ public class ObjectEntityLayout extends AbstractViewLayout
 //        destination.getChildren().add(source);
 //    }
 
+    @Deprecated // Unused?
     public void display(ObjEntity objEntity)
     {
         System.out.println("trying to display: " + objEntity);
@@ -101,10 +107,20 @@ public class ObjectEntityLayout extends AbstractViewLayout
         System.out.println(event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
-//
-//    @Override
-//    public MainWindowLayout getMainWindow()
-//    {
-//        return mainWindow;
-//    }
+
+    @Override
+    public void setPropertyAdapter(ObjectEntityAdapter objectEntityAdapter)
+    {
+        this.objectEntityAdapter = objectEntityAdapter;
+    }
+
+    @Override
+    public void beginEditing()
+    {
+    }
+
+    @Override
+    public void endEditing()
+    {
+    }
 }
