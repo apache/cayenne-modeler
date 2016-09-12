@@ -21,9 +21,9 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
+import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
@@ -32,9 +32,8 @@ import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
 import org.apache.cayenne.modeler.project.CayenneProject;
 import org.apache.cayenne.modeler.project.DataDomainTreeItem;
 import org.apache.cayenne.modeler.project.DataMapTreeItem;
-import org.apache.cayenne.modeler.project.DatabaseEntityTreeViewModel;
+import org.apache.cayenne.modeler.project.DatabaseEntityTreeItem;
 import org.apache.cayenne.modeler.project.ObjectEntityTreeItem;
-import org.apache.cayenne.modeler.utility.TreeViewUtilities;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -115,6 +114,8 @@ public class MainWindowLayout
             return dataMapDetail;
         else if (treeItem instanceof ObjectEntityTreeItem)
             return objectEntityDetail;
+        else if (treeItem instanceof DatabaseEntityTreeItem)
+            return databaseEntityDetail;
 
         return null;
     }
@@ -156,6 +157,8 @@ public class MainWindowLayout
                     displayDataMap((DataMapTreeItem) newValue);
                 else if (newValue instanceof ObjectEntityTreeItem)
                     displayObjectEntity((ObjectEntityTreeItem) newValue);
+                else if (newValue instanceof DatabaseEntityTreeItem)
+                    displayDatabaseEntity((DatabaseEntityTreeItem) newValue);
 //                if (newValue.getValue() instanceof DataDomainTreeViewModel)
 //                    displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
 //                else if (newValue.getValue() instanceof DataMapTreeViewModel)
@@ -252,7 +255,9 @@ public class MainWindowLayout
             addObjEntity(objectEntityAdapter, dataMapBranch);
 //        for (final ObjEntity objEntity : dataMap.getObjEntities())
 //            addObjEntity(objEntity, dataMapBranch);
-//
+
+        for (DatabaseEntityAdapter databaseEntityAdapter : dataMapAdapter.getDatabaseEntityAdapters())
+            addDbEntity(databaseEntityAdapter, dataMapBranch);
 //        for (final DbEntity dbEntity : dataMap.getDbEntities())
 //            addDbEntity(dbEntity, dataMapBranch);
     }
@@ -268,12 +273,13 @@ public class MainWindowLayout
 //        TreeItem<String> objEntityLeaf = TreeViewUtilities.addNode(objEntity.getName(), dataMapBranch, FontAwesomeIcon.FILE_TEXT);
     }
 
-    private void addDbEntity(final DbEntity dbEntity, final TreeItem<Object> dataMapBranch)
+    private void addDbEntity(final DatabaseEntityAdapter databaseEntityAdapter, final DataMapTreeItem dataMapBranch)
     {
-        final TreeItem<Object> dbEntityLeaf =
-            TreeViewUtilities.addNode(new TreeItem<>(new DatabaseEntityTreeViewModel(dbEntity)),
-                                      dataMapBranch,
-                                      FontAwesomeIcon.TABLE);
+        DatabaseEntityTreeItem databaseEntityLeaf = new DatabaseEntityTreeItem(databaseEntityAdapter, dataMapBranch);
+//        final TreeItem<Object> dbEntityLeaf =
+//            TreeViewUtilities.addNode(new TreeItem<>(new DatabaseEntityTreeViewModel(dbEntity)),
+//                                      dataMapBranch,
+//                                      FontAwesomeIcon.TABLE);
 //        TreeItem<String> dbEntityLeaf = TreeViewUtilities.addNode(dbEntity.getName(), dataMapBranch, FontAwesomeIcon.TABLE);
     }
 
@@ -308,15 +314,14 @@ public class MainWindowLayout
         displayDetailView(objectEntityDetail);
         objectEntityDetail.setPropertyAdapter(objectEntityTreeItem.getPropertyAdapter());
         objectEntityDetail.beginEditing();
-//        displayDetailView(objectEntityDetail);
-//        objectEntityDetail.display(objectEntity.getValue());
     }
 
-    private void displayDatabaseEntity(final DatabaseEntityTreeViewModel databaseEntity)
+    private void displayDatabaseEntity(final DatabaseEntityTreeItem databaseEntityTreeItem)
     {
         System.out.println("database entity!!!");
         displayDetailView(databaseEntityDetail);
-        databaseEntityDetail.display(databaseEntity.getValue());
+        databaseEntityDetail.setPropertyAdapter(databaseEntityTreeItem.getPropertyAdapter());
+        databaseEntityDetail.beginEditing();
     }
 
     public void onNewButtonClicked()

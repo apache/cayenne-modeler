@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import org.apache.cayenne.map.DbAttribute;
 import org.apache.cayenne.map.DbEntity;
+import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
 
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -33,7 +34,10 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 
-public class DatabaseEntityColumnsTabLayout extends AbstractViewLayout
+public class DatabaseEntityColumnsTabLayout
+    extends AbstractViewLayout
+    implements DetailEditorSupport<DatabaseEntityAdapter>
+
 {
 //    @FXML
 //    private TableView<ObjAttribute> attributesTableView;
@@ -54,6 +58,8 @@ public class DatabaseEntityColumnsTabLayout extends AbstractViewLayout
 //    private MainWindowSupport parent;
 
 //    private ObjectEntityClassTabLayout objectEntityClassTabViewController;
+
+    private DatabaseEntityAdapter databaseEntityAdapter;
 
     public DatabaseEntityColumnsTabLayout(MainWindowSupport parent) throws IOException
     {
@@ -150,6 +156,7 @@ public class DatabaseEntityColumnsTabLayout extends AbstractViewLayout
 //        destination.getChildren().add(source);
 //    }
 
+    @Deprecated // Unused?
     public void display(DbEntity dbEntity)
     {
         System.out.println("trying to display: " + dbEntity);
@@ -165,9 +172,19 @@ public class DatabaseEntityColumnsTabLayout extends AbstractViewLayout
         getMainWindow().getCayenneProject().getDataMaps();
     }
 
-//    @Override
-//    public MainWindowLayout getMainWindow()
-//    {
-//        return parent.getMainWindow();
-//    }
+    @Override
+    public void setPropertyAdapter(DatabaseEntityAdapter databaseEntityAdapter)
+    {
+        this.databaseEntityAdapter = databaseEntityAdapter;
+    }
+
+    @Override
+    public void beginEditing()
+    {
+    }
+
+    @Override
+    public void endEditing()
+    {
+    }
 }

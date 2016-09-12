@@ -22,8 +22,11 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.map.DbEntity;
+import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 
-public class DatabaseEntityTableTabLayout extends AbstractViewLayout
+public class DatabaseEntityTableTabLayout
+    extends AbstractViewLayout
+    implements DetailEditorSupport<DatabaseEntityAdapter>
 {
 //    @FXML
 //    private Button dbEntitySyncButton;
@@ -32,6 +35,8 @@ public class DatabaseEntityTableTabLayout extends AbstractViewLayout
 //    private CheckBox abstractClassCheckbox;
 
     private MainWindowSupport parent;
+
+    private DatabaseEntityAdapter databaseEntityAdapter;
 
     public DatabaseEntityTableTabLayout(MainWindowSupport parent) throws IOException
     {
@@ -53,6 +58,7 @@ public class DatabaseEntityTableTabLayout extends AbstractViewLayout
 //    }
 
 //    private ObjEntity objectEntity;
+    @Deprecated // Unused?
     public void display(DbEntity databaseEntity)
     {
 //        this.objectEntity = objectEntity;
@@ -61,6 +67,21 @@ public class DatabaseEntityTableTabLayout extends AbstractViewLayout
 //        abstractClassCheckbox.selectedProperty().bind(objectEntity.isAbstract());
     }
 
+    @Override
+    public void setPropertyAdapter(DatabaseEntityAdapter databaseEntityAdapter)
+    {
+        this.databaseEntityAdapter = databaseEntityAdapter;
+    }
+
+    @Override
+    public void beginEditing()
+    {
+    }
+
+    @Override
+    public void endEditing()
+    {
+    }
 
 //    @Override
 //    protected void loadComponents()

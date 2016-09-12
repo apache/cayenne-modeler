@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cayenne.map.DataMap;
+import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.map.ObjEntity;
 
 import javafx.beans.property.BooleanProperty;
@@ -37,7 +38,8 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
     private final DataMap dataMap;
 //    private BeanPathAdapter<DataMap> dataMapAdapter;
 
-    private final List<ObjectEntityAdapter> objectEntityAdapters = new ArrayList<>();
+    private final List<ObjectEntityAdapter>   objectEntityAdapters   = new ArrayList<>();
+    private final List<DatabaseEntityAdapter> databaseEntityAdapters = new ArrayList<>();
 
     private StringProperty nameProperty;
 
@@ -62,6 +64,9 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
 
         for (ObjEntity objEntity : dataMap.getObjEntities())
             objectEntityAdapters.add(new ObjectEntityAdapter(objEntity));
+
+        for (DbEntity dbEntity : dataMap.getDbEntities())
+            databaseEntityAdapters.add(new DatabaseEntityAdapter(dbEntity));
 
         try
         {
@@ -144,15 +149,13 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
         return defaultClientSuperclassProperty;
     }
 
-
     public List<ObjectEntityAdapter> getObjectEntityAdapters()
     {
         return objectEntityAdapters;
     }
 
-//    @Override
-//    public BeanPathAdapter<DataMap> getBeanPathAdapter()
-//    {
-//        return dataMapAdapter;
-//    }
+    public List<DatabaseEntityAdapter> getDatabaseEntityAdapters()
+    {
+        return databaseEntityAdapters;
+    }
 }

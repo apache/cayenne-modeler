@@ -22,12 +22,15 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.map.DbEntity;
+import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
-public class DatabaseEntityLayout extends AbstractViewLayout
+public class DatabaseEntityLayout
+    extends AbstractViewLayout
+    implements DetailEditorSupport<DatabaseEntityAdapter>
 {
     @FXML
     private AnchorPane tableTabAnchorPane, columnsTabAnchorPane;
@@ -38,6 +41,8 @@ public class DatabaseEntityLayout extends AbstractViewLayout
     private DatabaseEntityColumnsTabLayout databaseEntityColumnsTabLayout;
 //    private ObjectEntityClassTabLayout objectEntityClassTabLayout;
 //    private ObjectEntityAttributesTabLayout objectEntityAttributesTabLayout;
+
+    private DatabaseEntityAdapter databaseEntityAdapter;
 
     public DatabaseEntityLayout(MainWindowSupport parent) throws IOException
     {
@@ -89,6 +94,7 @@ public class DatabaseEntityLayout extends AbstractViewLayout
 //        destination.getChildren().add(source);
 //    }
 
+    @Deprecated // Unused?
     public void display(DbEntity dbEntity)
     {
         System.out.println("trying to display: " + dbEntity);
@@ -104,9 +110,26 @@ public class DatabaseEntityLayout extends AbstractViewLayout
         getMainWindow().getCayenneProject().getDataMaps();
     }
 
-//    @Override
-//    public MainWindowLayout getMainWindow()
-//    {
-//        return mainWindow;
-//    }
+    @Override
+    public void setPropertyAdapter(DatabaseEntityAdapter databaseEntityAdapter)
+    {
+        this.databaseEntityAdapter = databaseEntityAdapter;
+
+        databaseEntityTableTabLayout.setPropertyAdapter(databaseEntityAdapter);
+        databaseEntityColumnsTabLayout.setPropertyAdapter(databaseEntityAdapter);
+    }
+
+    @Override
+    public void beginEditing()
+    {
+        databaseEntityTableTabLayout.beginEditing();
+        databaseEntityColumnsTabLayout.beginEditing();
+    }
+
+    @Override
+    public void endEditing()
+    {
+        databaseEntityTableTabLayout.endEditing();
+        databaseEntityColumnsTabLayout.endEditing();
+    }
 }
