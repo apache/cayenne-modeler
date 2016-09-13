@@ -24,9 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cayenne.modeler.project.CayenneProject;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CayenneProjectManager
 {
+    private static final Log LOGGER = LogFactory.getLog(CayenneProjectManager.class);
+
     private static List<CayenneProject> projects = new ArrayList<CayenneProject>();
 
     public static CayenneProject projectForPath(final String path)
@@ -46,7 +50,7 @@ public class CayenneProjectManager
             catch (final MalformedURLException exception) // FIXME: Need to handle this better.
             {
                 // TODO Auto-generated catch block
-                exception.printStackTrace();
+                LOGGER.error("Could not open project", exception);
             }
         }
 

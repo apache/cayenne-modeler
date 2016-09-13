@@ -25,6 +25,8 @@ import org.apache.cayenne.map.ObjAttribute;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -40,6 +42,8 @@ public class ObjectEntityAttributesTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<ObjectEntityAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(ObjectEntityAttributesTabLayout.class);
+
     @FXML
     private TableView<ObjAttribute> attributesTableView;
 
@@ -157,7 +161,7 @@ public class ObjectEntityAttributesTabLayout
 
     public void display(ObjEntity objEntity)
     {
-        System.out.println("trying to display: " + objEntity);
+        LOGGER.debug("trying to display: " + objEntity);
         attributesTableView.setItems(FXCollections.observableArrayList(objEntity.getAttributes()));
 //        objectEntityClassTabViewController.display(objEntity);
 //        objEntity.getAttributes()
@@ -166,7 +170,7 @@ public class ObjectEntityAttributesTabLayout
 //    public void tabChanged(ActionEvent event)
     public void tabChanged(Event event)
     {
-        System.out.println(event);
+        LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
 //

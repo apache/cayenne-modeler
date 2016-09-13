@@ -34,6 +34,8 @@ import org.apache.cayenne.modeler.project.DataDomainTreeItem;
 import org.apache.cayenne.modeler.project.DataMapTreeItem;
 import org.apache.cayenne.modeler.project.DatabaseEntityTreeItem;
 import org.apache.cayenne.modeler.project.ObjectEntityTreeItem;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -51,6 +53,8 @@ public class MainWindowLayout
     implements DataDomainListener,
                MainWindowSupport
 {
+    private static final Log LOGGER = LogFactory.getLog(MainWindowLayout.class);
+
     @FXML
     private TreeView<String> treeView;
 //    private TreeView<CayenneTreeItem<String>> treeView;
@@ -146,10 +150,10 @@ public class MainWindowLayout
             {
                 observable.getValue().getParent();
 //                System.out.println("observable: " + observable.getValue() + ", new: " + newValue.getValue() + ", old: " + oldValue.getValue());
-                System.out.println("observable: " + observable + ", new: " + newValue + ", old: " + oldValue);
+                LOGGER.debug("observable: " + observable + ", new: " + newValue + ", old: " + oldValue);
 
-                System.out.println(observable.getValue().getValue().getClass());
-                System.out.println(newValue.getValue().getClass());
+                LOGGER.debug(observable.getValue().getValue().getClass());
+                LOGGER.debug(newValue.getValue().getClass());
 
                 if (newValue instanceof DataDomainTreeItem)
                     displayDataDomain((DataDomainTreeItem) newValue);
@@ -287,7 +291,6 @@ public class MainWindowLayout
 //    private void displayDataDomain(final DataDomainTreeViewModel domain)
     private void displayDataDomain(final DataDomainTreeItem dataDomainTreeItem)
     {
-        System.out.println("data domain!!!  " + dataDomainTreeItem);
         displayDetailView(dataDomainDetail);
 
         dataDomainDetail.setPropertyAdapter(dataDomainTreeItem.getPropertyAdapter());
@@ -296,7 +299,6 @@ public class MainWindowLayout
 
     private void displayDataMap(final DataMapTreeItem dataMapTreeItem)
     {
-        System.out.println("data map!!!");
         displayDetailView(dataMapDetail);
 
         dataMapDetail.setPropertyAdapter(dataMapTreeItem.getPropertyAdapter());
@@ -305,12 +307,11 @@ public class MainWindowLayout
 
     private void displayDataNode()
     {
-        System.out.println("data node!!!");
+        LOGGER.debug("data node!!!");
     }
 
     private void displayObjectEntity(final ObjectEntityTreeItem objectEntityTreeItem)
     {
-        System.out.println("object entity!!!");
         displayDetailView(objectEntityDetail);
         objectEntityDetail.setPropertyAdapter(objectEntityTreeItem.getPropertyAdapter());
         objectEntityDetail.beginEditing();
@@ -318,7 +319,6 @@ public class MainWindowLayout
 
     private void displayDatabaseEntity(final DatabaseEntityTreeItem databaseEntityTreeItem)
     {
-        System.out.println("database entity!!!");
         displayDetailView(databaseEntityDetail);
         databaseEntityDetail.setPropertyAdapter(databaseEntityTreeItem.getPropertyAdapter());
         databaseEntityDetail.beginEditing();
@@ -326,7 +326,7 @@ public class MainWindowLayout
 
     public void onNewButtonClicked()
     {
-        System.out.println("new!");
+        LOGGER.debug("new!");
     }
 
     private void displayDetailView(final Node detailView)
@@ -359,6 +359,7 @@ public class MainWindowLayout
     private DataDomainLayout dataDomainDetail;
     private DataMapLayout dataMapDetail;
 
+    // FIXME: Shouldn't this be loadSubViews to be consistent?
     private void loadComponents()
     {
         try
@@ -382,13 +383,12 @@ public class MainWindowLayout
         catch (final Exception exception)
         {
             // TODO Auto-generated catch block
-            exception.printStackTrace();
+            LOGGER.error("Could not load subviews", exception);
         }
     }
 
     public void openPreferences() throws Exception
     {
-        System.out.println("opening prefs");
         CayenneModeler.openPreferences();
     }
 
@@ -406,7 +406,7 @@ public class MainWindowLayout
     @Override
     public void handleDataDomainChange(final DataDomainChangeEvent event)
     {
-        System.out.println("Handling DataDomain Chain Event (Main Window)");
+        LOGGER.debug("Handling DataDomain Chain Event (Main Window)");
         setDirty(true);
 
         if (event.getEventType() == Type.NAME)

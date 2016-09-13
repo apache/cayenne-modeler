@@ -28,6 +28,8 @@ import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
 import org.apache.cayenne.modeler.project.CayenneProject;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -42,6 +44,8 @@ public class DataDomainLayout
     implements DataDomainListener,
                DetailEditorSupport<DataDomainAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(DataDomainLayout.class);
+
 //    private MainWindowLayout mainWindow;
 
     private static Map<CayenneProject, BeanPathAdapter<CayenneProject>> dataDomainPropertyAdapterMap = new HashMap<CayenneProject, BeanPathAdapter<CayenneProject>>();
@@ -80,7 +84,7 @@ public class DataDomainLayout
 //    }
 
     private final ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
-        System.out.println("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
+        LOGGER.debug("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
 
 
 
@@ -93,7 +97,7 @@ public class DataDomainLayout
     @Override
     public void beginEditing()
     {
-        System.out.println("begin editing " + this);
+        LOGGER.debug("begin editing " + this);
 
         dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.getDomainNameProperty());
         objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.getValidatingObjectsProperty());
@@ -103,7 +107,7 @@ public class DataDomainLayout
 
     public void beginEditingNotCalled()
     {
-        System.out.println("begin editing");
+        LOGGER.debug("begin editing");
 
         dataDomainNameTextField.setText(getMainWindow().getCayenneProject().getDataDomainName());
         dataDomainNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
@@ -148,7 +152,7 @@ public class DataDomainLayout
     @Override
     public void endEditing()
     {
-        System.out.println("end editing " + this);
+        LOGGER.debug("end editing " + this);
 
         dataDomainNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.getDomainNameProperty());
         objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.getValidatingObjectsProperty());
@@ -181,7 +185,7 @@ public class DataDomainLayout
     {
         if (event.getEventSource() != this)
         {
-            System.out.println("Handling DD Change in DDLayout");
+            LOGGER.debug("Handling DD Change in DDLayout");
 
             switch (event.getEventType())
             {

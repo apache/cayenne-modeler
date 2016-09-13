@@ -25,6 +25,8 @@ import org.apache.cayenne.map.DbAttribute;
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -39,6 +41,8 @@ public class DatabaseEntityColumnsTabLayout
     implements DetailEditorSupport<DatabaseEntityAdapter>
 
 {
+    private static final Log LOGGER = LogFactory.getLog(DatabaseEntityColumnsTabLayout.class);
+
 //    @FXML
 //    private TableView<ObjAttribute> attributesTableView;
 //
@@ -138,7 +142,7 @@ public class DatabaseEntityColumnsTabLayout
         catch (Exception exception)
         {
             // TODO Auto-generated catch block
-            exception.printStackTrace();
+//            exception.printStackTrace();
         }
     }
 
@@ -159,7 +163,7 @@ public class DatabaseEntityColumnsTabLayout
     @Deprecated // Unused?
     public void display(DbEntity dbEntity)
     {
-        System.out.println("trying to display: " + dbEntity);
+        LOGGER.debug("trying to display: " + dbEntity);
 //        attributesTableView.setItems(FXCollections.observableArrayList(objEntity.getAttributes()));
 //        objectEntityClassTabViewController.display(objEntity);
 //        objEntity.getAttributes()
@@ -168,7 +172,7 @@ public class DatabaseEntityColumnsTabLayout
 //    public void tabChanged(ActionEvent event)
     public void tabChanged(Event event)
     {
-        System.out.println(event);
+        LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
 

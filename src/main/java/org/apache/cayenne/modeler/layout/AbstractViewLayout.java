@@ -21,11 +21,16 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class AbstractViewLayout extends AnchorPane implements MainWindowSupport
 {
+    private static final Log LOGGER = LogFactory.getLog(AbstractViewLayout.class);
+
     private MainWindowLayout mainWindow;
 
     protected AbstractViewLayout(MainWindowLayout mainWindow, String layout) throws IOException
@@ -41,7 +46,7 @@ public abstract class AbstractViewLayout extends AnchorPane implements MainWindo
 
     public void initialize()
     {
-        System.out.println("init " + this.getClass().getCanonicalName());
+        LOGGER.info("init " + this.getClass().getCanonicalName());
 
         loadSubViews();
     }

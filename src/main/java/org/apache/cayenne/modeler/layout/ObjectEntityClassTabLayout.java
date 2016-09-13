@@ -22,6 +22,8 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -33,6 +35,8 @@ public class ObjectEntityClassTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<ObjectEntityAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(ObjectEntityClassTabLayout.class);
+
     @FXML
     private Button dbEntitySyncButton;
 
@@ -95,7 +99,7 @@ public class ObjectEntityClassTabLayout
     @Override
     public void beginEditing()
     {
-        System.out.println("begin editing " + this);
+        LOGGER.debug("begin editing " + this);
 
         abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.getAbstractClassProperty());
     }
@@ -104,7 +108,7 @@ public class ObjectEntityClassTabLayout
     @Override
     public void endEditing()
     {
-        System.out.println("end editing " + this);
+        LOGGER.debug("end editing " + this);
 
         abstractClassCheckbox.selectedProperty().unbindBidirectional(objectEntityAdapter.getAbstractClassProperty());
     }

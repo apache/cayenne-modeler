@@ -33,12 +33,17 @@ import org.apache.cayenne.modeler.layout.PreferencesLayout;
 import org.apache.cayenne.modeler.layout.SplashLayout;
 import org.apache.cayenne.modeler.project.CayenneProject;
 import org.apache.cayenne.project.CayenneProjectModule;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class CayenneModeler extends Application
 {
+    private static final Log LOGGER = LogFactory.getLog(CayenneModeler.class);
+//    private static final Logger LOGGER = LogManager.getLogger(CayenneModeler.class);
+
 //    private Stage      primaryStage;
     private SplashLayout splashLayout;
 //    private BorderPane rootLayout;
@@ -46,6 +51,7 @@ public class CayenneModeler extends Application
     @Override
     public void start(final Stage primaryStage) throws Exception
     {
+        LOGGER.info("Starting modeler...");
 //        this.primaryStage = primaryStage;
 
 

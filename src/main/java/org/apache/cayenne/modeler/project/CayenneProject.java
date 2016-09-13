@@ -39,9 +39,13 @@ import org.apache.cayenne.project.upgrade.UpgradeType;
 import org.apache.cayenne.resource.Resource;
 import org.apache.cayenne.resource.URLResource;
 import org.apache.cayenne.util.Util;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class CayenneProject
 {
+    private static final Log LOGGER = LogFactory.getLog(CayenneProject.class);
+
     private final String path;
     private final DataDomainAdapter dataDomainAdapter;
 
@@ -70,20 +74,19 @@ public class CayenneProject
         final UpgradeMetaData md = handler.getUpgradeMetaData();
 
         this.path = url.getPath();
+
+        // FIXME: These should be handled better.
         if (UpgradeType.DOWNGRADE_NEEDED == md.getUpgradeType())
         {
-            System.out.println("Can't open project - it was created using a newer version of Cayenne Modeler");
-            System.exit(1);
+            LOGGER.fatal("Can't open project - it was created using a newer version of Cayenne Modeler");
         }
         else if (UpgradeType.INTERMEDIATE_UPGRADE_NEEDED == md.getUpgradeType())
         {
-            System.out.println("Can't open project - it was created using an older version of Cayenne Modeler");
-            System.exit(1);
+            LOGGER.fatal("Can't open project - it was created using an older version of Cayenne Modeler");
         }
         else if (UpgradeType.UPGRADE_NEEDED == md.getUpgradeType())
         {
-            System.out.println("Can't open project - it was created using an older version of Cayenne Modeler");
-            System.exit(1);
+            LOGGER.fatal("Can't open project - it was created using an older version of Cayenne Modeler");
         }
         else
         {

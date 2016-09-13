@@ -23,6 +23,8 @@ import java.io.IOException;
 
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -32,6 +34,8 @@ public class ObjectEntityLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<ObjectEntityAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(ObjectEntityLayout.class);
+
     @FXML
     private AnchorPane classTabAnchorPane, attributesTabAnchorPane;
 
@@ -74,7 +78,7 @@ public class ObjectEntityLayout
         catch (Exception exception)
         {
             // TODO Auto-generated catch block
-            exception.printStackTrace();
+            LOGGER.error("Could not load subviews", exception);
         }
     }
 
@@ -95,7 +99,7 @@ public class ObjectEntityLayout
     @Deprecated // Unused?
     public void display(ObjEntity objEntity)
     {
-        System.out.println("trying to display: " + objEntity);
+        LOGGER.debug("trying to display: " + objEntity);
 //        objectEntityClassTabLayout.display(objEntity);
 //        objectEntityAttributesTabLayout.display(objEntity);
 //        objEntity.getAttributes()
@@ -104,7 +108,7 @@ public class ObjectEntityLayout
 //    public void tabChanged(ActionEvent event)
     public void tabChanged(Event event)
     {
-        System.out.println(event);
+        LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
 
@@ -120,6 +124,8 @@ public class ObjectEntityLayout
     @Override
     public void beginEditing()
     {
+        LOGGER.debug("begin editing " + this);
+
         objectEntityClassTabLayout.beginEditing();
         objectEntityAttributesTabLayout.beginEditing();
     }
@@ -127,6 +133,8 @@ public class ObjectEntityLayout
     @Override
     public void endEditing()
     {
+        LOGGER.debug("end editing " + this);
+
         objectEntityClassTabLayout.endEditing();
         objectEntityAttributesTabLayout.endEditing();
     }

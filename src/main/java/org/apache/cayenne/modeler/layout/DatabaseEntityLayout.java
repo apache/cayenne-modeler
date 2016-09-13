@@ -23,6 +23,8 @@ import java.io.IOException;
 
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -32,6 +34,8 @@ public class DatabaseEntityLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DatabaseEntityAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(DatabaseEntityLayout.class);
+
     @FXML
     private AnchorPane tableTabAnchorPane, columnsTabAnchorPane;
 
@@ -77,7 +81,7 @@ public class DatabaseEntityLayout
         catch (Exception exception)
         {
             // TODO Auto-generated catch block
-            exception.printStackTrace();
+            LOGGER.error("Could not load subviews", exception);
         }
     }
 
@@ -97,7 +101,7 @@ public class DatabaseEntityLayout
     @Deprecated // Unused?
     public void display(DbEntity dbEntity)
     {
-        System.out.println("trying to display: " + dbEntity);
+        LOGGER.debug("trying to display: " + dbEntity);
 //        objectEntityClassTabLayout.display(dbEntity);
 //        objectEntityAttributesTabLayout.display(dbEntity);
 //        objEntity.getAttributes()
@@ -106,7 +110,7 @@ public class DatabaseEntityLayout
 //    public void tabChanged(ActionEvent event)
     public void tabChanged(Event event)
     {
-        System.out.println(event);
+        LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
 

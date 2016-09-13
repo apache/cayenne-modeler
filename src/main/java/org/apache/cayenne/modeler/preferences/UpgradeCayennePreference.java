@@ -26,10 +26,14 @@ import java.util.Vector;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+import org.apache.cayenne.modeler.CayenneProjectManager;
 import org.apache.cayenne.modeler.utility.CayenneUserDir;
 import org.apache.commons.collections.ExtendedProperties;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class UpgradeCayennePreference extends PreferenceDecorator {
+    private static final Log LOGGER = LogFactory.getLog(CayenneProjectManager.class);
 
     /** Name of the preferences file. */
     public static final String PREFERENCES_NAME_OLD = "modeler.preferences";
@@ -86,10 +90,10 @@ public class UpgradeCayennePreference extends PreferenceDecorator {
                         }
                     }
                     catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e);
                     }
                     catch (IOException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e);
                     }
                 }
             }

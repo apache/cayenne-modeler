@@ -24,6 +24,8 @@ import java.io.IOException;
 
 import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.preferences.ModelerPreferences;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -40,6 +42,8 @@ import javafx.stage.StageStyle;
 
 public class SplashLayout extends AbstractWindowLayout
 {
+    private static final Log LOGGER = LogFactory.getLog(SplashLayout.class);
+
     @FXML
     private ListView<String> projectListView;
 
@@ -72,8 +76,6 @@ public class SplashLayout extends AbstractWindowLayout
 
     public void onOpenClicked()
     {
-        System.out.println("open clicked");
-
         try
         {
             final FileChooser fileChooser = new FileChooser();
@@ -96,19 +98,19 @@ public class SplashLayout extends AbstractWindowLayout
             }
             else
             {
-                System.out.println("Open canceled");
+                LOGGER.info("Open canceled");
             }
         }
         catch (final Exception exception)
         {
             // TODO Auto-generated catch block
-            exception.printStackTrace();
+            LOGGER.error("Could not load Cayenne model", exception);
         }
     }
 
     public void onNewClicked()
     {
-        System.out.println("new clicked");
+        LOGGER.debug("new clicked");
     }
 
     public void onOpenProjectSelected(final MouseEvent event)
@@ -119,8 +121,6 @@ public class SplashLayout extends AbstractWindowLayout
 
     public void onKeyTyped(final KeyEvent event)
     {
-//        System.out.println(event);
-
         if (event.getCharacter().equals("\r"))
             openSelectedModel();
     }
@@ -135,7 +135,7 @@ public class SplashLayout extends AbstractWindowLayout
         catch (final Exception exception)
         {
             // TODO Auto-generated catch block
-            exception.printStackTrace();
+            LOGGER.error("Could not load Cayenne model", exception);
         }
     }
 }

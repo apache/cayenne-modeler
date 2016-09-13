@@ -22,6 +22,8 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -30,6 +32,8 @@ public class DataMapLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DataMapAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(DataMapLayout.class);
+
 //    private MainWindowLayout mainWindow;
 
     @FXML
@@ -58,8 +62,7 @@ public class DataMapLayout
     @Override
     public void beginEditing()
     {
-        System.out.println("begin editing " + this);
-
+        LOGGER.debug("begin editing " + this);
 
         dataMapName.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
     }
@@ -67,7 +70,7 @@ public class DataMapLayout
     @Override
     public void endEditing()
     {
-        System.out.println("end editing " + this);
+        LOGGER.debug("end editing " + this);
 
         dataMapName.textProperty().unbindBidirectional(dataMapAdapter.getNameProperty());
     }
