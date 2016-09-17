@@ -47,16 +47,9 @@ public class ObjectEntityClassTabLayout
 
     private ObjectEntityAdapter objectEntityAdapter;
 
-    public ObjectEntityClassTabLayout(MainWindowSupport parent) throws IOException
+    public ObjectEntityClassTabLayout(final MainWindowSupport parent) throws IOException
     {
         super(parent.getMainWindow(), "/layouts/ObjectEntityClassTabLayout.fxml");
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityClassTabLayout.fxml"));
-//
-//        this.parent = parent;
-//
-//        fxmlLoader.setRoot(this);
-//        fxmlLoader.setController(this);
-//        fxmlLoader.load();
     }
 
 
@@ -73,24 +66,8 @@ public class ObjectEntityClassTabLayout
         dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
     }
 
-
-//    public void display(ObjEntity objectEntity)
-//    {
-//        this.objectEntity = objectEntity;
-//        System.out.println("trying to display: " + objectEntity);
-//
-////        abstractClassCheckbox.selectedProperty().bind(objectEntity.isAbstract());
-//    }
-//
-//    @Override
-//    public MainWindowLayout getMainWindow()
-//    {
-//        return parent.getMainWindow();
-//    }
-
-
     @Override
-    public void setPropertyAdapter(ObjectEntityAdapter objectEntityAdapter)
+    public void setPropertyAdapter(final ObjectEntityAdapter objectEntityAdapter)
     {
         this.objectEntityAdapter = objectEntityAdapter;
     }

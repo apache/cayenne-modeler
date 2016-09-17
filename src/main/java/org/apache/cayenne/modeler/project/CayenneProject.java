@@ -27,6 +27,7 @@ import java.util.Map;
 
 import org.apache.cayenne.access.DataDomain;
 import org.apache.cayenne.configuration.DataChannelDescriptor;
+import org.apache.cayenne.configuration.DataNodeDescriptor;
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
@@ -149,6 +150,11 @@ public class CayenneProject
     public Collection<DataMap> getDataMaps()
     {
         return root.getDataMaps();
+    }
+
+    public Collection<DataNodeDescriptor> getDataNodes()
+    {
+        return root.getNodeDescriptors();
     }
 
     /**

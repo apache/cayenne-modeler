@@ -19,34 +19,40 @@
 
 package org.apache.cayenne.modeler.adapters;
 
-import org.apache.cayenne.access.DataNode;
+import org.apache.cayenne.configuration.DataNodeDescriptor;
 
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
-public class DataNodeAdapter
+public class DataNodeAdapter extends CayennePropertyAdapter
 {
-    private StringProperty  nodeNameProperty;
+    private StringProperty  nameProperty;
+
     private StringProperty  dataSourceLocationProperty;
     private StringProperty  dataSourceFactoryProperty;
     private StringProperty  schemaUpdateStrategyNameProperty;
 
-    private DataNode dataNode;
+    private final DataNodeDescriptor dataNode;
 
-    public DataNodeAdapter(DataNode dataNode)
+    public DataNodeAdapter(final DataNodeDescriptor dataNode)
     {
         this.dataNode = dataNode;
 
         try
         {
-            nodeNameProperty                 = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("name").build();
-            dataSourceLocationProperty       = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceLocation").build();
-            dataSourceFactoryProperty        = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceFactory").build();
-            schemaUpdateStrategyNameProperty = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("schemaUpdateStrategyName").build();
+            nameProperty                 = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("name").build();
+//            dataSourceLocationProperty       = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceLocation").build();
+//            dataSourceFactoryProperty        = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceFactory").build();
+//            schemaUpdateStrategyNameProperty = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("schemaUpdateStrategyName").build();
         }
-        catch (NoSuchMethodException e)
+        catch (final NoSuchMethodException e)
         {
             throw new RuntimeException("Fix the builder.");
         }
+    }
+
+    public StringProperty getNameProperty()
+    {
+        return nameProperty;
     }
 }

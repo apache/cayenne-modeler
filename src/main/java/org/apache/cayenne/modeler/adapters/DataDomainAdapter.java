@@ -22,6 +22,7 @@ package org.apache.cayenne.modeler.adapters;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.cayenne.configuration.DataNodeDescriptor;
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.project.CayenneProject;
 
@@ -39,6 +40,7 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 //    private BeanPathAdapter<CayenneProject> dataDomainAdapter;
 //    private final ObservableList<DataMapAdapter> dataMapAdapters = FXCollections.emptyObservableList();
     private final List<DataMapAdapter> dataMapAdapters = new ArrayList<>(); //FXCollections.emptyObservableList();
+    private final List<DataNodeAdapter> dataNodeAdapters = new ArrayList<>(); //FXCollections.emptyObservableList();
 
     private StringProperty  domainNameProperty;
     private BooleanProperty validatingObjectsProperty;
@@ -49,6 +51,9 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
         for (final DataMap dataMap : cayenneProject.getDataMaps())
             dataMapAdapters.add(new DataMapAdapter(dataMap));
+
+        for (final DataNodeDescriptor dataNode : cayenneProject.getDataNodes())
+            dataNodeAdapters.add(new DataNodeAdapter(dataNode));
 
         try
         {
@@ -90,5 +95,10 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 //        }
 
         return dataMapAdapters;
+    }
+
+    public List<DataNodeAdapter> getDataNodeAdapters()
+    {
+        return dataNodeAdapters;
     }
 }
