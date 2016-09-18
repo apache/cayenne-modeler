@@ -29,7 +29,7 @@
                </rowConstraints>
                <children>
                   <Label alignment="CENTER_RIGHT" text="Name: " />
-                  <TextField fx:id="dataMapName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Data Node Name" GridPane.columnIndex="1" />
+                  <TextField fx:id="nameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Data Node Name" GridPane.columnIndex="1" />
                   <Label text="Development DataSource: " GridPane.rowIndex="2" />
                   <Label text="Schema Update Strategy: " GridPane.rowIndex="1" />
                   <ComboBox prefWidth="500.0" promptText="Select Local DataSource (optional)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -102,7 +102,7 @@
                            </font>
                         </Label>
                         <Label text="JNDI Location: " GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <TextField promptText="jdbc/your_name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField promptText="jdbc/jndi_location_name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane fx:id="dbcpConfigurationGrid">

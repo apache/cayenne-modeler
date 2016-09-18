@@ -59,34 +59,15 @@ public class DataDomainLayout
 
     private DataDomainAdapter dataDomainAdapter;
 
-    public DataDomainLayout(final MainWindowSupport parent) throws IOException
+    public DataDomainLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DataDomainLayout.fxml");
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DataDomainLayout.fxml"));
-//
-//        this.mainWindow = mainWindow;
-//
-//        fxmlLoader.setRoot(this);
-//        fxmlLoader.setController(this);
-//        fxmlLoader.load();
+        super(parentComponent, "/layouts/DataDomainLayout.fxml");
     }
 
-//    @Override
-//    public void initialize()
-//    {
-//        System.out.println("foobar");
-//    }
-
-//    @Override
-//    public MainWindowLayout getMainWindow()
-//    {
-//        return mainWindow;
-//    }
-
     private final ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
-        LOGGER.debug("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
-
-
+        {
+            LOGGER.debug("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
+        };
 
     @Override
     public void setPropertyAdapter(final DataDomainAdapter dataDomainAdapter)

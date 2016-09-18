@@ -46,9 +46,9 @@ public class ObjectEntityLayout
 
     private ObjectEntityAdapter objectEntityAdapter;
 
-    public ObjectEntityLayout(MainWindowSupport parent) throws IOException
+    public ObjectEntityLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/ObjectEntityLayout.fxml");
+        super(parentComponent, "/layouts/ObjectEntityLayout.fxml");
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityLayout.fxml"));
 //
 //        this.mainWindow = mainWindow;
@@ -75,7 +75,7 @@ public class ObjectEntityLayout
             loadTab(objectEntityClassTabLayout, classTabAnchorPane);
             loadTab(objectEntityAttributesTabLayout, attributesTabAnchorPane);
         }
-        catch (Exception exception)
+        catch (final Exception exception)
         {
             // TODO Auto-generated catch block
             LOGGER.error("Could not load subviews", exception);
@@ -97,7 +97,7 @@ public class ObjectEntityLayout
 //    }
 
     @Deprecated // Unused?
-    public void display(ObjEntity objEntity)
+    public void display(final ObjEntity objEntity)
     {
         LOGGER.debug("trying to display: " + objEntity);
 //        objectEntityClassTabLayout.display(objEntity);
@@ -106,14 +106,14 @@ public class ObjectEntityLayout
     }
 
 //    public void tabChanged(ActionEvent event)
-    public void tabChanged(Event event)
+    public void tabChanged(final Event event)
     {
         LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
 
     @Override
-    public void setPropertyAdapter(ObjectEntityAdapter objectEntityAdapter)
+    public void setPropertyAdapter(final ObjectEntityAdapter objectEntityAdapter)
     {
         this.objectEntityAdapter = objectEntityAdapter;
 

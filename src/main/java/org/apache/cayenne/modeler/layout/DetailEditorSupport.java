@@ -26,6 +26,4 @@ public interface DetailEditorSupport<T extends CayennePropertyAdapter>
     void setPropertyAdapter(final T propertyAdapter);
     void beginEditing();
     void endEditing();
-
-//    void windowWillClose();
 }

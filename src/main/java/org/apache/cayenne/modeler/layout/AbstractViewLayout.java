@@ -31,13 +31,14 @@ public abstract class AbstractViewLayout extends AnchorPane implements MainWindo
 {
     private static final Log LOGGER = LogFactory.getLog(AbstractViewLayout.class);
 
-    private MainWindowLayout mainWindow;
+//    private MainWindowLayout  mainWindow;
+    private final MainWindowSupport parentComponent;
 
-    protected AbstractViewLayout(MainWindowLayout mainWindow, String layout) throws IOException
+    protected AbstractViewLayout(final MainWindowSupport parentComponent, final String layout) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(layout));
+        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(layout));
 
-        this.mainWindow = mainWindow;
+        this.parentComponent = parentComponent;
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -56,7 +57,7 @@ public abstract class AbstractViewLayout extends AnchorPane implements MainWindo
         // Override in subclasses to load in any necessary sub-views.
     }
 
-    protected void loadTab(AnchorPane source, AnchorPane destination)
+    protected void loadTab(final AnchorPane source, final AnchorPane destination)
     {
         destination.getChildren().removeAll(destination.getChildren());
 
@@ -72,6 +73,11 @@ public abstract class AbstractViewLayout extends AnchorPane implements MainWindo
     @Override
     public MainWindowLayout getMainWindow()
     {
-        return mainWindow;
+        return parentComponent.getMainWindow(); //mainWindow;
+    }
+
+    public MainWindowSupport getParentComponent()
+    {
+        return parentComponent;
     }
 }

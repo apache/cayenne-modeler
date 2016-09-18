@@ -47,9 +47,9 @@ public class ObjectEntityClassTabLayout
 
     private ObjectEntityAdapter objectEntityAdapter;
 
-    public ObjectEntityClassTabLayout(final MainWindowSupport parent) throws IOException
+    public ObjectEntityClassTabLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/ObjectEntityClassTabLayout.fxml");
+        super(parentComponent, "/layouts/ObjectEntityClassTabLayout.fxml");
     }
 
 

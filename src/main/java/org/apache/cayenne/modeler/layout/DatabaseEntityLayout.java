@@ -21,7 +21,6 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,24 +47,10 @@ public class DatabaseEntityLayout
 
     private DatabaseEntityAdapter databaseEntityAdapter;
 
-    public DatabaseEntityLayout(MainWindowSupport parent) throws IOException
+    public DatabaseEntityLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DatabaseEntityLayout.fxml");
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityLayout.fxml"));
-//
-//        this.mainWindow = mainWindow;
-//
-//        fxmlLoader.setRoot(this);
-//        fxmlLoader.setController(this);
-//        fxmlLoader.load();
+        super(parentComponent, "/layouts/DatabaseEntityLayout.fxml");
     }
-
-//    @Override
-//    public void initialize()
-//    {
-//        super.initialize();
-//        System.out.println("done with init DatabaseEntityLayout");
-//    }
 
     @Override
     protected void loadSubViews()
@@ -78,44 +63,21 @@ public class DatabaseEntityLayout
             loadTab(databaseEntityTableTabLayout, tableTabAnchorPane);
             loadTab(databaseEntityColumnsTabLayout, columnsTabAnchorPane);
         }
-        catch (Exception exception)
+        catch (final Exception exception)
         {
             // TODO Auto-generated catch block
             LOGGER.error("Could not load subviews", exception);
         }
     }
 
-//    private void loadTab(AnchorPane source, AnchorPane destination)
-//    {
-//        destination.getChildren().removeAll(destination.getChildren());
-//
-//        // Make the detail view fill the pane.
-//        AnchorPane.setTopAnchor(source, 0.0);
-//        AnchorPane.setLeftAnchor(source, 0.0);
-//        AnchorPane.setRightAnchor(source, 0.0);
-//        AnchorPane.setBottomAnchor(source, 0.0);
-//
-//        destination.getChildren().add(source);
-//    }
-
-    @Deprecated // Unused?
-    public void display(DbEntity dbEntity)
-    {
-        LOGGER.debug("trying to display: " + dbEntity);
-//        objectEntityClassTabLayout.display(dbEntity);
-//        objectEntityAttributesTabLayout.display(dbEntity);
-//        objEntity.getAttributes()
-    }
-
-//    public void tabChanged(ActionEvent event)
-    public void tabChanged(Event event)
+    public void tabChanged(final Event event)
     {
         LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
 
     @Override
-    public void setPropertyAdapter(DatabaseEntityAdapter databaseEntityAdapter)
+    public void setPropertyAdapter(final DatabaseEntityAdapter databaseEntityAdapter)
     {
         this.databaseEntityAdapter = databaseEntityAdapter;
 

@@ -21,7 +21,6 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 
 public class DatabaseEntityTableTabLayout
@@ -38,37 +37,13 @@ public class DatabaseEntityTableTabLayout
 
     private DatabaseEntityAdapter databaseEntityAdapter;
 
-    public DatabaseEntityTableTabLayout(MainWindowSupport parent) throws IOException
+    public DatabaseEntityTableTabLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DatabaseEntityTableTabLayout.fxml");
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityTableTabLayout.fxml"));
-//
-//        this.parent = parent;
-//
-//        fxmlLoader.setRoot(this);
-//        fxmlLoader.setController(this);
-//        fxmlLoader.load();
-    }
-
-
-//    @Override
-//    public void initialize()
-//    {
-////        dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
-//    }
-
-//    private ObjEntity objectEntity;
-    @Deprecated // Unused?
-    public void display(DbEntity databaseEntity)
-    {
-//        this.objectEntity = objectEntity;
-//        System.out.println("trying to display: " + objectEntity);
-
-//        abstractClassCheckbox.selectedProperty().bind(objectEntity.isAbstract());
+        super(parentComponent, "/layouts/DatabaseEntityTableTabLayout.fxml");
     }
 
     @Override
-    public void setPropertyAdapter(DatabaseEntityAdapter databaseEntityAdapter)
+    public void setPropertyAdapter(final DatabaseEntityAdapter databaseEntityAdapter)
     {
         this.databaseEntityAdapter = databaseEntityAdapter;
     }
@@ -82,15 +57,4 @@ public class DatabaseEntityTableTabLayout
     public void endEditing()
     {
     }
-
-//    @Override
-//    protected void loadComponents()
-//    {
-//    }
-
-//    @Override
-//    public MainWindowLayout getMainWindow()
-//    {
-//        return parent.getMainWindow();
-//    }
 }

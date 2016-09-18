@@ -41,9 +41,9 @@ public class DataMapLayout
 
     private DataMapAdapter dataMapAdapter;
 
-    public DataMapLayout(final MainWindowSupport parent) throws IOException
+    public DataMapLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DataMapLayout.fxml");
+        super(parentComponent, "/layouts/DataMapLayout.fxml");
     }
 
     @Override

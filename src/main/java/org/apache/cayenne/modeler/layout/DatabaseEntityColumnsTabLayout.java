@@ -65,9 +65,9 @@ public class DatabaseEntityColumnsTabLayout
 
     private DatabaseEntityAdapter databaseEntityAdapter;
 
-    public DatabaseEntityColumnsTabLayout(MainWindowSupport parent) throws IOException
+    public DatabaseEntityColumnsTabLayout(final MainWindowSupport parent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DatabaseEntityColumnsTabLayout.fxml");
+        super(parent, "/layouts/DatabaseEntityColumnsTabLayout.fxml");
 //        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/DatabaseEntityColumnsTabLayout.fxml"));
 //
 //        this.parent = parent;
@@ -139,7 +139,7 @@ public class DatabaseEntityColumnsTabLayout
 //
 //            loadTab(objectEntityClassTabViewController, classTabAnchorPane);
         }
-        catch (Exception exception)
+        catch (final Exception exception)
         {
             // TODO Auto-generated catch block
 //            exception.printStackTrace();
@@ -161,7 +161,7 @@ public class DatabaseEntityColumnsTabLayout
 //    }
 
     @Deprecated // Unused?
-    public void display(DbEntity dbEntity)
+    public void display(final DbEntity dbEntity)
     {
         LOGGER.debug("trying to display: " + dbEntity);
 //        attributesTableView.setItems(FXCollections.observableArrayList(objEntity.getAttributes()));
@@ -170,14 +170,14 @@ public class DatabaseEntityColumnsTabLayout
     }
 
 //    public void tabChanged(ActionEvent event)
-    public void tabChanged(Event event)
+    public void tabChanged(final Event event)
     {
         LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
 
     @Override
-    public void setPropertyAdapter(DatabaseEntityAdapter databaseEntityAdapter)
+    public void setPropertyAdapter(final DatabaseEntityAdapter databaseEntityAdapter)
     {
         this.databaseEntityAdapter = databaseEntityAdapter;
     }

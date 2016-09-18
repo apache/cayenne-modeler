@@ -53,9 +53,9 @@ public class DataNodeLayout
 
     private DataNodeAdapter dataNodeAdapter;
 
-    public DataNodeLayout(final MainWindowSupport parent) throws IOException
+    public DataNodeLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DataNodeLayout.fxml");
+        super(parentComponent, "/layouts/DataNodeLayout.fxml");
     }
 
     @Override
@@ -82,6 +82,10 @@ public class DataNodeLayout
     public void setPropertyAdapter(final DataNodeAdapter dataNodeAdapter)
     {
         this.dataNodeAdapter = dataNodeAdapter;
+
+        dataNodeConfigurationTabLayout.setPropertyAdapter(dataNodeAdapter);
+        dataNodeDatabaseAdapterTabLayout.setPropertyAdapter(dataNodeAdapter);
+        dataNodePasswordEncoderTabLayout.setPropertyAdapter(dataNodeAdapter);
     }
 
     @Override
@@ -89,7 +93,9 @@ public class DataNodeLayout
     {
         LOGGER.debug("begin editing " + this);
 
-//        dataMapName.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
+        dataNodeConfigurationTabLayout.beginEditing();
+        dataNodeDatabaseAdapterTabLayout.beginEditing();
+        dataNodePasswordEncoderTabLayout.beginEditing();
     }
 
     @Override
@@ -97,7 +103,9 @@ public class DataNodeLayout
     {
         LOGGER.debug("end editing " + this);
 
-//        dataMapName.textProperty().unbindBidirectional(dataMapAdapter.getNameProperty());
+        dataNodeConfigurationTabLayout.endEditing();
+        dataNodeDatabaseAdapterTabLayout.endEditing();
+        dataNodePasswordEncoderTabLayout.endEditing();
     }
 
     public void tabChanged(final Event event)

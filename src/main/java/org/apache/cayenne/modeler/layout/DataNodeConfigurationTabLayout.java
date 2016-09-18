@@ -33,14 +33,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class DataNodeConfigurationTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DataNodeAdapter>
-
 {
     private static final Log LOGGER = LogFactory.getLog(DataNodeConfigurationTabLayout.class);
+
+    @FXML
+    private TextField nameTextField;
 
     @FXML
     private ComboBox<String> dataSourceFactoryComboBox;
@@ -75,13 +78,11 @@ public class DataNodeConfigurationTabLayout
 //    private ObjectEntityClassTabLayout objectEntityClassTabViewController;
 
     private DataNodeAdapter dataNodeAdapter;
-    private final DataNodeLayout parent;
+//    private final DataNodeLayout parent;
 
-    public DataNodeConfigurationTabLayout(final DataNodeLayout parent) throws IOException
+    public DataNodeConfigurationTabLayout(final DataNodeLayout parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DataNodeConfigurationTabLayout.fxml");
-
-        this.parent = parent;
+        super(parentComponent, "/layouts/DataNodeConfigurationTabLayout.fxml");
     }
 
     private final String dataSourceJdbcConfigurationSetting = "org.apache.cayenne.configuration.server.XMLPoolingDataSourceFactory";
@@ -116,10 +117,12 @@ public class DataNodeConfigurationTabLayout
                 dbcpConfigurationGrid.setVisible(dbcp);
                 dbcpConfigurationGrid.setManaged(dbcp);
 
+                final DataNodeLayout dataNodeLayout = (DataNodeLayout) getParentComponent();
+
                 if (jdbc)
-                    parent.enablePasswordEncoderTab();
+                    dataNodeLayout.enablePasswordEncoderTab();
                 else
-                    parent.disablePasswordEncoderTab();
+                    dataNodeLayout.disablePasswordEncoderTab();
             });
 
         dataSourceFactoryComboBox.getSelectionModel().select(0);
@@ -155,10 +158,12 @@ public class DataNodeConfigurationTabLayout
     @Override
     public void beginEditing()
     {
+        nameTextField.textProperty().bindBidirectional(dataNodeAdapter.getNameProperty());
     }
 
     @Override
     public void endEditing()
     {
+        nameTextField.textProperty().unbindBidirectional(dataNodeAdapter.getNameProperty());
     }
 }

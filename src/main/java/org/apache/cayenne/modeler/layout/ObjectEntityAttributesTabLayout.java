@@ -24,14 +24,12 @@ import java.io.IOException;
 import org.apache.cayenne.map.ObjAttribute;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
-import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -66,29 +64,16 @@ public class ObjectEntityAttributesTabLayout
 
     private ObjectEntityAdapter objectEntityAdapter;
 
-    public ObjectEntityAttributesTabLayout(MainWindowSupport parent) throws IOException
+    public ObjectEntityAttributesTabLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/ObjectEntityAttributesTabLayout.fxml");
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityAttributesTabLayout.fxml"));
-//
-//        this.parent = parent;
-//
-//        fxmlLoader.setRoot(this);
-//        fxmlLoader.setController(this);
-//        fxmlLoader.load();
+        super(parentComponent, "/layouts/ObjectEntityAttributesTabLayout.fxml");
     }
 
-    private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.getRegisteredTypeNames());
+//    private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.getRegisteredTypeNames());
 
     @Override
     public void initialize()
     {
-//        getScene().getWindow().getScene();
-//        getStage().getScene().getWindow().get
-//        System.out.println("mrg: " + getStage().getScene().getRoot());
-//        System.out.println("oeatv");
-//
-//        loadComponents();
         super.initialize();
 
         attributeUsedForLockingColumn.setText(null);
@@ -145,21 +130,7 @@ public class ObjectEntityAttributesTabLayout
 //        }
 //    }
 
-//    @Override
-//    private void loadTab(AnchorPane source, AnchorPane destination)
-//    {
-//        destination.getChildren().removeAll(destination.getChildren());
-//
-//        // Make the detail view fill the pane.
-//        AnchorPane.setTopAnchor(source, 0.0);
-//        AnchorPane.setLeftAnchor(source, 0.0);
-//        AnchorPane.setRightAnchor(source, 0.0);
-//        AnchorPane.setBottomAnchor(source, 0.0);
-//
-//        destination.getChildren().add(source);
-//    }
-
-    public void display(ObjEntity objEntity)
+    public void display(final ObjEntity objEntity)
     {
         LOGGER.debug("trying to display: " + objEntity);
         attributesTableView.setItems(FXCollections.observableArrayList(objEntity.getAttributes()));
@@ -167,21 +138,14 @@ public class ObjectEntityAttributesTabLayout
 //        objEntity.getAttributes()
     }
 
-//    public void tabChanged(ActionEvent event)
-    public void tabChanged(Event event)
+    public void tabChanged(final Event event)
     {
         LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
     }
-//
-//    @Override
-//    public MainWindowLayout getMainWindow()
-//    {
-//        return parent.getMainWindow();
-//    }
 
     @Override
-    public void setPropertyAdapter(ObjectEntityAdapter objectEntityAdapter)
+    public void setPropertyAdapter(final ObjectEntityAdapter objectEntityAdapter)
     {
         this.objectEntityAdapter = objectEntityAdapter;
     }

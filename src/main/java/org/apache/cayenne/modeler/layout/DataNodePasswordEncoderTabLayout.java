@@ -62,9 +62,9 @@ public class DataNodePasswordEncoderTabLayout
     private final String passwordLocationUrlSetting        = "URL (file:, https:, etc.)";
 
 
-    public DataNodePasswordEncoderTabLayout(final MainWindowSupport parent) throws IOException
+    public DataNodePasswordEncoderTabLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DataNodePasswordEncoderTabLayout.fxml");
+        super(parentComponent, "/layouts/DataNodePasswordEncoderTabLayout.fxml");
     }
 
     @Override

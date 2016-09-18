@@ -36,9 +36,9 @@ public class DataNodeDatabaseAdapterTabLayout
 
     private DataNodeAdapter dataNodeAdapter;
 
-    public DataNodeDatabaseAdapterTabLayout(final MainWindowSupport parent) throws IOException
+    public DataNodeDatabaseAdapterTabLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DataNodeDatabaseAdapterTabLayout.fxml");
+        super(parentComponent.getMainWindow(), "/layouts/DataNodeDatabaseAdapterTabLayout.fxml");
     }
 
     @Override
