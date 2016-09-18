@@ -25,8 +25,11 @@ import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -47,6 +50,9 @@ public class DataNodeConfigurationTabLayout
 
     @FXML
     private GridPane jdbcConfigurationGrid, jndiConfigurationGrid, dbcpConfigurationGrid;
+
+    @FXML
+    private Button configureDevelopmentDataSourceButton;
 
 //    @FXML
 //    private TableView<ObjAttribute> attributesTableView;
@@ -84,6 +90,9 @@ public class DataNodeConfigurationTabLayout
     {
         super.initialize();
 
+        configureDevelopmentDataSourceButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.COGS, "16px"));
+        configureDevelopmentDataSourceButton.setText("");
+
 //        dataSourceFactoryComboBox.getItems().removeAll(dataSourceFactoryComboBox.getItems());
         dataSourceFactoryComboBox.getItems().add(dataSourceJdbcConfigurationSetting);
         dataSourceFactoryComboBox.getItems().add(dataSourceJndiConfigurationSetting);
@@ -114,12 +123,6 @@ public class DataNodeConfigurationTabLayout
             {
                 if (newValue.intValue() > maximumConnectionsSpinner.getValue().intValue())
                     maximumConnectionsSpinner.getValueFactory().setValue(newValue);
-//            if (oldValue.intValue() == 59 && newValue.intValue() == 0) {
-//                hourSpinner.increment();
-//            }
-//            if (oldValue.intValue() == 0 && newValue.intValue() == 59) {
-//                hourSpinner.decrement();
-//            }
             });
 
         maximumConnectionsSpinner.valueProperty().addListener((obs, oldValue, newValue) ->

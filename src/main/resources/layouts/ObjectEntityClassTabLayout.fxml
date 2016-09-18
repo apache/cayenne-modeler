@@ -81,7 +81,7 @@
                   <Label text="Superclass: " GridPane.rowIndex="1" />
                   <Label text="Qualifier: " GridPane.rowIndex="6" />
                   <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="some.package.here" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="some.package.here.SuperClass" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="some.package.here.SuperClassName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <HBox GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
                      <children>

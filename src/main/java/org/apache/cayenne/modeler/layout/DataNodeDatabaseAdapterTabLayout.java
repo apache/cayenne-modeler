@@ -21,50 +21,51 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.modeler.adapters.DataMapAdapter;
+import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.event.Event;
 
-public class DataMapLayout
+public class DataNodeDatabaseAdapterTabLayout
     extends AbstractViewLayout
-    implements DetailEditorSupport<DataMapAdapter>
+    implements DetailEditorSupport<DataNodeAdapter>
+
 {
-    private static final Log LOGGER = LogFactory.getLog(DataMapLayout.class);
+    private static final Log LOGGER = LogFactory.getLog(DataNodeDatabaseAdapterTabLayout.class);
 
-//    private MainWindowLayout mainWindow;
+    private DataNodeAdapter dataNodeAdapter;
 
-    @FXML
-    private TextField dataMapName;
-
-    private DataMapAdapter dataMapAdapter;
-
-    public DataMapLayout(final MainWindowSupport parent) throws IOException
+    public DataNodeDatabaseAdapterTabLayout(final MainWindowSupport parent) throws IOException
     {
-        super(parent.getMainWindow(), "/layouts/DataMapLayout.fxml");
+        super(parent.getMainWindow(), "/layouts/DataNodeDatabaseAdapterTabLayout.fxml");
     }
 
     @Override
-    public void setPropertyAdapter(final DataMapAdapter dataMapAdapter)
+    public void initialize()
     {
-        this.dataMapAdapter = dataMapAdapter;
+        super.initialize();
+    }
+
+    public void tabChanged(final Event event)
+    {
+        LOGGER.debug("event: " + event);
+        getMainWindow().getCayenneProject().getDataMaps();
+    }
+
+    @Override
+    public void setPropertyAdapter(final DataNodeAdapter dataNodeAdapter)
+    {
+        this.dataNodeAdapter = dataNodeAdapter;
     }
 
     @Override
     public void beginEditing()
     {
-        LOGGER.debug("begin editing " + this);
-
-        dataMapName.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
     }
 
     @Override
     public void endEditing()
     {
-        LOGGER.debug("end editing " + this);
-
-        dataMapName.textProperty().unbindBidirectional(dataMapAdapter.getNameProperty());
     }
 }

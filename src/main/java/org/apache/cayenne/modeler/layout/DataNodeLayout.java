@@ -44,6 +44,7 @@ public class DataNodeLayout
 //    private TextField dataMapName;
 
     private DataNodeConfigurationTabLayout dataNodeConfigurationTabLayout;
+    private DataNodeDatabaseAdapterTabLayout dataNodeDatabaseAdapterTabLayout;
 
     private DataNodeAdapter dataNodeAdapter;
 
@@ -57,9 +58,11 @@ public class DataNodeLayout
     {
         try
         {
-            dataNodeConfigurationTabLayout      = new DataNodeConfigurationTabLayout(this);
+            dataNodeConfigurationTabLayout   = new DataNodeConfigurationTabLayout(this);
+            dataNodeDatabaseAdapterTabLayout = new DataNodeDatabaseAdapterTabLayout(this);
 
             loadTab(dataNodeConfigurationTabLayout, configurationTabAnchorPane);
+            loadTab(dataNodeDatabaseAdapterTabLayout, databaseAdapterTabAnchorPane);
         }
         catch (final Exception exception)
         {
