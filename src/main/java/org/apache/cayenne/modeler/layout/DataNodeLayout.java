@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 
 public class DataNodeLayout
@@ -38,6 +39,9 @@ public class DataNodeLayout
     @FXML
     private AnchorPane configurationTabAnchorPane, databaseAdapterTabAnchorPane, passwordEncoderTabAnchorPane;
 
+    @FXML
+    private Tab passwordEncoderTab;
+
 //    private MainWindowLayout mainWindow;
 
 //    @FXML
@@ -45,6 +49,7 @@ public class DataNodeLayout
 
     private DataNodeConfigurationTabLayout dataNodeConfigurationTabLayout;
     private DataNodeDatabaseAdapterTabLayout dataNodeDatabaseAdapterTabLayout;
+    private DataNodePasswordEncoderTabLayout dataNodePasswordEncoderTabLayout;
 
     private DataNodeAdapter dataNodeAdapter;
 
@@ -60,9 +65,11 @@ public class DataNodeLayout
         {
             dataNodeConfigurationTabLayout   = new DataNodeConfigurationTabLayout(this);
             dataNodeDatabaseAdapterTabLayout = new DataNodeDatabaseAdapterTabLayout(this);
+            dataNodePasswordEncoderTabLayout = new DataNodePasswordEncoderTabLayout(this);
 
             loadTab(dataNodeConfigurationTabLayout, configurationTabAnchorPane);
             loadTab(dataNodeDatabaseAdapterTabLayout, databaseAdapterTabAnchorPane);
+            loadTab(dataNodePasswordEncoderTabLayout, passwordEncoderTabAnchorPane);
         }
         catch (final Exception exception)
         {
@@ -97,5 +104,15 @@ public class DataNodeLayout
     {
         LOGGER.debug("event: " + event);
         getMainWindow().getCayenneProject().getDataMaps();
+    }
+
+    public void disablePasswordEncoderTab()
+    {
+        passwordEncoderTab.setDisable(true);
+    }
+
+    public void enablePasswordEncoderTab()
+    {
+        passwordEncoderTab.setDisable(false);
     }
 }

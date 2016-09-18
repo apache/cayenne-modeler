@@ -75,10 +75,13 @@ public class DataNodeConfigurationTabLayout
 //    private ObjectEntityClassTabLayout objectEntityClassTabViewController;
 
     private DataNodeAdapter dataNodeAdapter;
+    private final DataNodeLayout parent;
 
-    public DataNodeConfigurationTabLayout(final MainWindowSupport parent) throws IOException
+    public DataNodeConfigurationTabLayout(final DataNodeLayout parent) throws IOException
     {
         super(parent.getMainWindow(), "/layouts/DataNodeConfigurationTabLayout.fxml");
+
+        this.parent = parent;
     }
 
     private final String dataSourceJdbcConfigurationSetting = "org.apache.cayenne.configuration.server.XMLPoolingDataSourceFactory";
@@ -112,6 +115,11 @@ public class DataNodeConfigurationTabLayout
 
                 dbcpConfigurationGrid.setVisible(dbcp);
                 dbcpConfigurationGrid.setManaged(dbcp);
+
+                if (jdbc)
+                    parent.enablePasswordEncoderTab();
+                else
+                    parent.disablePasswordEncoderTab();
             });
 
         dataSourceFactoryComboBox.getSelectionModel().select(0);

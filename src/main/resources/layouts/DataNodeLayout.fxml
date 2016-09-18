@@ -26,7 +26,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Password Encoder">
+            <Tab fx:id="passwordEncoderTab" text="Password Encoder">
                <content>
                   <AnchorPane fx:id="passwordEncoderTabAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -34,6 +34,9 @@
                      </children>
                   </AnchorPane>
                </content>
+               <tooltip>
+                  <Tooltip text="Only available for JDBC DataSource factories." />
+               </tooltip>
             </Tab>
          </tabs>
       </TabPane>
