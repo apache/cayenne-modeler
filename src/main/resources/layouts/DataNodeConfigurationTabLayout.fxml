@@ -33,7 +33,7 @@
                   <Label text="Development DataSource: " GridPane.rowIndex="2" />
                   <Label text="Schema Update Strategy: " GridPane.rowIndex="1" />
                   <ComboBox prefWidth="500.0" promptText="Select Local DataSource (optional)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox editable="true" prefWidth="500.0" promptText="Enter or Choose..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="schemaUpdateStrategyComboBox" editable="true" prefWidth="500.0" promptText="Enter or Choose..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Button fx:id="configureDevelopmentDataSourceButton" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />

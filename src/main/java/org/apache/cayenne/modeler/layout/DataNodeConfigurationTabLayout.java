@@ -21,6 +21,12 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
+import org.apache.cayenne.access.dbsync.CreateIfNoSchemaStrategy;
+import org.apache.cayenne.access.dbsync.SkipSchemaUpdateStrategy;
+import org.apache.cayenne.access.dbsync.ThrowOnPartialOrCreateSchemaStrategy;
+import org.apache.cayenne.access.dbsync.ThrowOnPartialSchemaStrategy;
+import org.apache.cayenne.configuration.server.JNDIDataSourceFactory;
+import org.apache.cayenne.configuration.server.XMLPoolingDataSourceFactory;
 import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,7 +52,7 @@ public class DataNodeConfigurationTabLayout
     private TextField nameTextField;
 
     @FXML
-    private ComboBox<String> dataSourceFactoryComboBox;
+    private ComboBox<String> dataSourceFactoryComboBox, schemaUpdateStrategyComboBox;
 
     @FXML
     private Spinner<Integer> minimumConnectionsSpinner, maximumConnectionsSpinner;
@@ -80,14 +86,27 @@ public class DataNodeConfigurationTabLayout
     private DataNodeAdapter dataNodeAdapter;
 //    private final DataNodeLayout parent;
 
+    private static final String[] standardSchemaUpdateStrategies =
+                    {
+                        SkipSchemaUpdateStrategy.class.getName(),
+                        CreateIfNoSchemaStrategy.class.getName(),
+                        ThrowOnPartialSchemaStrategy.class.getName(),
+                        ThrowOnPartialOrCreateSchemaStrategy.class.getName()
+                    };
+
+    private static final String DBCP_DATA_SOURCE_FACTORY = "org.apache.cayenne.configuration.server.DBCPDataSourceFactory";
+
+    private static final String[] standardDataSourceFactories =
+                    {
+                        XMLPoolingDataSourceFactory.class.getName(),
+                        JNDIDataSourceFactory.class.getName(),
+                        DBCP_DATA_SOURCE_FACTORY
+                    };
+
     public DataNodeConfigurationTabLayout(final DataNodeLayout parentComponent) throws IOException
     {
         super(parentComponent, "/layouts/DataNodeConfigurationTabLayout.fxml");
     }
-
-    private final String dataSourceJdbcConfigurationSetting = "org.apache.cayenne.configuration.server.XMLPoolingDataSourceFactory";
-    private final String dataSourceJndiConfigurationSetting = "org.apache.cayenne.configuration.server.JNDIDataSourceFactory";
-    private final String dataSourceDbcpConfigurationSetting = "org.apache.cayenne.configuration.server.DBCPDataSourceFactory";
 
     @Override
     public void initialize()
@@ -97,16 +116,16 @@ public class DataNodeConfigurationTabLayout
         configureDevelopmentDataSourceButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.COGS, "16px"));
         configureDevelopmentDataSourceButton.setText("");
 
-//        dataSourceFactoryComboBox.getItems().removeAll(dataSourceFactoryComboBox.getItems());
-        dataSourceFactoryComboBox.getItems().add(dataSourceJdbcConfigurationSetting);
-        dataSourceFactoryComboBox.getItems().add(dataSourceJndiConfigurationSetting);
-        dataSourceFactoryComboBox.getItems().add(dataSourceDbcpConfigurationSetting);
+        schemaUpdateStrategyComboBox.getItems().addAll(standardSchemaUpdateStrategies);
+        schemaUpdateStrategyComboBox.getSelectionModel().select(0);
+
+        dataSourceFactoryComboBox.getItems().addAll(standardDataSourceFactories);
 
         dataSourceFactoryComboBox.valueProperty().addListener((obs, oldValue, newValue) ->
             {
-                final boolean jdbc = newValue.equals(dataSourceJdbcConfigurationSetting);
-                final boolean jndi = newValue.equals(dataSourceJndiConfigurationSetting);
-                final boolean dbcp = newValue.equals(dataSourceDbcpConfigurationSetting);
+                final boolean jdbc = newValue.equals(XMLPoolingDataSourceFactory.class.getName());
+                final boolean jndi = newValue.equals(JNDIDataSourceFactory.class.getName());
+                final boolean dbcp = newValue.equals(DBCP_DATA_SOURCE_FACTORY);
 
                 jdbcConfigurationGrid.setVisible(jdbc);
                 jdbcConfigurationGrid.setManaged(jdbc);
