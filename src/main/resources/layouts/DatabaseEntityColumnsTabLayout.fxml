@@ -37,6 +37,9 @@
                </VBox.margin>
             </HBox>
             <TableView fx:id="attributesTableView" VBox.vgrow="ALWAYS">
+              <placeholder>
+                <Label text="No database columns have been defined; please add them using the toolbar above." />
+              </placeholder>
                <columns>
                   <TableColumn fx:id="primaryKeyColumn" editable="false" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" resizable="false" sortable="false" text="K" />
                   <TableColumn fx:id="mandatoryColumn" editable="false" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" resizable="false" sortable="false" text="M" />

@@ -41,6 +41,9 @@
                </font>
             </Label>
             <ListView fx:id="projectListView" onKeyTyped="#onKeyTyped" onMouseClicked="#onOpenProjectSelected" prefHeight="200.0" prefWidth="200.0">
+               <placeholder>
+                  <Label text="No previously opened projects found; please open or create a new one." />
+               </placeholder>
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
