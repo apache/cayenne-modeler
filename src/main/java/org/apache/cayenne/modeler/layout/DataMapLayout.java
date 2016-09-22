@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 public class DataMapLayout
@@ -37,7 +38,10 @@ public class DataMapLayout
 //    private MainWindowLayout mainWindow;
 
     @FXML
-    private TextField dataMapName;
+    private TextField dataMapNameTextField;
+
+    @FXML
+    private CheckBox quoteSqlIdentifiersCheckBox;
 
     private DataMapAdapter dataMapAdapter;
 
@@ -57,7 +61,8 @@ public class DataMapLayout
     {
         LOGGER.debug("begin editing " + this);
 
-        dataMapName.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
+        dataMapNameTextField.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
+        quoteSqlIdentifiersCheckBox.selectedProperty().bindBidirectional(dataMapAdapter.getQuoteSQLIdentifiersProperty());
     }
 
     @Override
@@ -65,6 +70,7 @@ public class DataMapLayout
     {
         LOGGER.debug("end editing " + this);
 
-        dataMapName.textProperty().unbindBidirectional(dataMapAdapter.getNameProperty());
+        dataMapNameTextField.textProperty().unbindBidirectional(dataMapAdapter.getNameProperty());
+        quoteSqlIdentifiersCheckBox.selectedProperty().unbindBidirectional(dataMapAdapter.getQuoteSQLIdentifiersProperty());
     }
 }

@@ -73,7 +73,8 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
             nameProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("name").build();
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
 
-//            quoteSQLIdentifiersProperty = JavaBeanBooleanPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_QUOTE_SQL_IDENTIFIERS_PROPERTY).build();
+            // TODO: Fix Cayenne?  The DEFAULT_QUOTE_SQL_IDENTIFIERS_PROPERTY constant is incorrect.
+            quoteSQLIdentifiersProperty = JavaBeanBooleanPropertyBuilder.create().bean(dataMap).name("quotingSQLIdentifiers").build();
 
             defaultCatalogProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_CATALOG_PROPERTY).build();
             defaultSchemaProperty  = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_SCHEMA_PROPERTY).build();
