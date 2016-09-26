@@ -33,7 +33,7 @@ public class DataMapTreeItem extends TreeItem<String> implements CayenneTreeItem
     {
         this.dataMapAdapter = dataMapAdapter;
 
-        valueProperty().bindBidirectional(dataMapAdapter.getNameProperty());
+        valueProperty().bindBidirectional(dataMapAdapter.nameProperty());
         setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CUBES, TREE_ICON_SIZE));
         parent.getChildren().add(this);
         setExpanded(true);

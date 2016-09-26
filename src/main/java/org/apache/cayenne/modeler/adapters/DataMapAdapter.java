@@ -109,60 +109,49 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
 //        this.dataMapAdapter = new BeanPathAdapter<DataMap>(dataMap);
     }
 
-    public StringProperty getNameProperty()
-    {
-        return nameProperty;
-    }
+    public StringProperty nameProperty() { return nameProperty; }
+    public String getName() { return nameProperty.get(); }
+    public void setName(final String value) { nameProperty.set(value); }
 
-    public StringProperty getLocationProperty()
-    {
-        return locationProperty;
-    }
+    public StringProperty locationProperty() { return locationProperty; }
+    public String getLocationProperty() { return locationProperty.get(); }
+    public void setLocationProperty(final String value) { locationProperty.set(value); }
 
-    public BooleanProperty getQuoteSQLIdentifiersProperty()
-    {
-        return quoteSQLIdentifiersProperty;
-    }
+    public BooleanProperty quoteSQLIdentifiersProperty() { return quoteSQLIdentifiersProperty; }
+    public Boolean getQuoteSQLIdentifiersProperty() { return quoteSQLIdentifiersProperty.get(); }
+    public void setQuoteSQLIdentifiersProperty(final Boolean value) { quoteSQLIdentifiersProperty.set(value); }
 
-    public StringProperty getDefaultCatalogProperty()
-    {
-        return defaultCatalogProperty;
-    }
+    public StringProperty defaultCatalogProperty() { return defaultCatalogProperty; }
+    public String getDefaultCatalogProperty() { return defaultCatalogProperty.get(); }
+    public void setDefaultCatalogProperty(final String value) { defaultCatalogProperty.set(value); }
 
-    public StringProperty getDefaultSchemaProperty()
-    {
-        return defaultSchemaProperty;
-    }
+    public StringProperty defaultSchemaProperty() { return defaultSchemaProperty; }
+    public String getDefaultSchemaProperty() { return defaultSchemaProperty.get(); }
+    public void setDefaultSchemaProperty(final String value) { defaultSchemaProperty.set(value); }
 
-    public StringProperty getDefaultPackageProperty()
-    {
-        return defaultPackageProperty;
-    }
+    public StringProperty defaultPackageProperty() { return defaultPackageProperty; }
+    public String getDefaultPackageProperty() { return defaultPackageProperty.get(); }
+    public void setDefaultPackageProperty(final String value) { defaultPackageProperty.set(value); }
 
-    public StringProperty getDefaultSuperclassProperty()
-    {
-        return defaultSuperclassProperty;
-    }
+    public StringProperty defaultSuperclassProperty() { return defaultSuperclassProperty; }
+    public String getDefaultSuperclassProperty() { return defaultSuperclassProperty.get(); }
+    public void setDefaultSuperclassProperty(final String value) { defaultSuperclassProperty.set(value); }
 
-    public IntegerProperty getDefaultLockTypeProperty()
-    {
-        return defaultLockTypeProperty;
-    }
+    public IntegerProperty defaultLockTypeProperty() { return defaultLockTypeProperty; }
+    public Integer getDefaultLockTypeProperty() { return defaultLockTypeProperty.get(); }
+    public void setDefaultLockTypeProperty(final Integer value) { defaultLockTypeProperty.set(value); }
 
-    public BooleanProperty getClientSupportedProperty()
-    {
-        return clientSupportedProperty;
-    }
+    public BooleanProperty clientSupportedProperty() { return clientSupportedProperty; }
+    public Boolean getClientSupportedProperty() { return clientSupportedProperty.get(); }
+    public void setClientSupportedProperty(final Boolean value) { clientSupportedProperty.set(value); }
 
-    public StringProperty getDefaultClientPackageProperty()
-    {
-        return defaultClientPackageProperty;
-    }
+    public StringProperty defaultClientPackageProperty() { return defaultClientPackageProperty; }
+    public String getDefaultClientPackageProperty() { return defaultClientPackageProperty.get(); }
+    public void setDefaultClientPackageProperty(final String value) { defaultClientPackageProperty.set(value); }
 
-    public StringProperty getDefaultClientSuperclassProperty()
-    {
-        return defaultClientSuperclassProperty;
-    }
+    public StringProperty defaultClientSuperclassProperty() { return defaultClientSuperclassProperty; }
+    public String getDefaultClientSuperclassProperty() { return defaultClientSuperclassProperty.get(); }
+    public void setDefaultClientSuperclassProperty(final String value) { defaultClientSuperclassProperty.set(value); }
 
     public List<ObjectEntityAdapter> getObjectEntityAdapters()
     {

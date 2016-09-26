@@ -61,8 +61,8 @@ public class DataMapLayout
     {
         LOGGER.debug("begin editing " + this);
 
-        dataMapNameTextField.textProperty().bindBidirectional(dataMapAdapter.getNameProperty());
-        quoteSqlIdentifiersCheckBox.selectedProperty().bindBidirectional(dataMapAdapter.getQuoteSQLIdentifiersProperty());
+        dataMapNameTextField.textProperty().bindBidirectional(dataMapAdapter.nameProperty());
+        quoteSqlIdentifiersCheckBox.selectedProperty().bindBidirectional(dataMapAdapter.quoteSQLIdentifiersProperty());
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DataMapLayout
     {
         LOGGER.debug("end editing " + this);
 
-        dataMapNameTextField.textProperty().unbindBidirectional(dataMapAdapter.getNameProperty());
-        quoteSqlIdentifiersCheckBox.selectedProperty().unbindBidirectional(dataMapAdapter.getQuoteSQLIdentifiersProperty());
+        dataMapNameTextField.textProperty().unbindBidirectional(dataMapAdapter.nameProperty());
+        quoteSqlIdentifiersCheckBox.selectedProperty().unbindBidirectional(dataMapAdapter.quoteSQLIdentifiersProperty());
     }
 }
