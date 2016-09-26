@@ -69,13 +69,11 @@ public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements 
 //        this.dataMapAdapter = new BeanPathAdapter<DataMap>(dataMap);
     }
 
-    public StringProperty getNameProperty()
-    {
-        return nameProperty;
-    }
+    public StringProperty nameProperty() { return nameProperty; }
+    public String getName() { return nameProperty.get(); }
+    public void setName(final String value) { nameProperty.set(value); }
 
-    public StringProperty getLocationProperty()
-    {
-        return locationProperty;
-    }
+    public StringProperty locationProperty() { return locationProperty; }
+    public String getLocationProperty() { return locationProperty.get(); }
+    public void setLocationProperty(final String value) { locationProperty.set(value); }
 }

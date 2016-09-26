@@ -33,7 +33,7 @@ public class DatabaseEntityTreeItem extends TreeItem<String> implements CayenneT
     {
         this.databaseEntityAdapter = databaseEntityAdapter;
 
-        valueProperty().bindBidirectional(databaseEntityAdapter.getNameProperty());
+        valueProperty().bindBidirectional(databaseEntityAdapter.nameProperty());
         setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.TABLE, TREE_ICON_SIZE));
         parent.getChildren().add(this);
         setExpanded(true);
