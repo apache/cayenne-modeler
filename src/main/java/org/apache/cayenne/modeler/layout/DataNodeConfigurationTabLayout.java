@@ -177,12 +177,12 @@ public class DataNodeConfigurationTabLayout
     @Override
     public void beginEditing()
     {
-        nameTextField.textProperty().bindBidirectional(dataNodeAdapter.getNameProperty());
+        nameTextField.textProperty().bindBidirectional(dataNodeAdapter.nameProperty());
     }
 
     @Override
     public void endEditing()
     {
-        nameTextField.textProperty().unbindBidirectional(dataNodeAdapter.getNameProperty());
+        nameTextField.textProperty().unbindBidirectional(dataNodeAdapter.nameProperty());
     }
 }

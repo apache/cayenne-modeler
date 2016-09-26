@@ -33,7 +33,7 @@ public class DataNodeTreeItem extends TreeItem<String> implements CayenneTreeIte
     {
         this.dataNodeAdapter = dataNodeAdapter;
 
-        valueProperty().bindBidirectional(dataNodeAdapter.getNameProperty());
+        valueProperty().bindBidirectional(dataNodeAdapter.nameProperty());
         setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.SERVER, TREE_ICON_SIZE));
         parent.getChildren().add(this);
         setExpanded(true);

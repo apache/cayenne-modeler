@@ -51,8 +51,7 @@ public class DataNodeAdapter extends CayennePropertyAdapter
         }
     }
 
-    public StringProperty getNameProperty()
-    {
-        return nameProperty;
-    }
+    public StringProperty nameProperty() { return nameProperty; }
+    public String getName() { return nameProperty.get(); }
+    public void setName(final String value) { nameProperty.set(value); }
 }
