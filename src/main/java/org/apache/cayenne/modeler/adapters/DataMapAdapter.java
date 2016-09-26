@@ -99,7 +99,7 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
 
         // Add change listeners for all ObjectEntityAdapter name changes and automatically re-sort.
         for (final ObjectEntityAdapter objectEntityAdapter : objectEntityAdapters)
-            objectEntityAdapter.getNameProperty().addListener((observable, oldValue, newValue) -> sortObjectEntities());
+            objectEntityAdapter.nameProperty().addListener((observable, oldValue, newValue) -> sortObjectEntities());
 
         // Create DatabaseEntityAdapters for all database entities.
         for (final DbEntity dbEntity : dataMap.getDbEntities())
@@ -178,7 +178,7 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
     {
         objectEntityAdapters.sort((entity1, entity2) ->
             {
-                return ObjectUtils.compare(entity1.getNameProperty().get(), entity2.getNameProperty().get());
+                return ObjectUtils.compare(entity1.nameProperty().get(), entity2.nameProperty().get());
             });
     }
 }

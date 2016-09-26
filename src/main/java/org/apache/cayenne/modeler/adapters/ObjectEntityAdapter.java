@@ -87,15 +87,13 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
             objectAttributeAdapters.add(new ObjectAttributeAdapter(objAttribute));
     }
 
-    public StringProperty getNameProperty()
-    {
-        return nameProperty;
-    }
+    public StringProperty nameProperty() { return nameProperty; }
+    public String getName() { return nameProperty.get(); }
+    public void setName(final String value) { nameProperty.set(value); }
 
-    public BooleanProperty getAbstractClassProperty()
-    {
-        return abstractClassProperty;
-    }
+    public BooleanProperty abstractClassProperty() { return abstractClassProperty; }
+    public Boolean getAbstractClass() { return abstractClassProperty.get(); }
+    public void setAbstractClass(final Boolean value) { abstractClassProperty.set(value); }
 
     public ObservableList<ObjectAttributeAdapter> getAttributes()
     {

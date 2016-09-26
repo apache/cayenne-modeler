@@ -33,7 +33,7 @@ public class ObjectEntityTreeItem extends TreeItem<String> implements CayenneTre
     {
         this.objectEntityAdapter = objectEntityAdapter;
 
-        valueProperty().bindBidirectional(objectEntityAdapter.getNameProperty());
+        valueProperty().bindBidirectional(objectEntityAdapter.nameProperty());
         setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FILE_TEXT, TREE_ICON_SIZE));
         parent.getChildren().add(this);
         setExpanded(true);

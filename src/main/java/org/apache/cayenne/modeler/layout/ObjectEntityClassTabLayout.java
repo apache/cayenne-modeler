@@ -56,11 +56,6 @@ public class ObjectEntityClassTabLayout
     @Override
     public void initialize()
     {
-//        getScene().getWindow().getScene();
-//        getStage().getScene().getWindow().get
-//        System.out.println("mrg: " + getStage().getScene().getRoot());
-//        System.out.println("oectv");
-
         super.initialize();
 
         dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
@@ -78,7 +73,7 @@ public class ObjectEntityClassTabLayout
     {
         LOGGER.debug("begin editing " + this);
 
-        abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.getAbstractClassProperty());
+        abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.abstractClassProperty());
     }
 
 
@@ -87,6 +82,6 @@ public class ObjectEntityClassTabLayout
     {
         LOGGER.debug("end editing " + this);
 
-        abstractClassCheckbox.selectedProperty().unbindBidirectional(objectEntityAdapter.getAbstractClassProperty());
+        abstractClassCheckbox.selectedProperty().unbindBidirectional(objectEntityAdapter.abstractClassProperty());
     }
 }
