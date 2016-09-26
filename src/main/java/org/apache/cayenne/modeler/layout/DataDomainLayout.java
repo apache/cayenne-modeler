@@ -80,8 +80,8 @@ public class DataDomainLayout
     {
         LOGGER.debug("begin editing " + this);
 
-        dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.getDomainNameProperty());
-        objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.getValidatingObjectsProperty());
+        dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.nameProperty());
+        objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 //        accessibleHelpProperty()setText(getMainWindow().getCayenneProject().getDataDomainName());
 //        dataDomainNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
     }
@@ -135,8 +135,8 @@ public class DataDomainLayout
     {
         LOGGER.debug("end editing " + this);
 
-        dataDomainNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.getDomainNameProperty());
-        objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.getValidatingObjectsProperty());
+        dataDomainNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.nameProperty());
+        objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 
 //        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
 ////        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());

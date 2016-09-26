@@ -36,7 +36,7 @@ public class DataDomainTreeItem extends TreeItem<String> implements CayenneTreeI
     {
         this.dataDomainAdapter = dataDomainAdapter;
 
-        valueProperty().bindBidirectional(dataDomainAdapter.getDomainNameProperty());
+        valueProperty().bindBidirectional(dataDomainAdapter.nameProperty());
         setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.DATABASE, TREE_ICON_SIZE));
         treeRoot.getChildren().add(this);
         setExpanded(true);

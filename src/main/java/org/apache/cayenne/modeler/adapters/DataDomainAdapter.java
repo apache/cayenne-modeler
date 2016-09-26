@@ -42,7 +42,7 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     private final List<DataMapAdapter> dataMapAdapters = new ArrayList<>(); //FXCollections.emptyObservableList();
     private final List<DataNodeAdapter> dataNodeAdapters = new ArrayList<>(); //FXCollections.emptyObservableList();
 
-    private StringProperty  domainNameProperty;
+    private StringProperty  nameProperty;
     private BooleanProperty validatingObjectsProperty;
 
     public DataDomainAdapter(final CayenneProject cayenneProject)
@@ -57,7 +57,7 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
         try
         {
-            domainNameProperty        = JavaBeanStringPropertyBuilder.create().bean(cayenneProject).name("dataDomainName").build();
+            nameProperty              = JavaBeanStringPropertyBuilder.create().bean(cayenneProject).name("dataDomainName").build();
             validatingObjectsProperty = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name("dataDomainValidatingObjects").build();
         }
         catch (final NoSuchMethodException e)
@@ -74,15 +74,13 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 //        return dataDomainAdapter;
 //    }
 
-    public StringProperty getDomainNameProperty()
-    {
-        return domainNameProperty;
-    }
+    public StringProperty nameProperty() { return nameProperty; }
+    public String getName() { return nameProperty.get(); }
+    public void setName(final String value) { nameProperty.set(value); }
 
-    public BooleanProperty getValidatingObjectsProperty()
-    {
-        return validatingObjectsProperty;
-    }
+    public BooleanProperty validatingObjectsProperty() { return validatingObjectsProperty; }
+    public Boolean getValidatingObjectsProperty() { return validatingObjectsProperty.get(); }
+    public void setValidatingObjectsProperty(final Boolean value) { validatingObjectsProperty.set(value); }
 
     public List<DataMapAdapter> getDataMapAdapters()
     {
