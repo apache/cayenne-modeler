@@ -29,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.beans.value.ChangeListener;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -169,13 +170,36 @@ public class ObjectEntityAttributesTabLayout
         this.objectEntityAdapter = objectEntityAdapter;
     }
 
-    private ObjectAttributeAdapter currentObjectAttributeAdapter;
+//    private void attributesTableViewSelectionListener(ObservableValue obs, ObjectAttributeAdapter oldSelection, ObjectAttributeAdapter newSelection)
+//    private ChangeListener<? super ObjectAttributeAdapter> attributesTableViewSelectionListener;
+    private ChangeListener<ObjectAttributeAdapter> attributesTableViewSelectionListener = (obs, oldSelection, newSelection) ->
+        {
+            final String[] javaTypes = ObjectEntityUtilities.getRegisteredTypeNames();
+
+            if (oldSelection != null)
+            {
+                javaAttributeNameTextField.textProperty().unbindBidirectional(oldSelection.nameProperty());
+                javaTypeComboBox.valueProperty().unbindBidirectional(oldSelection.javaTypeProperty());
+            }
+
+            javaTypeComboBox.getItems().clear();
+
+            if (newSelection != null)
+            {
+                javaTypeComboBox.getItems().addAll(javaTypes);
+
+                javaAttributeNameTextField.textProperty().bindBidirectional(newSelection.nameProperty());
+                javaTypeComboBox.valueProperty().bindBidirectional(newSelection.javaTypeProperty());
+                databaseTypeLabel.setText(newSelection.getDatabaseType());
+            }
+
+            javaAttributeNameTextField.setDisable(newSelection == null);
+            javaTypeComboBox.setDisable(newSelection == null);
+        };
 
     @Override
     public void beginEditing()
     {
-//        nameTextField.textProperty().bindBidirectional(objectEntityAdapter.getNameProperty());
-
         javaAttributeNameTextField.setDisable(true);
         javaAttributeNameTextField.setText(null);
         javaTypeComboBox.setDisable(true);
@@ -184,50 +208,20 @@ public class ObjectEntityAttributesTabLayout
         databaseTypeLabel.setText("N/A");
         attributesTableView.setItems(objectEntityAdapter.getAttributes());
 
-        attributesTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
-            {
-                final String[] javaTypes = ObjectEntityUtilities.getRegisteredTypeNames();
-
-                currentObjectAttributeAdapter = newSelection;
-
-                if (oldSelection != null)
-                {
-                    javaAttributeNameTextField.textProperty().unbindBidirectional(oldSelection.nameProperty());
-                    javaTypeComboBox.valueProperty().unbindBidirectional(oldSelection.javaTypeProperty());
-
-//                    javaTypeComboBox.textProperty().unbindBidirectional(oldSelection.javaTypeProperty());
-                }
-
-                javaTypeComboBox.getItems().clear();
-
-                if (newSelection != null)
-                {
-                    javaTypeComboBox.getItems().addAll(javaTypes);
-
-                    javaAttributeNameTextField.textProperty().bindBidirectional(newSelection.nameProperty());
-                    javaTypeComboBox.valueProperty().bindBidirectional(newSelection.javaTypeProperty());
-//                    javaTypeComboBox.textProperty().bindBidirectional(oldSelection.javaTypeProperty());
-                    databaseTypeLabel.setText(newSelection.getDatabaseType());
-                }
-
-                javaAttributeNameTextField.setDisable(newSelection == null);
-                javaTypeComboBox.setDisable(newSelection == null);
-            });
+        attributesTableView.getSelectionModel().selectedItemProperty().addListener(attributesTableViewSelectionListener);
     }
 
     @Override
     public void endEditing()
     {
-//        nameTextField.textProperty().unbindBidirectional(objectEntityAdapter.getNameProperty());
+        ObjectAttributeAdapter currentObjectAttributeAdapter = attributesTableView.getSelectionModel().getSelectedItem();
 
         if (currentObjectAttributeAdapter != null)
         {
             javaAttributeNameTextField.textProperty().unbindBidirectional(currentObjectAttributeAdapter.nameProperty());
             javaTypeComboBox.valueProperty().unbindBidirectional(currentObjectAttributeAdapter.javaTypeProperty());
-
-            currentObjectAttributeAdapter = null;
         }
 
-//        attributesTableView.setItems(null);
+        attributesTableView.getSelectionModel().selectedItemProperty().removeListener(attributesTableViewSelectionListener);
     }
 }
