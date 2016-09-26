@@ -19,12 +19,12 @@
 
 package org.apache.cayenne.modeler.adapters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.map.ObjEntity;
+import org.apache.commons.lang3.ObjectUtils;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -32,14 +32,18 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class DataMapAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
     private final DataMap dataMap;
 //    private BeanPathAdapter<DataMap> dataMapAdapter;
 
-    private final List<ObjectEntityAdapter>   objectEntityAdapters   = new ArrayList<>();
-    private final List<DatabaseEntityAdapter> databaseEntityAdapters = new ArrayList<>();
+//    private final List<ObjectEntityAdapter>   objectEntityAdapters   = new ArrayList<>();
+//    private final List<DatabaseEntityAdapter> databaseEntityAdapters = new ArrayList<>();
+    private final ObservableList<ObjectEntityAdapter>   objectEntityAdapters   = FXCollections.observableArrayList();
+    private final ObservableList<DatabaseEntityAdapter> databaseEntityAdapters = FXCollections.observableArrayList();
 
     private StringProperty nameProperty;
 
@@ -61,12 +65,6 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
     public DataMapAdapter(final DataMap dataMap)
     {
         this.dataMap = dataMap;
-
-        for (ObjEntity objEntity : dataMap.getObjEntities())
-            objectEntityAdapters.add(new ObjectEntityAdapter(objEntity));
-
-        for (DbEntity dbEntity : dataMap.getDbEntities())
-            databaseEntityAdapters.add(new DatabaseEntityAdapter(dbEntity));
 
         try
         {
@@ -91,6 +89,22 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
         {
             throw new RuntimeException("Fix the builder.", e);
         }
+
+        // Create ObjectEntityAdapters for all object entities.
+        for (final ObjEntity objEntity : dataMap.getObjEntities())
+            objectEntityAdapters.add(new ObjectEntityAdapter(objEntity));
+
+        // Sort the ObjectEntityAdapters (by their name).
+        sortObjectEntities();
+
+        // Add change listeners for all ObjectEntityAdapter name changes and automatically re-sort.
+        for (final ObjectEntityAdapter objectEntityAdapter : objectEntityAdapters)
+            objectEntityAdapter.getNameProperty().addListener((observable, oldValue, newValue) -> sortObjectEntities());
+
+        // Create DatabaseEntityAdapters for all database entities.
+        for (final DbEntity dbEntity : dataMap.getDbEntities())
+            databaseEntityAdapters.add(new DatabaseEntityAdapter(dbEntity));
+
 
 //        this.dataMapAdapter = new BeanPathAdapter<DataMap>(dataMap);
     }
@@ -158,5 +172,13 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
     public List<DatabaseEntityAdapter> getDatabaseEntityAdapters()
     {
         return databaseEntityAdapters;
+    }
+
+    public void sortObjectEntities()
+    {
+        objectEntityAdapters.sort((entity1, entity2) ->
+            {
+                return ObjectUtils.compare(entity1.getNameProperty().get(), entity2.getNameProperty().get());
+            });
     }
 }

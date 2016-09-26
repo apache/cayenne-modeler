@@ -24,7 +24,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="868.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="10.0" layoutY="10.0" minHeight="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -46,8 +45,8 @@
                   <TableColumn fx:id="attributeUsedForLockingColumn" editable="false" maxWidth="25.0" minWidth="25.0" prefWidth="25.0" resizable="false" sortable="false" text="L" />
                   <TableColumn fx:id="attributeNameColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="225.0" text="Java Attribute" />
                   <TableColumn fx:id="attributeTypeColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="225.0" text="Java Type" />
-                  <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="225.0" text="Database Column" />
-                  <TableColumn maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="125.0" text="Database Type" />
+                  <TableColumn fx:id="attributeDatabasePathColumn" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="225.0" text="Database Attribute Path" />
+                  <TableColumn fx:id="attributeDatabaseTypeColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="125.0" text="Database Type" />
                </columns>
             </TableView>
             <GridPane vgap="6.0" VBox.vgrow="NEVER">
@@ -64,12 +63,12 @@
                </rowConstraints>
                <children>
                   <Label text="Java Attribute Name: " />
-                  <Label text="Database Column Name: " GridPane.rowIndex="1" />
+                  <Label text="Database Attribute Path: " GridPane.rowIndex="1" />
                   <Label text="Java Type: " GridPane.columnIndex="2" />
                   <Label text="Database Type: " GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
-                  <Label text="type name here" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <ComboBox editable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Enter or Choose..." GridPane.columnIndex="3" />
+                  <TextField fx:id="javaAttributeNameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <Label fx:id="databaseTypeLabel" text="type name here" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="javaTypeComboBox" editable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Enter or Choose..." GridPane.columnIndex="3" />
                   <CheckBox mnemonicParsing="false" text="Optimistic Locking" GridPane.columnIndex="4" />
                   <ComboBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>

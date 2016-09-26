@@ -19,24 +19,22 @@
 
 package org.apache.cayenne.modeler.adapters;
 
+import org.apache.cayenne.dba.TypesMapping;
 import org.apache.cayenne.map.ObjAttribute;
-import org.apache.cayenne.map.ObjEntity;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-public class ObjectEntityAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
+public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
-    private final ObjEntity objectEntity;
-
-    private final ObservableList<ObjectAttributeAdapter> objectAttributeAdapters = FXCollections.observableArrayList();
+    private final ObjAttribute objectAttribute;
 
     private StringProperty nameProperty;
-    private BooleanProperty abstractClassProperty;
+    private StringProperty javaTypeProperty;
+    private StringProperty databaseAttributePathProperty;
+    private BooleanProperty usedForLockingProperty;
 
 //    private StringProperty locationProperty;
 //
@@ -53,14 +51,16 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
 //    private StringProperty  defaultClientPackageProperty;
 //    private StringProperty  defaultClientSuperclassProperty;
 
-    public ObjectEntityAdapter(final ObjEntity objectEntity)
+    public ObjectAttributeAdapter(final ObjAttribute objectAttribute)
     {
-        this.objectEntity = objectEntity;
+        this.objectAttribute = objectAttribute;
 
         try
         {
-            nameProperty = JavaBeanStringPropertyBuilder.create().bean(objectEntity).name("name").build();
-            abstractClassProperty = JavaBeanBooleanPropertyBuilder.create().bean(objectEntity).name("abstract").build();
+            nameProperty = JavaBeanStringPropertyBuilder.create().bean(objectAttribute).name("name").build();
+            javaTypeProperty = JavaBeanStringPropertyBuilder.create().bean(objectAttribute).name("type").build();
+            databaseAttributePathProperty = JavaBeanStringPropertyBuilder.create().bean(objectAttribute).name("dbAttributePath").build();
+            usedForLockingProperty = JavaBeanBooleanPropertyBuilder.create().bean(objectAttribute).name("usedForLocking").build();
 
 
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
@@ -83,22 +83,34 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
             throw new RuntimeException("Fix the builder.", e);
         }
 
-        for (final ObjAttribute objAttribute : objectEntity.getAttributes())
-            objectAttributeAdapters.add(new ObjectAttributeAdapter(objAttribute));
+//        objectAttribute.getDbAttribute().getName();
     }
 
-    public StringProperty getNameProperty()
-    {
-        return nameProperty;
-    }
+    public StringProperty nameProperty() { return nameProperty; }
+    public String getName() { return nameProperty.get(); }
+    public void setName(final String value) { nameProperty.set(value); }
 
-    public BooleanProperty getAbstractClassProperty()
-    {
-        return abstractClassProperty;
-    }
+    public StringProperty javaTypeProperty() { return javaTypeProperty; }
+    public String getJavaType() { return javaTypeProperty.get(); }
+    public void setJavaType(final String value) { javaTypeProperty.set(value); }
 
-    public ObservableList<ObjectAttributeAdapter> getAttributes()
+    public StringProperty databaseAttributePathProperty() { return databaseAttributePathProperty; }
+    public String getDatabaseAttributePath() { return databaseAttributePathProperty.get(); }
+    public void setDatabaseAttributePath(final String value) { databaseAttributePathProperty.set(value); }
+
+    public BooleanProperty usedForLockingProperty() { return usedForLockingProperty; }
+    public Boolean getUsedForLocking() { return usedForLockingProperty.get(); }
+    public void setUsedForLocking(final Boolean value) { usedForLockingProperty.set(value); }
+
+    public String getDatabaseType()
     {
-        return objectAttributeAdapters;
+        return TypesMapping.getSqlNameByType(objectAttribute.getDbAttribute().getType());
+    }
+    /**
+     * @return The underlying ObjAttribute fronted by this property adapter.
+     */
+    public ObjAttribute getObjAttribute()
+    {
+        return objectAttribute;
     }
 }

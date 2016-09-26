@@ -21,19 +21,21 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.map.ObjAttribute;
-import org.apache.cayenne.map.ObjEntity;
+import org.apache.cayenne.modeler.adapters.ObjectAttributeAdapter;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
+import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ObjectEntityAttributesTabLayout
@@ -43,20 +45,34 @@ public class ObjectEntityAttributesTabLayout
     private static final Log LOGGER = LogFactory.getLog(ObjectEntityAttributesTabLayout.class);
 
     @FXML
-    private TableView<ObjAttribute> attributesTableView;
+    private TextField javaAttributeNameTextField;
+    @FXML
+    private ComboBox<String> javaTypeComboBox;
 
     @FXML
-    private TableColumn<ObjAttribute,String> attributeNameColumn;
+    private TableView<ObjectAttributeAdapter> attributesTableView;
 
     @FXML
-    private TableColumn<ObjAttribute,String> attributeTypeColumn;
+    private TableColumn<ObjectAttributeAdapter,String> attributeNameColumn;
+
+    @FXML
+    private TableColumn<ObjectAttributeAdapter,String> attributeTypeColumn;
 //    private TableColumn<ObjAttribute,ComboBox<String>> attributeTypeColumn;
 
     @FXML
-    private TableColumn<ObjAttribute,Boolean> attributeUsedForLockingColumn;
+    private TableColumn<ObjectAttributeAdapter,String> attributeDatabasePathColumn;
 
     @FXML
-    private TableColumn<ObjAttribute,Boolean> attributeIsInheritedColumn;
+    private TableColumn<ObjectAttributeAdapter,String> attributeDatabaseTypeColumn;
+
+    @FXML
+    private TableColumn<ObjectAttributeAdapter,Boolean> attributeUsedForLockingColumn;
+
+    @FXML
+    private TableColumn<ObjectAttributeAdapter,Boolean> attributeIsInheritedColumn;
+
+    @FXML
+    private Label databaseTypeLabel;
 
 //    private MainWindowSupport parent;
 
@@ -82,9 +98,11 @@ public class ObjectEntityAttributesTabLayout
         attributeUsedForLockingColumn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LOCK, "16px"));
         attributeIsInheritedColumn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LEVEL_UP, "16px"));
 
-        attributeNameColumn.setCellValueFactory(new PropertyValueFactory("name"));
-//        attributeTypeColumn.setCellValueFactory(new PropertyValueFactory("type"));
-        attributeTypeColumn.setCellValueFactory(new PropertyValueFactory<ObjAttribute, String>("type"));
+        attributeNameColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("name"));
+        attributeTypeColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("javaType"));
+        attributeDatabasePathColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("databaseAttributePath"));
+        attributeDatabaseTypeColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("databaseType"));
+        attributeUsedForLockingColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,Boolean>("usedForLocking"));
 
 //        Callback<TableColumn<ObjAttribute, String>, TableCell<ObjAttribute, String>> comboBoxCellFactory
 //        = (TableColumn<ObjAttribute, String> param) -> new ComboBoxEditingCell();
@@ -130,13 +148,14 @@ public class ObjectEntityAttributesTabLayout
 //        }
 //    }
 
-    public void display(final ObjEntity objEntity)
-    {
-        LOGGER.debug("trying to display: " + objEntity);
-        attributesTableView.setItems(FXCollections.observableArrayList(objEntity.getAttributes()));
-//        objectEntityClassTabViewController.display(objEntity);
-//        objEntity.getAttributes()
-    }
+//    public void display(final ObjEntity objEntity)
+//    {
+//        LOGGER.debug("trying to display: " + objEntity);
+////        attributesTableView.setItems(FXCollections.observableArrayList(objEntity.getAttributes()));
+//
+////        objectEntityClassTabViewController.display(objEntity);
+////        objEntity.getAttributes()
+//    }
 
     public void tabChanged(final Event event)
     {
@@ -150,13 +169,65 @@ public class ObjectEntityAttributesTabLayout
         this.objectEntityAdapter = objectEntityAdapter;
     }
 
+    private ObjectAttributeAdapter currentObjectAttributeAdapter;
+
     @Override
     public void beginEditing()
     {
+//        nameTextField.textProperty().bindBidirectional(objectEntityAdapter.getNameProperty());
+
+        javaAttributeNameTextField.setDisable(true);
+        javaAttributeNameTextField.setText(null);
+        javaTypeComboBox.setDisable(true);
+        javaTypeComboBox.getItems().clear();
+        javaTypeComboBox.setValue(null);
+        databaseTypeLabel.setText("N/A");
+        attributesTableView.setItems(objectEntityAdapter.getAttributes());
+
+        attributesTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->
+            {
+                final String[] javaTypes = ObjectEntityUtilities.getRegisteredTypeNames();
+
+                currentObjectAttributeAdapter = newSelection;
+
+                if (oldSelection != null)
+                {
+                    javaAttributeNameTextField.textProperty().unbindBidirectional(oldSelection.nameProperty());
+                    javaTypeComboBox.valueProperty().unbindBidirectional(oldSelection.javaTypeProperty());
+
+//                    javaTypeComboBox.textProperty().unbindBidirectional(oldSelection.javaTypeProperty());
+                }
+
+                javaTypeComboBox.getItems().clear();
+
+                if (newSelection != null)
+                {
+                    javaTypeComboBox.getItems().addAll(javaTypes);
+
+                    javaAttributeNameTextField.textProperty().bindBidirectional(newSelection.nameProperty());
+                    javaTypeComboBox.valueProperty().bindBidirectional(newSelection.javaTypeProperty());
+//                    javaTypeComboBox.textProperty().bindBidirectional(oldSelection.javaTypeProperty());
+                    databaseTypeLabel.setText(newSelection.getDatabaseType());
+                }
+
+                javaAttributeNameTextField.setDisable(newSelection == null);
+                javaTypeComboBox.setDisable(newSelection == null);
+            });
     }
 
     @Override
     public void endEditing()
     {
+//        nameTextField.textProperty().unbindBidirectional(objectEntityAdapter.getNameProperty());
+
+        if (currentObjectAttributeAdapter != null)
+        {
+            javaAttributeNameTextField.textProperty().unbindBidirectional(currentObjectAttributeAdapter.nameProperty());
+            javaTypeComboBox.valueProperty().unbindBidirectional(currentObjectAttributeAdapter.javaTypeProperty());
+
+            currentObjectAttributeAdapter = null;
+        }
+
+//        attributesTableView.setItems(null);
     }
 }

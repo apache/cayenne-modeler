@@ -44,8 +44,9 @@
             </Label>
             <GridPane minHeight="-Infinity" vgap="4.0">
                <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="225.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="175.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -63,12 +64,12 @@
                   <Label alignment="CENTER_RIGHT" text="Class Name: " GridPane.rowIndex="3" />
                   <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="360.0" promptText="ClassName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Inheritance: " GridPane.rowIndex="5" />
-                  <CheckBox fx:id="abstractClassCheckbox" mnemonicParsing="false" text="Abstract Class" GridPane.columnIndex="1" />
+                  <CheckBox fx:id="abstractClassCheckbox" mnemonicParsing="false" text="Abstract Class" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                   <ComboBox prefWidth="360.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label text="Mapped to Database Table/View: " GridPane.rowIndex="4" />
+                  <Label text="Database Table/View: " GridPane.rowIndex="4" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <children>
-                        <ComboBox prefWidth="200.0" />
+                        <ComboBox prefWidth="200.0" promptText="Java -&gt; Database" />
                         <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="20.0" />
                         <Button fx:id="dbEntitySyncButton" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="140.0" text="Sync to DbEntity" textAlignment="CENTER" HBox.hgrow="SOMETIMES">
                            <font>
@@ -95,6 +96,8 @@
                   </HBox>
                   <CheckBox mnemonicParsing="false" text="Exclude Superclass Listeners" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <CheckBox mnemonicParsing="false" text="Exclude Default Listeners" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label text="Name: " />
+                  <TextField fx:id="nameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="225.0" promptText="Object Entity Name" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <TabPane minWidth="100.0" prefHeight="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
