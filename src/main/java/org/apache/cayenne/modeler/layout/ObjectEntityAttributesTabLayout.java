@@ -202,13 +202,19 @@ public class ObjectEntityAttributesTabLayout
     {
         javaAttributeNameTextField.setDisable(true);
         javaAttributeNameTextField.setText(null);
+
         javaTypeComboBox.setDisable(true);
         javaTypeComboBox.getItems().clear();
         javaTypeComboBox.setValue(null);
-        databaseTypeLabel.setText("N/A");
-        attributesTableView.setItems(objectEntityAdapter.getAttributes());
 
+        databaseTypeLabel.setText("N/A");
+
+        attributesTableView.setItems(objectEntityAdapter.getAttributes());
         attributesTableView.getSelectionModel().selectedItemProperty().addListener(attributesTableViewSelectionListener);
+
+        // Automatically select the first item, if available.
+        if (attributesTableView.getItems().size() > 0)
+            attributesTableView.getSelectionModel().select(0);
     }
 
     @Override
