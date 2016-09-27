@@ -69,7 +69,7 @@
                   <TextField fx:id="javaAttributeNameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
                   <Label fx:id="databaseTypeLabel" text="type name here" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <ComboBox fx:id="javaTypeComboBox" editable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Enter or Choose..." GridPane.columnIndex="3" />
-                  <CheckBox mnemonicParsing="false" text="Optimistic Locking" GridPane.columnIndex="4" />
+                  <CheckBox fx:id="optimisticLockingCheckBox" mnemonicParsing="false" text="Optimistic Locking" GridPane.columnIndex="4" />
                   <ComboBox maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>

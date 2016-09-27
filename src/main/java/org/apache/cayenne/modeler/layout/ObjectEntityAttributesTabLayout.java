@@ -32,8 +32,11 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.value.ChangeListener;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -47,8 +50,12 @@ public class ObjectEntityAttributesTabLayout
 
     @FXML
     private TextField javaAttributeNameTextField;
+
     @FXML
     private ComboBox<String> javaTypeComboBox;
+
+    @FXML
+    private CheckBox optimisticLockingCheckBox;
 
     @FXML
     private TableView<ObjectAttributeAdapter> attributesTableView;
@@ -99,11 +106,32 @@ public class ObjectEntityAttributesTabLayout
         attributeUsedForLockingColumn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LOCK, "16px"));
         attributeIsInheritedColumn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LEVEL_UP, "16px"));
 
-        attributeNameColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("name"));
-        attributeTypeColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("javaType"));
-        attributeDatabasePathColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("databaseAttributePath"));
+        attributeNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        attributeTypeColumn.setCellValueFactory(cellData -> cellData.getValue().javaTypeProperty());
+        attributeDatabasePathColumn.setCellValueFactory(cellData -> cellData.getValue().databaseAttributePathProperty());
         attributeDatabaseTypeColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("databaseType"));
-        attributeUsedForLockingColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,Boolean>("usedForLocking"));
+
+        attributeUsedForLockingColumn.setCellValueFactory(cellData -> cellData.getValue().usedForLockingProperty());
+        attributeUsedForLockingColumn.setCellFactory((column) ->
+            {
+                return new TableCell<ObjectAttributeAdapter,Boolean>()
+                    {
+                        @Override
+                        protected void updateItem(Boolean item, boolean empty)
+                        {
+                            super.updateItem(item, empty);
+
+                            setAlignment(Pos.CENTER);
+                            setStyle("-fx-padding: 0;");
+                            setText("");
+
+                            if (item == null || empty || item == false)
+                                setGraphic(null);
+                            else
+                                setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LOCK, "16px"));
+                        }
+                     };
+            });
 
 //        Callback<TableColumn<ObjAttribute, String>, TableCell<ObjAttribute, String>> comboBoxCellFactory
 //        = (TableColumn<ObjAttribute, String> param) -> new ComboBoxEditingCell();
@@ -180,6 +208,7 @@ public class ObjectEntityAttributesTabLayout
             {
                 javaAttributeNameTextField.textProperty().unbindBidirectional(oldSelection.nameProperty());
                 javaTypeComboBox.valueProperty().unbindBidirectional(oldSelection.javaTypeProperty());
+                optimisticLockingCheckBox.selectedProperty().unbindBidirectional(oldSelection.usedForLockingProperty());
             }
 
             javaTypeComboBox.getItems().clear();
@@ -190,11 +219,13 @@ public class ObjectEntityAttributesTabLayout
 
                 javaAttributeNameTextField.textProperty().bindBidirectional(newSelection.nameProperty());
                 javaTypeComboBox.valueProperty().bindBidirectional(newSelection.javaTypeProperty());
+                optimisticLockingCheckBox.selectedProperty().bindBidirectional(newSelection.usedForLockingProperty());
                 databaseTypeLabel.setText(newSelection.getDatabaseType());
             }
 
             javaAttributeNameTextField.setDisable(newSelection == null);
             javaTypeComboBox.setDisable(newSelection == null);
+            optimisticLockingCheckBox.setDisable(newSelection == null);
         };
 
     @Override
@@ -206,6 +237,9 @@ public class ObjectEntityAttributesTabLayout
         javaTypeComboBox.setDisable(true);
         javaTypeComboBox.getItems().clear();
         javaTypeComboBox.setValue(null);
+
+        optimisticLockingCheckBox.setSelected(false);
+        optimisticLockingCheckBox.setDisable(true);
 
         databaseTypeLabel.setText("N/A");
 
@@ -226,6 +260,7 @@ public class ObjectEntityAttributesTabLayout
         {
             javaAttributeNameTextField.textProperty().unbindBidirectional(currentObjectAttributeAdapter.nameProperty());
             javaTypeComboBox.valueProperty().unbindBidirectional(currentObjectAttributeAdapter.javaTypeProperty());
+            optimisticLockingCheckBox.selectedProperty().unbindBidirectional(currentObjectAttributeAdapter.usedForLockingProperty());
         }
 
         attributesTableView.getSelectionModel().selectedItemProperty().removeListener(attributesTableViewSelectionListener);
