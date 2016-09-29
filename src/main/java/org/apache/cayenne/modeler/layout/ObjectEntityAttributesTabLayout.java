@@ -109,6 +109,7 @@ public class ObjectEntityAttributesTabLayout
         attributeNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         attributeTypeColumn.setCellValueFactory(cellData -> cellData.getValue().javaTypeProperty());
         attributeDatabasePathColumn.setCellValueFactory(cellData -> cellData.getValue().databaseAttributePathProperty());
+        // FIXME: See if there is a way of doing this without using the string "databaseType"...
         attributeDatabaseTypeColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("databaseType"));
 
         attributeUsedForLockingColumn.setCellValueFactory(cellData -> cellData.getValue().usedForLockingProperty());
@@ -231,15 +232,15 @@ public class ObjectEntityAttributesTabLayout
     @Override
     public void beginEditing()
     {
-        javaAttributeNameTextField.setDisable(true);
+        disable(javaAttributeNameTextField);
         javaAttributeNameTextField.setText(null);
 
-        javaTypeComboBox.setDisable(true);
+        disable(javaTypeComboBox);
         javaTypeComboBox.getItems().clear();
         javaTypeComboBox.setValue(null);
 
+        disable(optimisticLockingCheckBox);
         optimisticLockingCheckBox.setSelected(false);
-        optimisticLockingCheckBox.setDisable(true);
 
         databaseTypeLabel.setText("N/A");
 

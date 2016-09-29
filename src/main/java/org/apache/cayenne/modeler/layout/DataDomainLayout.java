@@ -20,23 +20,17 @@
 package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
-import org.apache.cayenne.modeler.project.CayenneProject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import jfxtras.labs.scene.control.BeanPathAdapter;
-import jfxtras.labs.scene.control.BeanPathAdapter.FieldPathValue;
 
 // org.apache.cayenne.modeler.controller.DataDomainViewController
 public class DataDomainLayout
@@ -48,7 +42,7 @@ public class DataDomainLayout
 
 //    private MainWindowLayout mainWindow;
 
-    private static Map<CayenneProject, BeanPathAdapter<CayenneProject>> dataDomainPropertyAdapterMap = new HashMap<CayenneProject, BeanPathAdapter<CayenneProject>>();
+//    private static Map<CayenneProject, BeanPathAdapter<CayenneProject>> dataDomainPropertyAdapterMap = new HashMap<CayenneProject, BeanPathAdapter<CayenneProject>>();
 
     @FXML
     private TextField dataDomainNameTextField;
@@ -64,10 +58,10 @@ public class DataDomainLayout
         super(parentComponent, "/layouts/DataDomainLayout.fxml");
     }
 
-    private final ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
-        {
-            LOGGER.debug("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
-        };
+//    private final ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
+//        {
+//            LOGGER.debug("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
+//        };
 
     @Override
     public void setPropertyAdapter(final DataDomainAdapter dataDomainAdapter)

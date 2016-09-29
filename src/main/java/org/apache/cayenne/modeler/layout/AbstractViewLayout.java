@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class AbstractViewLayout extends AnchorPane implements MainWindowSupport
@@ -79,5 +80,15 @@ public abstract class AbstractViewLayout extends AnchorPane implements MainWindo
     public MainWindowSupport getParentComponent()
     {
         return parentComponent;
+    }
+
+    public void disable(Node node)
+    {
+        node.setDisable(true);
+    }
+
+    public void enable(Node node)
+    {
+        node.setDisable(false);
     }
 }
