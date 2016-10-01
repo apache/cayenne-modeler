@@ -30,7 +30,43 @@
          <children>
             <HBox prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" text="Toolbar goes here..." />
+                  <Button fx:id="newAttributeButton" mnemonicParsing="false" text="New Attribute">
+                     <tooltip>
+                        <Tooltip text="Create a new Object Attribute." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="synchronizeWithDatabaseEntityButton" mnemonicParsing="false" text="Sync">
+                     <tooltip>
+                        <Tooltip text="Synchronize this Object Entity with the mapped Database Entity." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="viewRelatedDatabaseEntityButton" mnemonicParsing="false" text="Jump">
+                     <tooltip>
+                        <Tooltip text="View related Database Entity." />
+                     </tooltip>
+                  </Button>
+                  <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete">
+                     <tooltip>
+                        <Tooltip text="Delete this Object Attribute." />
+                     </tooltip>
+                  </Button>
+                  <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+                  <Button fx:id="cutButton" mnemonicParsing="false" text="Cut">
+                     <tooltip>
+                        <Tooltip text="Cut this Object Attribute." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="copyButton" mnemonicParsing="false" text="Copy">
+                     <tooltip>
+                        <Tooltip text="Copy this Object Attribute." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="pasteButton" mnemonicParsing="false" text="Paste">
+                     <tooltip>
+                        <Tooltip text="Paste previously cut or copied Object Attribute." />
+                     </tooltip>
+                  </Button>
                </children>
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

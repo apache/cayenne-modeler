@@ -31,7 +31,16 @@
          <children>
             <HBox prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" text="Toolbar really goes here..." />
+                <Button fx:id="synchronizeWithDatabaseEntityButton" mnemonicParsing="false" text="Sync">
+                     <tooltip>
+                        <Tooltip text="Synchronize this Object Entity with the mapped Database Entity." />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="viewRelatedDatabaseEntityButton" mnemonicParsing="false" text="Jump">
+                     <tooltip>
+                        <Tooltip text="View related Database Entity." />
+                     </tooltip>
+                  </Button>
                </children>
             </HBox>
             <Label text="Java Class Configuration">

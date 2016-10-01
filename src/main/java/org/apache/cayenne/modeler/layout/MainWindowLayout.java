@@ -39,12 +39,8 @@ import org.apache.cayenne.modeler.project.ObjectEntityTreeItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -62,22 +58,7 @@ public class MainWindowLayout
 //    private TreeView<CayenneTreeItem<String>> treeView;
 
     @FXML
-    private AnchorPane detailAnchorPane;
-
-    @FXML
-    private Button newButton, openButton, saveButton;
-
-    @FXML
-    private Button removeButton;
-
-    @FXML
-    private Button cutButton, copyButton, pasteButton;
-
-    @FXML
-    private Button undoButton, redoButton;
-
-    @FXML
-    private Button dataMapButton, dataNodeButton;
+    private AnchorPane detailAnchorPane, mainToolBarAnchorPane;
 
 //    private final TreeItem<CayenneTreeItem<String>> treeRoot = new CayenneTreeItem<>(); // = new TreeItem<>();
 //    private final TreeItem<CayenneTreeItem<String>> treeRoot = new TreeItem<CayenneTreeItem<String>>(); // = new TreeItem<>();
@@ -194,47 +175,16 @@ public class MainWindowLayout
 
     public void initialize()
     {
-        configureMainToolbar();
+//        configureMainToolbar();
 
         loadComponents();
     }
 
 //    private boolean toolbarNeedsInitialization = true;
 
-    private void configureMainToolbar()
-    {
-        newButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS_SQUARE, "16px"));
-        openButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FOLDER_OPEN, "16px"));
-        saveButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FLOPPY_ALT, "16px"));
-
-        removeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.TRASH, "16px"));
-
-        cutButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.SCISSORS, "16px"));
-        copyButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CLONE, "16px"));
-        pasteButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CLIPBOARD, "16px"));
-
-        undoButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.UNDO, "16px"));
-        redoButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REPEAT, "16px"));
-
-        dataMapButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CUBES, "16px"));
-        dataNodeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.SERVER, "16px"));
-
-        newButton.setTooltip(new Tooltip("Create a new Cayenne Model project."));
-        openButton.setTooltip(new Tooltip("Open an existing Cayenne Model project."));
-        saveButton.setTooltip(new Tooltip("Save this Cayenne Model project."));
-
-        removeButton.setTooltip(new Tooltip("Remove this item.")); // FIXME: Should be dynamic.
-
-        cutButton.setTooltip(new Tooltip("Cut this item to the clipboard.")); // FIXME: Should be dynamic.
-        copyButton.setTooltip(new Tooltip("Copy this item to the clipboard.")); // FIXME: Should be dynamic.
-        pasteButton.setTooltip(new Tooltip("Paste this item from the clipboard.")); // FIXME: Should be dynamic.
-
-        undoButton.setTooltip(new Tooltip("Undo.")); // FIXME: Should be dynamic.
-        redoButton.setTooltip(new Tooltip("Redo.")); // FIXME: Should be dynamic.
-
-        dataMapButton.setTooltip(new Tooltip("Create a new Data Map to hold Java and Database definitions."));
-        dataNodeButton.setTooltip(new Tooltip("Create a new Data Node to hold database connection settings."));
-    }
+//    private void configureMainToolbar()
+//    {
+//    }
 
     private void addDataDomain()
     {
@@ -336,26 +286,23 @@ public class MainWindowLayout
         databaseEntityDetail.beginEditing();
     }
 
-    public void onNewButtonClicked()
+    private void displayView(final AnchorPane anchorPane, final Node view)
     {
-        LOGGER.debug("new!");
-    }
+        // Remove anything already there.
+        anchorPane.getChildren().removeAll(anchorPane.getChildren());
 
+        // Make the view fill the anchor pane.
+        AnchorPane.setTopAnchor(view, 0.0);
+        AnchorPane.setLeftAnchor(view, 0.0);
+        AnchorPane.setRightAnchor(view, 0.0);
+        AnchorPane.setBottomAnchor(view, 0.0);
+
+        // Add the view inot the anchor pane.
+        anchorPane.getChildren().add(view);
+    }
     private void displayDetailView(final Node detailView)
     {
-        // TODO: Call endEditing() on children here.
-        detailAnchorPane.getChildren().removeAll(detailAnchorPane.getChildren());
-
-        // Make the detail view fill the pane.
-        AnchorPane.setTopAnchor(detailView, 0.0);
-        AnchorPane.setLeftAnchor(detailView, 0.0);
-        AnchorPane.setRightAnchor(detailView, 0.0);
-        AnchorPane.setBottomAnchor(detailView, 0.0);
-
-        detailAnchorPane.getChildren().add(detailView);
-
-//        if (detailView instanceof DetailEditorSupport)
-//            ((DetailEditorSupport) detailView).beginEditing();
+        displayView(detailAnchorPane, detailView);
     }
 
 //    private void displayDetailView(BaseView detailView)
@@ -371,6 +318,8 @@ public class MainWindowLayout
     private DataDomainLayout dataDomainDetail;
     private DataMapLayout dataMapDetail;
     private DataNodeLayout dataNodeDetail;
+
+    private MainToolBarLayout mainToolBarLayout;
 
     // FIXME: Shouldn't this be loadSubViews to be consistent?
     private void loadComponents()
@@ -393,6 +342,10 @@ public class MainWindowLayout
 //            objectEntityDetail = FXMLLoader.load(MainWindow.class.getResource("/view/ObjectEntityView.fxml"));
 
             // rootLayout.setCenter(personOverview);
+
+            mainToolBarLayout = new MainToolBarLayout(this);
+
+            displayView(mainToolBarAnchorPane, mainToolBarLayout);
         }
         catch (final Exception exception)
         {

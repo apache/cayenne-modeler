@@ -33,6 +33,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -47,6 +48,18 @@ public class ObjectEntityAttributesTabLayout
     implements DetailEditorSupport<ObjectEntityAdapter>
 {
     private static final Log LOGGER = LogFactory.getLog(ObjectEntityAttributesTabLayout.class);
+
+    @FXML
+    private Button newAttributeButton;
+
+    @FXML
+    private Button synchronizeWithDatabaseEntityButton, viewRelatedDatabaseEntityButton;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button cutButton, copyButton, pasteButton;
 
     @FXML
     private TextField javaAttributeNameTextField;
@@ -95,10 +108,43 @@ public class ObjectEntityAttributesTabLayout
 
 //    private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.getRegisteredTypeNames());
 
+//    @FXML
+//    private Button newAttributeButton;
+//
+//    @FXML
+//    private Button synchronizeWithDatabaseEntityButton, viewRelatedDatabaseEntityButton;
+//
+//    @FXML
+//    private Button deleteButton;
+//
+//    @FXML
+//    private Button cutButton, copyButton, pasteButton;
+
     @Override
     public void initialize()
     {
         super.initialize();
+
+        newAttributeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS, "16px"));
+        newAttributeButton.setText(null);
+
+        synchronizeWithDatabaseEntityButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
+        synchronizeWithDatabaseEntityButton.setText(null);
+
+        viewRelatedDatabaseEntityButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.TABLE, "16px"));
+        viewRelatedDatabaseEntityButton.setText(null);
+
+        deleteButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.TRASH, "16px"));
+        deleteButton.setText(null);
+
+        cutButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.CUT, "16px"));
+        cutButton.setText(null);
+
+        copyButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.COPY, "16px"));
+        copyButton.setText(null);
+
+        pasteButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PASTE, "16px"));
+        pasteButton.setText(null);
 
         attributeUsedForLockingColumn.setText(null);
         attributeIsInheritedColumn.setText(null);
@@ -118,7 +164,7 @@ public class ObjectEntityAttributesTabLayout
                 return new TableCell<ObjectAttributeAdapter,Boolean>()
                     {
                         @Override
-                        protected void updateItem(Boolean item, boolean empty)
+                        protected void updateItem(final Boolean item, final boolean empty)
                         {
                             super.updateItem(item, empty);
 
@@ -201,7 +247,7 @@ public class ObjectEntityAttributesTabLayout
 
 //    private void attributesTableViewSelectionListener(ObservableValue obs, ObjectAttributeAdapter oldSelection, ObjectAttributeAdapter newSelection)
 //    private ChangeListener<? super ObjectAttributeAdapter> attributesTableViewSelectionListener;
-    private ChangeListener<ObjectAttributeAdapter> attributesTableViewSelectionListener = (obs, oldSelection, newSelection) ->
+    private final ChangeListener<ObjectAttributeAdapter> attributesTableViewSelectionListener = (obs, oldSelection, newSelection) ->
         {
             final String[] javaTypes = ObjectEntityUtilities.getRegisteredTypeNames();
 
@@ -255,7 +301,7 @@ public class ObjectEntityAttributesTabLayout
     @Override
     public void endEditing()
     {
-        ObjectAttributeAdapter currentObjectAttributeAdapter = attributesTableView.getSelectionModel().getSelectedItem();
+        final ObjectAttributeAdapter currentObjectAttributeAdapter = attributesTableView.getSelectionModel().getSelectedItem();
 
         if (currentObjectAttributeAdapter != null)
         {

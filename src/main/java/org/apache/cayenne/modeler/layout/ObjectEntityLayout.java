@@ -49,20 +49,7 @@ public class ObjectEntityLayout
     public ObjectEntityLayout(final MainWindowSupport parentComponent) throws IOException
     {
         super(parentComponent, "/layouts/ObjectEntityLayout.fxml");
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/ObjectEntityLayout.fxml"));
-//
-//        this.mainWindow = mainWindow;
-//
-//        fxmlLoader.setRoot(this);
-//        fxmlLoader.setController(this);
-//        fxmlLoader.load();
     }
-
-//    @Override
-//    public void initialize()
-//    {
-//        super.initialize();
-//    }
 
     @Override
     protected void loadSubViews()

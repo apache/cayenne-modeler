@@ -38,7 +38,7 @@ public class ObjectEntityClassTabLayout
     private static final Log LOGGER = LogFactory.getLog(ObjectEntityClassTabLayout.class);
 
     @FXML
-    private Button dbEntitySyncButton;
+    private Button synchronizeWithDatabaseEntityButton, viewRelatedDatabaseEntityButton;
 
     @FXML
     private CheckBox abstractClassCheckbox;
@@ -58,7 +58,10 @@ public class ObjectEntityClassTabLayout
     {
         super.initialize();
 
-        dbEntitySyncButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
+        synchronizeWithDatabaseEntityButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
+        synchronizeWithDatabaseEntityButton.setText(null);
+        viewRelatedDatabaseEntityButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.TABLE, "16px"));
+        viewRelatedDatabaseEntityButton.setText(null);
     }
 
     @Override

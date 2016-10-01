@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="newButton" focusTraversable="false" mnemonicParsing="false" onAction="#onNewButtonClicked" text="New" />
+            <Button fx:id="openButton" focusTraversable="false" mnemonicParsing="false" text="Open" />
+            <Button fx:id="saveButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Save" />
+            <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+            <Button fx:id="removeButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Delete" />
+            <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+            <Button fx:id="cutButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Cut" />
+            <Button fx:id="copyButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Copy" />
+            <Button fx:id="pasteButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Paste" />
+            <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+            <Button fx:id="undoButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Undo" />
+            <Button fx:id="redoButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Redo" />
+            <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
+            <Button fx:id="dataMapButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Data Map" />
+            <Button fx:id="dataNodeButton" disable="true" mnemonicParsing="false" text="Data Node" />
+            <Pane prefHeight="22.0" HBox.hgrow="ALWAYS" />
+            <TextField minWidth="-Infinity" prefWidth="150.0" promptText="Search Project..." />
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+      </HBox>
+   </children>
+</fx:root>

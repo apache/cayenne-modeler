@@ -27,7 +27,6 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-
 <fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox minHeight="600.0" minWidth="900.0" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -86,30 +85,11 @@
                 </MenuBar>
                </children>
             </HBox>
-            <HBox>
+            <AnchorPane fx:id="mainToolBarAnchorPane">
                <children>
-                <Button fx:id="newButton" mnemonicParsing="false" onAction="#onNewButtonClicked" />
-                  <Button fx:id="openButton" mnemonicParsing="false" />
-                  <Button fx:id="saveButton" mnemonicParsing="false" />
-                  <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
-                  <Button fx:id="removeButton" mnemonicParsing="false" />
-                  <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
-                  <Button fx:id="cutButton" mnemonicParsing="false" />
-                  <Button fx:id="copyButton" mnemonicParsing="false" />
-                  <Button fx:id="pasteButton" mnemonicParsing="false" />
-                  <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
-                  <Button fx:id="undoButton" mnemonicParsing="false" />
-                  <Button fx:id="redoButton" mnemonicParsing="false" />
-                  <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
-                  <Button fx:id="dataMapButton" mnemonicParsing="false" />
-                  <Button fx:id="dataNodeButton" mnemonicParsing="false" />
-                  <Pane prefHeight="22.0" HBox.hgrow="ALWAYS" />
-                  <TextField minWidth="-Infinity" prefWidth="150.0" promptText="Search Project..." />
+                  <Label text="Main ToolBar Goes Here" />
                </children>
-               <padding>
-                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-               </padding>
-            </HBox>
+            </AnchorPane>
           <SplitPane dividerPositions="0.23947895791583165" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <items>
               <AnchorPane>
