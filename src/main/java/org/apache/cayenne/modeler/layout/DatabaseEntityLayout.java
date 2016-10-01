@@ -53,7 +53,7 @@ public class DatabaseEntityLayout
     }
 
     @Override
-    protected void loadSubViews()
+    public void loadChildLayouts()
     {
         try
         {

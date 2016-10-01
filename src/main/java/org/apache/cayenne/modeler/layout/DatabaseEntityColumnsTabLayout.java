@@ -80,7 +80,7 @@ public class DatabaseEntityColumnsTabLayout
     private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.getRegisteredTypeNames());
 
     @Override
-    public void initialize()
+    public void initializeLayout()
     {
 //        getScene().getWindow().getScene();
 //        getStage().getScene().getWindow().get
@@ -89,7 +89,7 @@ public class DatabaseEntityColumnsTabLayout
 //
 //        loadComponents();
 
-        super.initialize();
+        super.initializeLayout();
 
         primaryKeyColumn.setText(null);
         mandatoryColumn.setText(null);
@@ -131,7 +131,7 @@ public class DatabaseEntityColumnsTabLayout
     }
 
     @Override
-    protected void loadSubViews()
+    public void loadChildLayouts()
     {
         try
         {

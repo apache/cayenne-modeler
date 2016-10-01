@@ -121,9 +121,9 @@ public class ObjectEntityAttributesTabLayout
 //    private Button cutButton, copyButton, pasteButton;
 
     @Override
-    public void initialize()
+    public void initializeLayout()
     {
-        super.initialize();
+        super.initializeLayout();
 
         newAttributeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS, "16px"));
         newAttributeButton.setText(null);

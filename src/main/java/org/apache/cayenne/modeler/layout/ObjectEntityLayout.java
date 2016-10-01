@@ -52,7 +52,7 @@ public class ObjectEntityLayout
     }
 
     @Override
-    protected void loadSubViews()
+    public void loadChildLayouts()
     {
         try
         {

@@ -58,9 +58,9 @@ public class MainToolBarLayout
     }
 
     @Override
-    public void initialize()
+    public void initializeLayout()
     {
-        super.initialize();
+        super.initializeLayout();
 
         setToolBarValues();
     }

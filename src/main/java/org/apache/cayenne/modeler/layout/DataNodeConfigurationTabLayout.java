@@ -109,9 +109,9 @@ public class DataNodeConfigurationTabLayout
     }
 
     @Override
-    public void initialize()
+    public void initializeLayout()
     {
-        super.initialize();
+        super.initializeLayout();
 
         configureDevelopmentDataSourceButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.COGS, "16px"));
         configureDevelopmentDataSourceButton.setText("");

@@ -59,7 +59,7 @@ public class DataNodeLayout
     }
 
     @Override
-    protected void loadSubViews()
+    public void loadChildLayouts()
     {
         try
         {

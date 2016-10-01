@@ -24,51 +24,29 @@ import java.io.IOException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
-public abstract class AbstractViewLayout extends AnchorPane implements MainWindowSupport
+public abstract class AbstractViewLayout
+    extends AnchorPane
+    implements LayoutSupport, MainWindowSupport
 {
     private static final Log LOGGER = LogFactory.getLog(AbstractViewLayout.class);
 
 //    private MainWindowLayout  mainWindow;
     private final MainWindowSupport parentComponent;
 
-    protected AbstractViewLayout(final MainWindowSupport parentComponent, final String layout) throws IOException
+    protected AbstractViewLayout(final MainWindowSupport parentComponent, final String fxmlPath) throws IOException
     {
-        final FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(layout));
-
+        // Note: This assignment must precede the FXML load.
         this.parentComponent = parentComponent;
 
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+        loadFXML(fxmlPath);
     }
 
-    public void initialize()
-    {
-        LOGGER.info("init " + this.getClass().getCanonicalName());
-
-        loadSubViews();
-    }
-
-    protected void loadSubViews()
-    {
-        // Override in subclasses to load in any necessary sub-views.
-    }
-
+    @Deprecated // TODO: This can likely go away.
     protected void loadTab(final AnchorPane source, final AnchorPane destination)
     {
-        destination.getChildren().removeAll(destination.getChildren());
-
-        // Make the detail view fill the pane.
-        AnchorPane.setTopAnchor(source, 0.0);
-        AnchorPane.setLeftAnchor(source, 0.0);
-        AnchorPane.setRightAnchor(source, 0.0);
-        AnchorPane.setBottomAnchor(source, 0.0);
-
-        destination.getChildren().add(source);
+        displayView(source, destination);
     }
 
     @Override
@@ -80,15 +58,5 @@ public abstract class AbstractViewLayout extends AnchorPane implements MainWindo
     public MainWindowSupport getParentComponent()
     {
         return parentComponent;
-    }
-
-    public void disable(Node node)
-    {
-        node.setDisable(true);
-    }
-
-    public void enable(Node node)
-    {
-        node.setDisable(false);
     }
 }

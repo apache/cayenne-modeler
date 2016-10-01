@@ -21,25 +21,27 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import javafx.fxml.FXMLLoader;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public abstract class AbstractWindowLayout extends AnchorPane
+public abstract class AbstractWindowLayout
+    extends AnchorPane
+    implements LayoutSupport
 {
+    private static final Log LOGGER = LogFactory.getLog(AbstractWindowLayout.class);
+
     private final Stage stage;
 
-    public AbstractWindowLayout(Stage stage, String fxmlPath) throws IOException
+    public AbstractWindowLayout(final Stage stage, final String fxmlPath) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+        loadFXML(fxmlPath);
 
         this.stage = stage;
-
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
 
         stage.setScene(new Scene(this));
     }
@@ -49,23 +51,23 @@ public abstract class AbstractWindowLayout extends AnchorPane
         return stage;
     }
 
-    public void initializeStyle(StageStyle stageStyle)
+    public void initializeStyle(final StageStyle stageStyle)
     {
         stage.initStyle(stageStyle);
     }
 
-    public void setMinimumWindowSize(int width, int height)
+    public void setMinimumWindowSize(final int width, final int height)
     {
         stage.setMinWidth(900);
         stage.setMinHeight(700);
     }
 
-    public void setResizable(boolean resizable)
+    public void setResizable(final boolean resizable)
     {
         stage.setResizable(resizable);
     }
 
-    public void setTitle(String title)
+    public void setTitle(final String title)
     {
         stage.setTitle(title);
     }

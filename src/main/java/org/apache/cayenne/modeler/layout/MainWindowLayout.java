@@ -173,12 +173,12 @@ public class MainWindowLayout
         addDataDomain();
     }
 
-    public void initialize()
-    {
-//        configureMainToolbar();
-
-        loadComponents();
-    }
+//    public void initialize()
+//    {
+////        configureMainToolbar();
+//
+//        loadComponents();
+//    }
 
 //    private boolean toolbarNeedsInitialization = true;
 
@@ -286,20 +286,6 @@ public class MainWindowLayout
         databaseEntityDetail.beginEditing();
     }
 
-    private void displayView(final AnchorPane anchorPane, final Node view)
-    {
-        // Remove anything already there.
-        anchorPane.getChildren().removeAll(anchorPane.getChildren());
-
-        // Make the view fill the anchor pane.
-        AnchorPane.setTopAnchor(view, 0.0);
-        AnchorPane.setLeftAnchor(view, 0.0);
-        AnchorPane.setRightAnchor(view, 0.0);
-        AnchorPane.setBottomAnchor(view, 0.0);
-
-        // Add the view inot the anchor pane.
-        anchorPane.getChildren().add(view);
-    }
     private void displayDetailView(final Node detailView)
     {
         displayView(detailAnchorPane, detailView);
@@ -321,8 +307,8 @@ public class MainWindowLayout
 
     private MainToolBarLayout mainToolBarLayout;
 
-    // FIXME: Shouldn't this be loadSubViews to be consistent?
-    private void loadComponents()
+    @Override
+    public void loadChildLayouts()
     {
         try
         {

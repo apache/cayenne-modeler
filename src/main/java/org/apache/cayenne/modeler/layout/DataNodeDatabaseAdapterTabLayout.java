@@ -41,11 +41,11 @@ public class DataNodeDatabaseAdapterTabLayout
         super(parentComponent.getMainWindow(), "/layouts/DataNodeDatabaseAdapterTabLayout.fxml");
     }
 
-    @Override
-    public void initialize()
-    {
-        super.initialize();
-    }
+//    @Override
+//    public void initializeView()
+//    {
+//        super.initializeView();
+//    }
 
     public void tabChanged(final Event event)
     {

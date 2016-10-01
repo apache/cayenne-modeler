@@ -54,9 +54,9 @@ public class ObjectEntityClassTabLayout
 
 
     @Override
-    public void initialize()
+    public void initializeLayout()
     {
-        super.initialize();
+        super.initializeLayout();
 
         synchronizeWithDatabaseEntityButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
         synchronizeWithDatabaseEntityButton.setText(null);

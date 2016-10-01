@@ -68,9 +68,9 @@ public class DataNodePasswordEncoderTabLayout
     }
 
     @Override
-    public void initialize()
+    public void initializeLayout()
     {
-        super.initialize();
+        super.initializeLayout();
 
         passwordEncoderComboBox.getItems().add(passwordEncoderPlainTextSetting);
         passwordEncoderComboBox.getItems().add(passwordEncoderRot13Setting);
