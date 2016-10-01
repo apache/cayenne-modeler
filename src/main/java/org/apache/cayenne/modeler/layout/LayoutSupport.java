@@ -62,6 +62,8 @@ public interface LayoutSupport
         // Override in subclasses to load in any necessary child layouts.
     }
 
+    // TODO: This needs a better name (method and parameters) to make clear
+    //       which is the source and which is the destination.
     default void displayView(final AnchorPane anchorPane, final Node view)
     {
         // Remove anything already there.

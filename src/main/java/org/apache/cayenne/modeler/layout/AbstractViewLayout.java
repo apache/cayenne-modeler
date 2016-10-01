@@ -45,7 +45,7 @@ public abstract class AbstractViewLayout
     @Deprecated // TODO: This can likely go away.
     protected void loadTab(final AnchorPane source, final AnchorPane destination)
     {
-        displayView(source, destination);
+        displayView(destination, source);
     }
 
     @Override
