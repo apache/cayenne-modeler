@@ -32,13 +32,12 @@ public abstract class AbstractViewLayout
 {
     private static final Log LOGGER = LogFactory.getLog(AbstractViewLayout.class);
 
-//    private MainWindowLayout  mainWindow;
-    private final MainWindowSupport parentComponent;
+    private final MainWindowSupport parentLayout;
 
-    protected AbstractViewLayout(final MainWindowSupport parentComponent, final String fxmlPath) throws IOException
+    protected AbstractViewLayout(final MainWindowSupport parentLayout, final String fxmlPath) throws IOException
     {
         // Note: This assignment must precede the FXML load.
-        this.parentComponent = parentComponent;
+        this.parentLayout = parentLayout;
 
         loadFXML(fxmlPath);
     }
@@ -52,11 +51,11 @@ public abstract class AbstractViewLayout
     @Override
     public MainWindowLayout getMainWindow()
     {
-        return parentComponent.getMainWindow(); //mainWindow;
+        return parentLayout.getMainWindow();
     }
 
-    public MainWindowSupport getParentComponent()
+    public MainWindowSupport getParentLayout()
     {
-        return parentComponent;
+        return parentLayout;
     }
 }

@@ -40,6 +40,11 @@ public interface LayoutSupport
         fxmlLoader.setController(this);
         fxmlLoader.load();
 
+        // Note: Must manually initialize the layout because JavaFX will not
+        //       automatically call the "initialize" method when the FXML is
+        //       loaded from an interface's default method.  To avoid confusion
+        //       with the JavaFX "initialize" name, a different method name is
+        //       used for the same purpose.
         initializeLayout();
 
         return fxmlLoader;

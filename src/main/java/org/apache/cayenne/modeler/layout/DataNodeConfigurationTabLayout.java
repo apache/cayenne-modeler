@@ -136,7 +136,7 @@ public class DataNodeConfigurationTabLayout
                 dbcpConfigurationGrid.setVisible(dbcp);
                 dbcpConfigurationGrid.setManaged(dbcp);
 
-                final DataNodeLayout dataNodeLayout = (DataNodeLayout) getParentComponent();
+                final DataNodeLayout dataNodeLayout = (DataNodeLayout) getParentLayout();
 
                 if (jdbc)
                     dataNodeLayout.enablePasswordEncoderTab();
