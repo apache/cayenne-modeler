@@ -27,9 +27,9 @@
 
 <fx:root prefHeight="624.0" prefWidth="884.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Class">
+          <Tab closable="false" text="Class">
             <content>
               <AnchorPane fx:id="classTabAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -38,7 +38,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab onSelectionChanged="#tabChanged" text="Attributes">
+          <Tab closable="false" onSelectionChanged="#tabChanged" text="Attributes">
             <content>
               <AnchorPane fx:id="attributesTabAnchorPane" minHeight="0.0" prefWidth="200.0">
                      <children>
@@ -47,7 +47,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Relationships">
+            <Tab closable="false" text="Relationships">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -57,7 +57,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Events">
+            <Tab closable="false" text="Events">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -65,7 +65,7 @@
                      </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="Metadata">
+            <Tab closable="false" text="Metadata">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
