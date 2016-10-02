@@ -37,12 +37,13 @@ public class ObjectEntityLayout
     private static final Log LOGGER = LogFactory.getLog(ObjectEntityLayout.class);
 
     @FXML
-    private AnchorPane classTabAnchorPane, attributesTabAnchorPane;
+    private AnchorPane classTabAnchorPane, attributesTabAnchorPane, relationshipsTabAnchorPane;
 
 //    private MainWindowLayout mainWindow;
 
     private ObjectEntityClassTabLayout objectEntityClassTabLayout;
     private ObjectEntityAttributesTabLayout objectEntityAttributesTabLayout;
+    private ObjectEntityRelationshipsTabLayout objectEntityRelationshipsTabLayout;
 
     private ObjectEntityAdapter objectEntityAdapter;
 
@@ -56,11 +57,13 @@ public class ObjectEntityLayout
     {
         try
         {
-            objectEntityClassTabLayout      = new ObjectEntityClassTabLayout(this);
-            objectEntityAttributesTabLayout = new ObjectEntityAttributesTabLayout(this);
+            objectEntityClassTabLayout         = new ObjectEntityClassTabLayout(this);
+            objectEntityAttributesTabLayout    = new ObjectEntityAttributesTabLayout(this);
+            objectEntityRelationshipsTabLayout = new ObjectEntityRelationshipsTabLayout(this);
 
             loadTab(objectEntityClassTabLayout, classTabAnchorPane);
             loadTab(objectEntityAttributesTabLayout, attributesTabAnchorPane);
+            loadTab(objectEntityRelationshipsTabLayout, relationshipsTabAnchorPane);
         }
         catch (final Exception exception)
         {
@@ -69,27 +72,10 @@ public class ObjectEntityLayout
         }
     }
 
-//    @Override
-//    private void loadTab(AnchorPane source, AnchorPane destination)
-//    {
-//        destination.getChildren().removeAll(destination.getChildren());
-//
-//        // Make the detail view fill the pane.
-//        AnchorPane.setTopAnchor(source, 0.0);
-//        AnchorPane.setLeftAnchor(source, 0.0);
-//        AnchorPane.setRightAnchor(source, 0.0);
-//        AnchorPane.setBottomAnchor(source, 0.0);
-//
-//        destination.getChildren().add(source);
-//    }
-
     @Deprecated // Unused?
     public void display(final ObjEntity objEntity)
     {
         LOGGER.debug("trying to display: " + objEntity);
-//        objectEntityClassTabLayout.display(objEntity);
-//        objectEntityAttributesTabLayout.display(objEntity);
-//        objEntity.getAttributes()
     }
 
 //    public void tabChanged(ActionEvent event)
@@ -106,6 +92,7 @@ public class ObjectEntityLayout
 
         objectEntityClassTabLayout.setPropertyAdapter(objectEntityAdapter);
         objectEntityAttributesTabLayout.setPropertyAdapter(objectEntityAdapter);
+        objectEntityRelationshipsTabLayout.setPropertyAdapter(objectEntityAdapter);
     }
 
     @Override
@@ -115,6 +102,7 @@ public class ObjectEntityLayout
 
         objectEntityClassTabLayout.beginEditing();
         objectEntityAttributesTabLayout.beginEditing();
+        objectEntityRelationshipsTabLayout.beginEditing();
     }
 
     @Override
@@ -124,5 +112,6 @@ public class ObjectEntityLayout
 
         objectEntityClassTabLayout.endEditing();
         objectEntityAttributesTabLayout.endEditing();
+        objectEntityRelationshipsTabLayout.endEditing();
     }
 }

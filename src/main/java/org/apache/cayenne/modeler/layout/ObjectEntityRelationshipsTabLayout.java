@@ -43,14 +43,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ObjectEntityAttributesTabLayout
+public class ObjectEntityRelationshipsTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<ObjectEntityAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(ObjectEntityAttributesTabLayout.class);
+    private static final Log LOGGER = LogFactory.getLog(ObjectEntityRelationshipsTabLayout.class);
 
     @FXML
-    private Button newAttributeButton;
+    private Button newRelationshipButton;
 
     @FXML
     private Button synchronizeWithDatabaseEntityButton, viewRelatedDatabaseEntityButton;
@@ -71,13 +71,13 @@ public class ObjectEntityAttributesTabLayout
     private CheckBox optimisticLockingCheckBox;
 
     @FXML
-    private TableView<ObjectAttributeAdapter> attributesTableView;
+    private TableView<ObjectAttributeAdapter> relationshipsTableView;
 
     @FXML
-    private TableColumn<ObjectAttributeAdapter,String> attributeNameColumn;
+    private TableColumn<ObjectAttributeAdapter,String> relationshipNameColumn;
 
     @FXML
-    private TableColumn<ObjectAttributeAdapter,String> attributeTypeColumn;
+    private TableColumn<ObjectAttributeAdapter,String> relationshipTargetColumn;
 //    private TableColumn<ObjAttribute,ComboBox<String>> attributeTypeColumn;
 
     @FXML
@@ -101,9 +101,9 @@ public class ObjectEntityAttributesTabLayout
 
     private ObjectEntityAdapter objectEntityAdapter;
 
-    public ObjectEntityAttributesTabLayout(final MainWindowSupport parentComponent) throws IOException
+    public ObjectEntityRelationshipsTabLayout(final MainWindowSupport parentComponent) throws IOException
     {
-        super(parentComponent, "/layouts/ObjectEntityAttributesTabLayout.fxml");
+        super(parentComponent, "/layouts/ObjectEntityRelationshipsTabLayout.fxml");
     }
 
 //    private static ObservableList javaTypes = FXCollections.observableArrayList(ObjectEntityUtilities.getRegisteredTypeNames());
@@ -125,8 +125,8 @@ public class ObjectEntityAttributesTabLayout
     {
         super.initializeLayout();
 
-        newAttributeButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS, "16px"));
-        newAttributeButton.setText(null);
+        newRelationshipButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS, "16px"));
+        newRelationshipButton.setText(null);
 
         synchronizeWithDatabaseEntityButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.REFRESH, "16px"));
         synchronizeWithDatabaseEntityButton.setText(null);
@@ -152,8 +152,8 @@ public class ObjectEntityAttributesTabLayout
         attributeUsedForLockingColumn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LOCK, "16px"));
         attributeIsInheritedColumn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.LEVEL_UP, "16px"));
 
-        attributeNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        attributeTypeColumn.setCellValueFactory(cellData -> cellData.getValue().javaTypeProperty());
+        relationshipNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        relationshipTargetColumn.setCellValueFactory(cellData -> cellData.getValue().javaTypeProperty());
         attributeDatabasePathColumn.setCellValueFactory(cellData -> cellData.getValue().databaseAttributePathProperty());
         // FIXME: See if there is a way of doing this without using the string "databaseType"...
         attributeDatabaseTypeColumn.setCellValueFactory(new PropertyValueFactory<ObjectAttributeAdapter,String>("databaseType"));
@@ -179,34 +179,6 @@ public class ObjectEntityAttributesTabLayout
                         }
                      };
             });
-
-//        Callback<TableColumn<ObjAttribute, String>, TableCell<ObjAttribute, String>> comboBoxCellFactory
-//        = (TableColumn<ObjAttribute, String> param) -> new ComboBoxEditingCell();
-//
-//        ComboBoxTableCell attributeTypeCell = new ComboBoxTableCell(javaTypes);
-
-//        attributeTypeColumn.setCellFactory(attributeTypeCell);
-////        attributeTypeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(ObjectEntityUtilities.getRegisteredTypeNames()));
-//        attributeTypeColumn.setEditable(true);
-////        attributeTypeColumn.set
-//        attributeTypeColumn.setOnEditCommit(
-//                        new EventHandler<CellEditEvent<ObjAttribute, String>>() {
-//                            @Override
-//                            public void handle(CellEditEvent<ObjAttribute,String> t) {
-//                                System.out.println(t);
-////                                ((ObjAttribute) t.getTableView().getItems().get(t.getTablePosition().getRow())).setLevel(t.getNewValue());
-//                            }
-//                        });
-
-//        attributeTypeColumn.setPromptText("Java Type");
-//        emailComboBox.setEditable(true);
-//        emailComboBox.valueProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue ov, String t, String t1) {
-//                address = t1;
-//            }
-//        });
-
     }
 
     public void tabChanged(final Event event)
@@ -264,18 +236,18 @@ public class ObjectEntityAttributesTabLayout
 
         databaseTypeLabel.setText("N/A");
 
-        attributesTableView.setItems(objectEntityAdapter.getAttributes());
-        attributesTableView.getSelectionModel().selectedItemProperty().addListener(attributesTableViewSelectionListener);
+        relationshipsTableView.setItems(objectEntityAdapter.getAttributes());
+        relationshipsTableView.getSelectionModel().selectedItemProperty().addListener(attributesTableViewSelectionListener);
 
         // Automatically select the first item, if available.
-        if (attributesTableView.getItems().size() > 0)
-            attributesTableView.getSelectionModel().select(0);
+        if (relationshipsTableView.getItems().size() > 0)
+            relationshipsTableView.getSelectionModel().select(0);
     }
 
     @Override
     public void endEditing()
     {
-        final ObjectAttributeAdapter currentObjectAttributeAdapter = attributesTableView.getSelectionModel().getSelectedItem();
+        final ObjectAttributeAdapter currentObjectAttributeAdapter = relationshipsTableView.getSelectionModel().getSelectedItem();
 
         if (currentObjectAttributeAdapter != null)
         {
@@ -284,6 +256,6 @@ public class ObjectEntityAttributesTabLayout
             optimisticLockingCheckBox.selectedProperty().unbindBidirectional(currentObjectAttributeAdapter.usedForLockingProperty());
         }
 
-        attributesTableView.getSelectionModel().selectedItemProperty().removeListener(attributesTableViewSelectionListener);
+        relationshipsTableView.getSelectionModel().selectedItemProperty().removeListener(attributesTableViewSelectionListener);
     }
 }
