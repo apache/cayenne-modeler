@@ -33,7 +33,7 @@
             <content>
               <AnchorPane fx:id="classTabAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="364.0" layoutY="287.0" text="View is in Separate FXML" />
+                        <Label alignment="CENTER" text="View is in Separate FXML" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -42,17 +42,16 @@
             <content>
               <AnchorPane fx:id="attributesTabAnchorPane" minHeight="0.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="364.0" layoutY="287.0" text="View is in Separate FXML" />
+                        <Label alignment="CENTER" text="View is in Separate FXML" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
             <Tab closable="false" text="Relationships">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" prefWidth="200.0">
                      <children>
-                        <ChoiceBox layoutX="103.0" layoutY="119.0" prefWidth="150.0" />
-                        <ComboBox editable="true" layoutX="135.0" layoutY="216.0" prefWidth="150.0" promptText="type here" />
+                        <Label alignment="CENTER" text="View is in Separate FXML" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
               </content>
@@ -64,11 +63,6 @@
                         <Label alignment="CENTER" text="View is in Separate FXML" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children></AnchorPane>
               </content>
-            </Tab>
-            <Tab closable="false" text="Metadata">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
             </Tab>
         </tabs>
       </TabPane>
