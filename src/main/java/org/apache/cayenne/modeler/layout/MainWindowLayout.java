@@ -75,6 +75,12 @@ public class MainWindowLayout
         setMinimumWindowSize(900, 700);
     }
 
+    @Override
+    public void initializeLayout()
+    {
+        super.initializeLayout();
+    }
+
     public CayenneProject getCayenneProject()
     {
         return cayenneProject;
@@ -171,20 +177,10 @@ public class MainWindowLayout
         NotificationCenter.addProjectListener(cayenneProject, this);
 
         addDataDomain();
+
+        treeView.getSelectionModel().select(0);
+        treeView.requestFocus();
     }
-
-//    public void initialize()
-//    {
-////        configureMainToolbar();
-//
-//        loadComponents();
-//    }
-
-//    private boolean toolbarNeedsInitialization = true;
-
-//    private void configureMainToolbar()
-//    {
-//    }
 
     private void addDataDomain()
     {
@@ -312,22 +308,11 @@ public class MainWindowLayout
     {
         try
         {
-//          loader = new FXMLLoader();
-//          TabPane loader.load();
-//          FXMLLoader loader = new FXMLLoader();
-//          loader.setLocation(MainWindow.class.getResource("/view/ObjectEntityView.fxml"));
-//          TabPane objectEntityTabs = (TabPane) loader.load();
-
-//            dataDomainDetail = FXMLLoader.load(MainWindow.class.getResource("/view/DataDomainView.fxml"));
             dataDomainDetail = new DataDomainLayout(this);
             dataMapDetail = new DataMapLayout(this);
             objectEntityDetail = new ObjectEntityLayout(this);
             databaseEntityDetail = new DatabaseEntityLayout(this);
             dataNodeDetail = new DataNodeLayout(this);
-//            objectEntityDetail = BaseView.loadFXML(getClass().getResource("/view/ObjectEntityView.fxml"), getStage());
-//            objectEntityDetail = FXMLLoader.load(MainWindow.class.getResource("/view/ObjectEntityView.fxml"));
-
-            // rootLayout.setCenter(personOverview);
 
             mainToolBarLayout = new MainToolBarLayout(this);
 

@@ -87,15 +87,14 @@ public class CayenneModeler extends Application
         // TODO: Probably need to save this value off somewhere...
         final MainWindowLayout mainWindow = new MainWindowLayout();
 
-        mainWindow.displayCayenneProject(cayenneProject);
         mainWindow.show();
+        mainWindow.displayCayenneProject(cayenneProject);
 
         // For testing data sync across windows, this creates a second editor window:
         final MainWindowLayout mainWindow2 = new MainWindowLayout();
 
-        mainWindow2.displayCayenneProject(cayenneProject);
         mainWindow2.show();
-
+        mainWindow2.displayCayenneProject(cayenneProject);
     }
 
     private static PreferencesLayout preferencesLayout;
