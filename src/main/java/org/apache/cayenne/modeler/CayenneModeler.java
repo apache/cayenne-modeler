@@ -84,17 +84,23 @@ public class CayenneModeler extends Application
 
 //        CayenneProjectManager.addProject(cayenneProject);
 
+        if (cayenneProject != null)
+        {
+            openProject(cayenneProject);
+        }
+        else
+        {
+            LOGGER.error("Couldn't open Cayenne Model Project.");
+        }
+    }
+
+    public static void openProject(final CayenneProject cayenneProject) throws Exception
+    {
         // TODO: Probably need to save this value off somewhere...
         final MainWindowLayout mainWindow = new MainWindowLayout();
 
         mainWindow.show();
         mainWindow.displayCayenneProject(cayenneProject);
-
-        // For testing data sync across windows, this creates a second editor window:
-        final MainWindowLayout mainWindow2 = new MainWindowLayout();
-
-        mainWindow2.show();
-        mainWindow2.displayCayenneProject(cayenneProject);
     }
 
     private static PreferencesLayout preferencesLayout;

@@ -325,6 +325,11 @@ public class MainWindowLayout
         }
     }
 
+    public void newWindow() throws Exception
+    {
+        CayenneModeler.openProject(getCayenneProject());
+    }
+
     public void openPreferences() throws Exception
     {
         CayenneModeler.openPreferences();
