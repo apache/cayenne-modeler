@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+        Licensed to the Apache Software Foundation (ASF) under one
+        or more contributor license agreements.  See the NOTICE file
+        distributed with this work for additional information
+        regarding copyright ownership.  The ASF licenses this file
+        to you under the Apache License, Version 2.0 (the
+        "License"); you may not use this file except in compliance
+        with the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing,
+        software distributed under the License is distributed on an
+        "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+        KIND, either express or implied.  See the License for the
+        specific language governing permissions and limitations
+        under the License.
+-->
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="newButton" focusTraversable="false" mnemonicParsing="false" onAction="#onNewButtonClicked" text="New" />
-            <Button fx:id="openButton" focusTraversable="false" mnemonicParsing="false" text="Open" />
-            <Button fx:id="saveButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Save" />
+            <Button fx:id="newButton" mnemonicParsing="false" onAction="#onNewButtonClicked" text="New" />
+            <Button fx:id="openButton" mnemonicParsing="false" text="Open" />
+            <Button fx:id="saveButton" disable="true" mnemonicParsing="false" text="Save" />
             <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
-            <Button fx:id="removeButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="removeButton" disable="true" mnemonicParsing="false" text="Delete" />
             <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
-            <Button fx:id="cutButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Cut" />
-            <Button fx:id="copyButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Copy" />
-            <Button fx:id="pasteButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Paste" />
+            <Button fx:id="cutButton" disable="true" mnemonicParsing="false" text="Cut" />
+            <Button fx:id="copyButton" disable="true" mnemonicParsing="false" text="Copy" />
+            <Button fx:id="pasteButton" disable="true" mnemonicParsing="false" text="Paste" />
             <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
-            <Button fx:id="undoButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Undo" />
-            <Button fx:id="redoButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Redo" />
+            <Button fx:id="undoButton" disable="true" mnemonicParsing="false" text="Undo" />
+            <Button fx:id="redoButton" disable="true" mnemonicParsing="false" text="Redo" />
             <Pane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="16.0" />
-            <Button fx:id="dataMapButton" disable="true" focusTraversable="false" mnemonicParsing="false" text="Data Map" />
+            <Button fx:id="dataMapButton" disable="true" mnemonicParsing="false" text="Data Map" />
             <Button fx:id="dataNodeButton" disable="true" mnemonicParsing="false" text="Data Node" />
             <Pane prefHeight="22.0" HBox.hgrow="ALWAYS" />
             <TextField minWidth="-Infinity" prefWidth="150.0" promptText="Search Project..." />
