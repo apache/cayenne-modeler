@@ -60,6 +60,15 @@ public class MainWindowLayout
     @FXML
     private AnchorPane detailAnchorPane, mainToolBarAnchorPane;
 
+    private DatabaseEntityLayout databaseEntityDetail; // TabPane
+    private DataDomainLayout dataDomainDetail;
+    private DataMapLayout dataMapDetail;
+    private DataNodeLayout dataNodeDetail;
+    private ObjectEntityLayout objectEntityDetail; // TabPane
+
+    private MainToolBarLayout mainToolBarLayout;
+
+
 //    private final TreeItem<CayenneTreeItem<String>> treeRoot = new CayenneTreeItem<>(); // = new TreeItem<>();
 //    private final TreeItem<CayenneTreeItem<String>> treeRoot = new TreeItem<CayenneTreeItem<String>>(); // = new TreeItem<>();
     private final TreeItem<String> treeRoot = new TreeItem<>(); // = new TreeItem<>();
@@ -99,23 +108,23 @@ public class MainWindowLayout
 
 //    private DataDomainAdapter dataDomainAdapter;
 
-    private DetailEditorSupport<?> getDetailEditor(final TreeItem<String> treeItem)
+    private DetailEditorSupport<?> getDetailEditor(final TreeItem<String> treeItem) throws IOException
     {
         if (treeItem instanceof DataDomainTreeItem)
-            return dataDomainDetail;
+            return getDataDomainDetail();
         else if (treeItem instanceof DataMapTreeItem)
-            return dataMapDetail;
+            return getDataMapDetail();
         else if (treeItem instanceof ObjectEntityTreeItem)
-            return objectEntityDetail;
+            return getObjectEntityDetail();
         else if (treeItem instanceof DatabaseEntityTreeItem)
-            return databaseEntityDetail;
+            return getDatabaseEntityDetail();
         else if (treeItem instanceof DataNodeTreeItem)
-            return dataNodeDetail;
+            return getDataNodeDetail();
 
         return null;
     }
 
-    public void displayCayenneProject(final CayenneProject cayenneProject)
+    public void displayCayenneProject(final CayenneProject cayenneProject) throws IOException
     {
         this.cayenneProject    = cayenneProject;
 //        this.dataDomainAdapter = new DataDomainAdapter(cayenneProject);
@@ -131,48 +140,54 @@ public class MainWindowLayout
         {
             LOGGER.debug("observable: " + observable + ", new: " + newValue + ", old: " + oldValue);
 
-            if (oldValue != null)
+            try
             {
-                final DetailEditorSupport<?> detailEditor = getDetailEditor(oldValue);
+                if (oldValue != null)
+                {
+                    final DetailEditorSupport<?> detailEditor = getDetailEditor(oldValue);
 
-                if (detailEditor != null)
-                    detailEditor.endEditing();
+                    if (detailEditor != null)
+                        detailEditor.endEditing();
+                }
+
+                if (newValue != null)
+                {
+                    observable.getValue().getParent();
+//                    System.out.println("observable: " + observable.getValue() + ", new: " + newValue.getValue() + ", old: " + oldValue.getValue());
+
+//                    LOGGER.debug(observable.getValue().getValue().getClass());
+//                    LOGGER.debug(newValue.getValue().getClass());
+
+                    if (newValue instanceof DataDomainTreeItem)
+                        displayDataDomain((DataDomainTreeItem) newValue);
+                    else if (newValue instanceof DataMapTreeItem)
+                        displayDataMap((DataMapTreeItem) newValue);
+                    else if (newValue instanceof ObjectEntityTreeItem)
+                        displayObjectEntity((ObjectEntityTreeItem) newValue);
+                    else if (newValue instanceof DatabaseEntityTreeItem)
+                        displayDatabaseEntity((DatabaseEntityTreeItem) newValue);
+                    else if (newValue instanceof DataNodeTreeItem)
+                        displayDataNode((DataNodeTreeItem) newValue);
+//                    if (newValue.getValue() instanceof DataDomainTreeViewModel)
+//                        displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
+//                    else if (newValue.getValue() instanceof DataMapTreeViewModel)
+//                        displayDataMap(((DataMapTreeViewModel) newValue.getValue()).getDataMap());
+//                    // else if (newValue.getValue() instanceof
+//                    // DataNodeTreeViewModel)
+//                    // displayDataNode();
+//                    else if (newValue.getValue() instanceof ObjectEntityTreeViewModel)
+//                        displayObjectEntity((ObjectEntityTreeViewModel) newValue.getValue());
+//                    else if (newValue.getValue() instanceof DatabaseEntityTreeViewModel)
+//                        displayDatabaseEntity((DatabaseEntityTreeViewModel) newValue.getValue());
+                }
+                else
+                {
+                    treeView.getSelectionModel().select(0);
+                }
             }
-
-            if (newValue != null)
+            catch (IOException e)
             {
-                observable.getValue().getParent();
-//                System.out.println("observable: " + observable.getValue() + ", new: " + newValue.getValue() + ", old: " + oldValue.getValue());
-
-//                LOGGER.debug(observable.getValue().getValue().getClass());
-//                LOGGER.debug(newValue.getValue().getClass());
-
-                if (newValue instanceof DataDomainTreeItem)
-                    displayDataDomain((DataDomainTreeItem) newValue);
-                else if (newValue instanceof DataMapTreeItem)
-                    displayDataMap((DataMapTreeItem) newValue);
-                else if (newValue instanceof ObjectEntityTreeItem)
-                    displayObjectEntity((ObjectEntityTreeItem) newValue);
-                else if (newValue instanceof DatabaseEntityTreeItem)
-                    displayDatabaseEntity((DatabaseEntityTreeItem) newValue);
-                else if (newValue instanceof DataNodeTreeItem)
-                    displayDataNode((DataNodeTreeItem) newValue);
-//                if (newValue.getValue() instanceof DataDomainTreeViewModel)
-//                    displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
-//                else if (newValue.getValue() instanceof DataMapTreeViewModel)
-//                    displayDataMap(((DataMapTreeViewModel) newValue.getValue()).getDataMap());
-//                // else if (newValue.getValue() instanceof
-//                // DataNodeTreeViewModel)
-//                // displayDataNode();
-//                else if (newValue.getValue() instanceof ObjectEntityTreeViewModel)
-//                    displayObjectEntity((ObjectEntityTreeViewModel) newValue.getValue());
-//                else if (newValue.getValue() instanceof DatabaseEntityTreeViewModel)
-//                    displayDatabaseEntity((DatabaseEntityTreeViewModel) newValue.getValue());
-            }
-            else
-            {
-                treeView.getSelectionModel().select(0);
-
+                LOGGER.fatal("Cannot load UI.");
             }
         });
 
@@ -253,39 +268,39 @@ public class MainWindowLayout
         final DataNodeTreeItem dataMapBranch = new DataNodeTreeItem(dataNodeAdapter, dataDomainBranch);
     }
 //    private void displayDataDomain(final DataDomainTreeViewModel domain)
-    private void displayDataDomain(final DataDomainTreeItem dataDomainTreeItem)
+    private void displayDataDomain(final DataDomainTreeItem dataDomainTreeItem) throws IOException
     {
-        displayDetailView(dataDomainDetail);
-        dataDomainDetail.setPropertyAdapter(dataDomainTreeItem.getPropertyAdapter());
-        dataDomainDetail.beginEditing();
+        displayDetailView(getDataDomainDetail());
+        getDataDomainDetail().setPropertyAdapter(dataDomainTreeItem.getPropertyAdapter());
+        getDataDomainDetail().beginEditing();
     }
 
-    private void displayDataMap(final DataMapTreeItem dataMapTreeItem)
+    private void displayDataMap(final DataMapTreeItem dataMapTreeItem) throws IOException
     {
-        displayDetailView(dataMapDetail);
-        dataMapDetail.setPropertyAdapter(dataMapTreeItem.getPropertyAdapter());
-        dataMapDetail.beginEditing();
+        displayDetailView(getDataMapDetail());
+        getDataMapDetail().setPropertyAdapter(dataMapTreeItem.getPropertyAdapter());
+        getDataMapDetail().beginEditing();
     }
 
-    private void displayDataNode(final DataNodeTreeItem dataNodeTreeItem)
+    private void displayDataNode(final DataNodeTreeItem dataNodeTreeItem) throws IOException
     {
-        displayDetailView(dataNodeDetail);
-        dataNodeDetail.setPropertyAdapter(dataNodeTreeItem.getPropertyAdapter());
-        dataNodeDetail.beginEditing();
+        displayDetailView(getDataNodeDetail());
+        getDataNodeDetail().setPropertyAdapter(dataNodeTreeItem.getPropertyAdapter());
+        getDataNodeDetail().beginEditing();
     }
 
-    private void displayObjectEntity(final ObjectEntityTreeItem objectEntityTreeItem)
+    private void displayObjectEntity(final ObjectEntityTreeItem objectEntityTreeItem) throws IOException
     {
-        displayDetailView(objectEntityDetail);
-        objectEntityDetail.setPropertyAdapter(objectEntityTreeItem.getPropertyAdapter());
-        objectEntityDetail.beginEditing();
+        displayDetailView(getObjectEntityDetail());
+        getObjectEntityDetail().setPropertyAdapter(objectEntityTreeItem.getPropertyAdapter());
+        getObjectEntityDetail().beginEditing();
     }
 
-    private void displayDatabaseEntity(final DatabaseEntityTreeItem databaseEntityTreeItem)
+    private void displayDatabaseEntity(final DatabaseEntityTreeItem databaseEntityTreeItem) throws IOException
     {
-        displayDetailView(databaseEntityDetail);
-        databaseEntityDetail.setPropertyAdapter(databaseEntityTreeItem.getPropertyAdapter());
-        databaseEntityDetail.beginEditing();
+        displayDetailView(getDatabaseEntityDetail());
+        getDatabaseEntityDetail().setPropertyAdapter(databaseEntityTreeItem.getPropertyAdapter());
+        getDatabaseEntityDetail().beginEditing();
     }
 
     private void displayDetailView(final Node detailView)
@@ -300,25 +315,16 @@ public class MainWindowLayout
 //    }
 
 
-//    private Node objectEntityDetail; // TabPane
-    private ObjectEntityLayout objectEntityDetail; // TabPane
-    private DatabaseEntityLayout databaseEntityDetail; // TabPane
-    private DataDomainLayout dataDomainDetail;
-    private DataMapLayout dataMapDetail;
-    private DataNodeLayout dataNodeDetail;
-
-    private MainToolBarLayout mainToolBarLayout;
-
     @Override
     public void loadChildLayouts()
     {
         try
         {
-            dataDomainDetail = new DataDomainLayout(this);
-            dataMapDetail = new DataMapLayout(this);
-            objectEntityDetail = new ObjectEntityLayout(this);
-            databaseEntityDetail = new DatabaseEntityLayout(this);
-            dataNodeDetail = new DataNodeLayout(this);
+//            databaseEntityDetail = new DatabaseEntityLayout(this);
+//            dataDomainDetail = new DataDomainLayout(this);
+//            dataMapDetail = new DataMapLayout(this);
+//            dataNodeDetail = new DataNodeLayout(this);
+//            objectEntityDetail = new ObjectEntityLayout(this);
 
             mainToolBarLayout = new MainToolBarLayout(this);
 
@@ -329,6 +335,31 @@ public class MainWindowLayout
             // TODO Auto-generated catch block
             LOGGER.error("Could not load subviews", exception);
         }
+    }
+
+    private DatabaseEntityLayout getDatabaseEntityDetail() throws IOException
+    {
+        return databaseEntityDetail == null ? databaseEntityDetail = new DatabaseEntityLayout(this) : databaseEntityDetail;
+    }
+
+    private DataDomainLayout getDataDomainDetail() throws IOException
+    {
+        return dataDomainDetail == null ? dataDomainDetail = new DataDomainLayout(this) : dataDomainDetail;
+    }
+
+    private DataMapLayout getDataMapDetail() throws IOException
+    {
+        return dataMapDetail == null ? dataMapDetail = new DataMapLayout(this) : dataMapDetail;
+    }
+
+    private DataNodeLayout getDataNodeDetail() throws IOException
+    {
+        return dataNodeDetail == null ? dataNodeDetail = new DataNodeLayout(this) : dataNodeDetail;
+    }
+
+    private ObjectEntityLayout getObjectEntityDetail() throws IOException
+    {
+        return objectEntityDetail == null ? objectEntityDetail = new ObjectEntityLayout(this) : objectEntityDetail;
     }
 
     public void newWindow() throws Exception
