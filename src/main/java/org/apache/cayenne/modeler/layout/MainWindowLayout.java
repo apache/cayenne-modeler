@@ -129,6 +129,8 @@ public class MainWindowLayout
 
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
+            LOGGER.debug("observable: " + observable + ", new: " + newValue + ", old: " + oldValue);
+
             if (oldValue != null)
             {
                 final DetailEditorSupport<?> detailEditor = getDetailEditor(oldValue);
@@ -141,10 +143,9 @@ public class MainWindowLayout
             {
                 observable.getValue().getParent();
 //                System.out.println("observable: " + observable.getValue() + ", new: " + newValue.getValue() + ", old: " + oldValue.getValue());
-                LOGGER.debug("observable: " + observable + ", new: " + newValue + ", old: " + oldValue);
 
-                LOGGER.debug(observable.getValue().getValue().getClass());
-                LOGGER.debug(newValue.getValue().getClass());
+//                LOGGER.debug(observable.getValue().getValue().getClass());
+//                LOGGER.debug(newValue.getValue().getClass());
 
                 if (newValue instanceof DataDomainTreeItem)
                     displayDataDomain((DataDomainTreeItem) newValue);
@@ -168,6 +169,11 @@ public class MainWindowLayout
 //                else if (newValue.getValue() instanceof DatabaseEntityTreeViewModel)
 //                    displayDatabaseEntity((DatabaseEntityTreeViewModel) newValue.getValue());
             }
+            else
+            {
+                treeView.getSelectionModel().select(0);
+
+            }
         });
 
         setTitle();
@@ -178,8 +184,8 @@ public class MainWindowLayout
 
         addDataDomain();
 
-        treeView.getSelectionModel().select(0);
         treeView.requestFocus();
+        treeView.getSelectionModel().select(0);
     }
 
     private void addDataDomain()
@@ -198,7 +204,7 @@ public class MainWindowLayout
         for (final DataNodeAdapter dataNodeAdapter : cayenneProject.getDataDomainAdapter().getDataNodeAdapters())
             addDataNode(dataNodeAdapter, dataDomainBranch);
 
-        treeView.getSelectionModel().select(dataDomainBranch);
+//        treeView.getSelectionModel().select(dataDomainBranch);
     }
 
     private void addDataMap(final DataMapAdapter dataMapAdapter, final DataDomainTreeItem dataDomainBranch)
