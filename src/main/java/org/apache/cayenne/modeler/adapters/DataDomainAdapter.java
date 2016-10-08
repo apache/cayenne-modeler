@@ -22,8 +22,6 @@ package org.apache.cayenne.modeler.adapters;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.cayenne.configuration.DataNodeDescriptor;
-import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.beans.property.BooleanProperty;
@@ -33,12 +31,8 @@ import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public class DataDomainAdapter extends CayennePropertyAdapter // implements AdapterSupport<CayenneProject>
 {
-//    public static final String NAME               = "dataDomainName";
-//    public static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";
-
     private final CayenneProject cayenneProject;
-//    private BeanPathAdapter<CayenneProject> dataDomainAdapter;
-//    private final ObservableList<DataMapAdapter> dataMapAdapters = FXCollections.emptyObservableList();
+
     private final List<DataMapAdapter> dataMapAdapters = new ArrayList<>(); //FXCollections.emptyObservableList();
     private final List<DataNodeAdapter> dataNodeAdapters = new ArrayList<>(); //FXCollections.emptyObservableList();
 
@@ -49,11 +43,8 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     {
         this.cayenneProject = cayenneProject;
 
-        for (final DataMap dataMap : cayenneProject.getDataMaps())
-            dataMapAdapters.add(new DataMapAdapter(dataMap));
-
-        for (final DataNodeDescriptor dataNode : cayenneProject.getDataNodes())
-            dataNodeAdapters.add(new DataNodeAdapter(dataNode));
+        cayenneProject.getDataMaps().stream().forEach(dataMap -> dataMapAdapters.add(new DataMapAdapter(dataMap)));
+        cayenneProject.getDataNodes().stream().forEach(dataNode -> dataNodeAdapters.add(new DataNodeAdapter(dataNode)));
 
         try
         {
@@ -64,15 +55,7 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
         {
             throw new RuntimeException("Fix the builder.");
         }
-
-//        this.dataDomainAdapter = new BeanPathAdapter<CayenneProject>(cayenneProject);
     }
-
-//    @Override
-//    public BeanPathAdapter<CayenneProject> getBeanPathAdapter()
-//    {
-//        return dataDomainAdapter;
-//    }
 
     public StringProperty nameProperty() { return nameProperty; }
     public String getName() { return nameProperty.get(); }
@@ -84,14 +67,6 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
     public List<DataMapAdapter> getDataMapAdapters()
     {
-//        if (dataMapAdapters.size() != cayenneProject.getDataMaps().size())
-//        {
-//            for (final DataMap dataMap : cayenneProject.getDataMaps())
-//            {
-//                dataMapAdapters.add(new DataMapAdapter(dataMap));
-//            }
-//        }
-
         return dataMapAdapters;
     }
 

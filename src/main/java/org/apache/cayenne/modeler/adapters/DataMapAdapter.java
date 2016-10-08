@@ -22,8 +22,6 @@ package org.apache.cayenne.modeler.adapters;
 import java.util.List;
 
 import org.apache.cayenne.map.DataMap;
-import org.apache.cayenne.map.DbEntity;
-import org.apache.cayenne.map.ObjEntity;
 import org.apache.commons.lang3.ObjectUtils;
 
 import javafx.beans.property.BooleanProperty;
@@ -38,10 +36,7 @@ import javafx.collections.ObservableList;
 public class DataMapAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
     private final DataMap dataMap;
-//    private BeanPathAdapter<DataMap> dataMapAdapter;
 
-//    private final List<ObjectEntityAdapter>   objectEntityAdapters   = new ArrayList<>();
-//    private final List<DatabaseEntityAdapter> databaseEntityAdapters = new ArrayList<>();
     private final ObservableList<ObjectEntityAdapter>   objectEntityAdapters   = FXCollections.observableArrayList();
     private final ObservableList<DatabaseEntityAdapter> databaseEntityAdapters = FXCollections.observableArrayList();
 
@@ -91,22 +86,17 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
         }
 
         // Create ObjectEntityAdapters for all object entities.
-        for (final ObjEntity objEntity : dataMap.getObjEntities())
-            objectEntityAdapters.add(new ObjectEntityAdapter(objEntity));
+        dataMap.getObjEntities().stream().forEach(objEntity -> objectEntityAdapters.add(new ObjectEntityAdapter(objEntity)));
 
         // Sort the ObjectEntityAdapters (by their name).
         sortObjectEntities();
 
         // Add change listeners for all ObjectEntityAdapter name changes and automatically re-sort.
-        for (final ObjectEntityAdapter objectEntityAdapter : objectEntityAdapters)
-            objectEntityAdapter.nameProperty().addListener((observable, oldValue, newValue) -> sortObjectEntities());
+        objectEntityAdapters.stream().forEach(objectEntityAdapter ->
+            objectEntityAdapter.nameProperty().addListener((observable, oldValue, newValue) -> sortObjectEntities()));
 
         // Create DatabaseEntityAdapters for all database entities.
-        for (final DbEntity dbEntity : dataMap.getDbEntities())
-            databaseEntityAdapters.add(new DatabaseEntityAdapter(dbEntity));
-
-
-//        this.dataMapAdapter = new BeanPathAdapter<DataMap>(dataMap);
+        dataMap.getDbEntities().stream().forEach(dbEntity -> databaseEntityAdapters.add(new DatabaseEntityAdapter(dbEntity)));
     }
 
     public StringProperty nameProperty() { return nameProperty; }

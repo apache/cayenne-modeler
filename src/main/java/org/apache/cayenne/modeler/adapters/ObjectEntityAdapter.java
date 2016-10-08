@@ -19,7 +19,6 @@
 
 package org.apache.cayenne.modeler.adapters;
 
-import org.apache.cayenne.map.ObjAttribute;
 import org.apache.cayenne.map.ObjEntity;
 
 import javafx.beans.property.BooleanProperty;
@@ -83,8 +82,7 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
             throw new RuntimeException("Fix the builder.", e);
         }
 
-        for (final ObjAttribute objAttribute : objectEntity.getAttributes())
-            objectAttributeAdapters.add(new ObjectAttributeAdapter(objAttribute));
+        objectEntity.getAttributes().stream().forEach(objAttribute -> objectAttributeAdapters.add(new ObjectAttributeAdapter(objAttribute)));
     }
 
     public StringProperty nameProperty() { return nameProperty; }
