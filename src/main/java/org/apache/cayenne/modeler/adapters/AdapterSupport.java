@@ -19,6 +19,7 @@
 
 package org.apache.cayenne.modeler.adapters;
 
+@Deprecated // Don't think this is needed anymore.
 public interface AdapterSupport<T>
 {
 //    public BeanPathAdapter<T> getBeanPathAdapter();

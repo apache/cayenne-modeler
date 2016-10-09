@@ -56,26 +56,27 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
 
     public DataMapAdapter(final DataMap dataMap)
     {
+        // Must be assigned before property binding.
         this.dataMap = dataMap;
 
         try
         {
-            nameProperty = bindString(dataMap, "name");
+            nameProperty = bindString("name");
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
 
             // TODO: Fix Cayenne?  The DEFAULT_QUOTE_SQL_IDENTIFIERS_PROPERTY constant is incorrect.
-            quoteSQLIdentifiersProperty = bindBoolean(dataMap, "quotingSQLIdentifiers");
+            quoteSQLIdentifiersProperty = bindBoolean("quotingSQLIdentifiers");
 
-            defaultCatalogProperty = bindString(dataMap, DataMap.DEFAULT_CATALOG_PROPERTY);
-            defaultSchemaProperty  = bindString(dataMap, DataMap.DEFAULT_SCHEMA_PROPERTY);
-            defaultPackageProperty = bindString(dataMap, DataMap.DEFAULT_PACKAGE_PROPERTY);
+            defaultCatalogProperty = bindString(DataMap.DEFAULT_CATALOG_PROPERTY);
+            defaultSchemaProperty  = bindString(DataMap.DEFAULT_SCHEMA_PROPERTY);
+            defaultPackageProperty = bindString(DataMap.DEFAULT_PACKAGE_PROPERTY);
 
-            defaultSuperclassProperty = bindString(dataMap, DataMap.DEFAULT_SUPERCLASS_PROPERTY);
-            defaultLockTypeProperty   = bindInteger(dataMap, DataMap.DEFAULT_LOCK_TYPE_PROPERTY);
+            defaultSuperclassProperty = bindString(DataMap.DEFAULT_SUPERCLASS_PROPERTY);
+            defaultLockTypeProperty   = bindInteger(DataMap.DEFAULT_LOCK_TYPE_PROPERTY);
 
-            clientSupportedProperty         = bindBoolean(dataMap, DataMap.CLIENT_SUPPORTED_PROPERTY);
-            defaultClientPackageProperty    = bindString(dataMap, DataMap.DEFAULT_CLIENT_PACKAGE_PROPERTY);
-            defaultClientSuperclassProperty = bindString(dataMap, DataMap.DEFAULT_CLIENT_SUPERCLASS_PROPERTY);
+            clientSupportedProperty         = bindBoolean(DataMap.CLIENT_SUPPORTED_PROPERTY);
+            defaultClientPackageProperty    = bindString(DataMap.DEFAULT_CLIENT_PACKAGE_PROPERTY);
+            defaultClientSuperclassProperty = bindString(DataMap.DEFAULT_CLIENT_SUPERCLASS_PROPERTY);
         }
         catch (final NoSuchMethodException e)
         {
@@ -156,5 +157,11 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
             {
                 return ObjectUtils.compare(entity1.nameProperty().get(), entity2.nameProperty().get());
             });
+    }
+
+    @Override
+    public Object getWrappedObject()
+    {
+        return dataMap;
     }
 }

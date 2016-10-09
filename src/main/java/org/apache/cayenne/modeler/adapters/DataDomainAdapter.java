@@ -50,6 +50,7 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
     public DataDomainAdapter(final CayenneProject cayenneProject)
     {
+        // Must be assigned before property binding.
         this.cayenneProject = cayenneProject;
 
         cayenneProject.getDataMaps().stream().forEach(dataMap -> dataMapAdapters.add(new DataMapAdapter(dataMap)));
@@ -57,11 +58,11 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
         try
         {
-            nameProperty                      = bindString(cayenneProject, DATA_DOMAIN_NAME);
-            validatingObjectsProperty         = bindBoolean(cayenneProject, VALIDATING_OBJECTS);
-            sizeOfObjectCacheProperty         = bindInteger(cayenneProject, OBJECT_CACHE_SIZE);
-            useSharedCacheProperty            = bindBoolean(cayenneProject, USE_SHARED_CACHE);
-            remoteChangeNotificationsProperty = bindBoolean(cayenneProject, REMOTE_CHANGE_NOTIFICATIONS);
+            nameProperty                      = bindString(DATA_DOMAIN_NAME);
+            validatingObjectsProperty         = bindBoolean(VALIDATING_OBJECTS);
+            sizeOfObjectCacheProperty         = bindInteger(OBJECT_CACHE_SIZE);
+            useSharedCacheProperty            = bindBoolean(USE_SHARED_CACHE);
+            remoteChangeNotificationsProperty = bindBoolean(REMOTE_CHANGE_NOTIFICATIONS);
         }
         catch (final NoSuchMethodException e)
         {
@@ -97,5 +98,11 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     public List<DataNodeAdapter> getDataNodeAdapters()
     {
         return dataNodeAdapters;
+    }
+
+    @Override
+    public Object getWrappedObject()
+    {
+        return cayenneProject;
     }
 }

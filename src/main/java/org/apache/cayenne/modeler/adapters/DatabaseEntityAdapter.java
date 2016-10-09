@@ -54,11 +54,12 @@ public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements 
 
     public DatabaseEntityAdapter(final DbEntity databaseEntity)
     {
+        // Must be assigned before property binding.
         this.databaseEntity = databaseEntity;
 
         try
         {
-            nameProperty = bindString(databaseEntity, "name");
+            nameProperty = bindString("name");
         }
         catch (final NoSuchMethodException e)
         {
@@ -73,4 +74,10 @@ public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements 
     public StringProperty locationProperty() { return locationProperty; }
     public String getLocationProperty() { return locationProperty.get(); }
     public void setLocationProperty(final String value) { locationProperty.set(value); }
+
+    @Override
+    public Object getWrappedObject()
+    {
+        return databaseEntity;
+    }
 }

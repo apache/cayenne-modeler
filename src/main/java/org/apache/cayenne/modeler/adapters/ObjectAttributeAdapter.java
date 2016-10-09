@@ -51,14 +51,15 @@ public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements
 
     public ObjectAttributeAdapter(final ObjAttribute objectAttribute)
     {
+        // Must be assigned before property binding.
         this.objectAttribute = objectAttribute;
 
         try
         {
-            nameProperty                  = bindString(objectAttribute, "name");
-            javaTypeProperty              = bindString(objectAttribute, "type");
-            databaseAttributePathProperty = bindString(objectAttribute, "dbAttributePath");
-            usedForLockingProperty        = bindBoolean(objectAttribute, "usedForLocking");
+            nameProperty                  = bindString("name");
+            javaTypeProperty              = bindString("type");
+            databaseAttributePathProperty = bindString("dbAttributePath");
+            usedForLockingProperty        = bindBoolean("usedForLocking");
 
 
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
@@ -108,6 +109,12 @@ public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements
      * @return The underlying ObjAttribute fronted by this property adapter.
      */
     public ObjAttribute getObjAttribute()
+    {
+        return objectAttribute;
+    }
+
+    @Override
+    public Object getWrappedObject()
     {
         return objectAttribute;
     }

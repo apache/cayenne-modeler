@@ -52,12 +52,13 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
 
     public ObjectEntityAdapter(final ObjEntity objectEntity)
     {
+        // Must be assigned before property binding.
         this.objectEntity = objectEntity;
 
         try
         {
-            nameProperty          = bindString(objectEntity, "name");
-            abstractClassProperty = bindBoolean(objectEntity, "abstract");
+            nameProperty          = bindString("name");
+            abstractClassProperty = bindBoolean("abstract");
 
 
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
@@ -94,5 +95,11 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
     public ObservableList<ObjectAttributeAdapter> getAttributes()
     {
         return objectAttributeAdapters;
+    }
+
+    @Override
+    public Object getWrappedObject()
+    {
+        return objectEntity;
     }
 }

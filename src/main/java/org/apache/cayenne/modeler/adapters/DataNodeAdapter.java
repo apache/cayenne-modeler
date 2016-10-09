@@ -35,11 +35,12 @@ public class DataNodeAdapter extends CayennePropertyAdapter
 
     public DataNodeAdapter(final DataNodeDescriptor dataNode)
     {
+        // Must be assigned before property binding.
         this.dataNode = dataNode;
 
         try
         {
-            nameProperty                 = bindString(dataNode, "name");
+            nameProperty                 = bindString("name");
 //            dataSourceLocationProperty       = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceLocation").build();
 //            dataSourceFactoryProperty        = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceFactory").build();
 //            schemaUpdateStrategyNameProperty = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("schemaUpdateStrategyName").build();
@@ -53,4 +54,10 @@ public class DataNodeAdapter extends CayennePropertyAdapter
     public StringProperty nameProperty() { return nameProperty; }
     public String getName() { return nameProperty.get(); }
     public void setName(final String value) { nameProperty.set(value); }
+
+    @Override
+    public Object getWrappedObject()
+    {
+        return dataNode;
+    }
 }

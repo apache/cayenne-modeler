@@ -28,18 +28,20 @@ import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public abstract class CayennePropertyAdapter
 {
-    public static BooleanProperty bindBoolean(Object bean, String property) throws NoSuchMethodException
+    public BooleanProperty bindBoolean(String property) throws NoSuchMethodException
     {
-        return JavaBeanBooleanPropertyBuilder.create().bean(bean).name(property).build();
+        return JavaBeanBooleanPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
     }
 
-    public static IntegerProperty bindInteger(Object bean, String property) throws NoSuchMethodException
+    public IntegerProperty bindInteger(String property) throws NoSuchMethodException
     {
-        return JavaBeanIntegerPropertyBuilder.create().bean(bean).name(property).build();
+        return JavaBeanIntegerPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
     }
 
-    public static StringProperty bindString(Object bean, String property) throws NoSuchMethodException
+    public StringProperty bindString(String property) throws NoSuchMethodException
     {
-        return JavaBeanStringPropertyBuilder.create().bean(bean).name(property).build();
+        return JavaBeanStringPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
     }
+
+    public abstract Object getWrappedObject();
 }
