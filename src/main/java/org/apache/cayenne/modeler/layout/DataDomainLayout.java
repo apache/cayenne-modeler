@@ -95,9 +95,11 @@ public class DataDomainLayout
 
         objectCacheSizeSpinner.getValueFactory().valueProperty().bindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
         useSharedCacheCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.useSharedCacheProperty());
+        remoteChangeNotificationsCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
     }
 
-    public void beginEditingNotCalled()
+    @Deprecated
+    private void beginEditingNotCalled()
     {
         LOGGER.debug("begin editing");
 
@@ -150,6 +152,8 @@ public class DataDomainLayout
         objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 
         objectCacheSizeSpinner.getValueFactory().valueProperty().unbindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
+        useSharedCacheCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.useSharedCacheProperty());
+        remoteChangeNotificationsCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
 
 //        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
 ////        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());

@@ -164,6 +164,16 @@ public class CayenneProject
         setDomainBooleanProperty(DataDomain.SHARED_CACHE_ENABLED_PROPERTY, usingSharedCache, DataDomain.SHARED_CACHE_ENABLED_DEFAULT);
     }
 
+    public boolean isRemoteChangeNotificationsEnabled()
+    {
+        return getDomainBooleanProperty(DataRowStore.REMOTE_NOTIFICATION_PROPERTY, DataRowStore.REMOTE_NOTIFICATION_DEFAULT);
+    }
+
+    public void setRemoteChangeNotificationsEnabled(final boolean remoteChangeNotificationsEnabled)
+    {
+        setDomainBooleanProperty(DataRowStore.REMOTE_NOTIFICATION_PROPERTY, remoteChangeNotificationsEnabled, DataRowStore.REMOTE_NOTIFICATION_DEFAULT);
+    }
+
     public Collection<DataMap> getDataMaps()
     {
         return root.getDataMaps();

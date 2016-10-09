@@ -27,16 +27,14 @@ import org.apache.cayenne.modeler.project.CayenneProject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public class DataDomainAdapter extends CayennePropertyAdapter // implements AdapterSupport<CayenneProject>
 {
-    private static final String DATA_DOMAIN_NAME   = "dataDomainName";
-    private static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";
-    private static final String OBJECT_CACHE_SIZE  = "sizeOfObjectCache";
-    private static final String USE_SHARED_CACHE   = "usingSharedCache";
+    private static final String DATA_DOMAIN_NAME            = "dataDomainName";
+    private static final String VALIDATING_OBJECTS          = "dataDomainValidatingObjects";
+    private static final String OBJECT_CACHE_SIZE           = "sizeOfObjectCache";
+    private static final String USE_SHARED_CACHE            = "usingSharedCache";
+    private static final String REMOTE_CHANGE_NOTIFICATIONS = "remoteChangeNotificationsEnabled";
 
     private final CayenneProject cayenneProject;
 
@@ -59,10 +57,11 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
         try
         {
-            nameProperty              = JavaBeanStringPropertyBuilder.create().bean(cayenneProject).name(DATA_DOMAIN_NAME).build();
-            validatingObjectsProperty = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name(VALIDATING_OBJECTS).build();
-            sizeOfObjectCacheProperty = JavaBeanIntegerPropertyBuilder.create().bean(cayenneProject).name(OBJECT_CACHE_SIZE).build();
-            useSharedCacheProperty    = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name(USE_SHARED_CACHE).build();
+            nameProperty                      = bindString(cayenneProject, DATA_DOMAIN_NAME);
+            validatingObjectsProperty         = bindBoolean(cayenneProject, VALIDATING_OBJECTS);
+            sizeOfObjectCacheProperty         = bindInteger(cayenneProject, OBJECT_CACHE_SIZE);
+            useSharedCacheProperty            = bindBoolean(cayenneProject, USE_SHARED_CACHE);
+            remoteChangeNotificationsProperty = bindBoolean(cayenneProject, REMOTE_CHANGE_NOTIFICATIONS);
         }
         catch (final NoSuchMethodException e)
         {
@@ -85,6 +84,10 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     public BooleanProperty useSharedCacheProperty() { return useSharedCacheProperty; }
     public Boolean getUseSharedCache() { return useSharedCacheProperty.get(); }
     public void setUseSharedCache(final Boolean value) { useSharedCacheProperty.set(value); }
+
+    public BooleanProperty remoteChangeNotificationsProperty() { return remoteChangeNotificationsProperty; }
+    public Boolean getRemoteChangeNotifications() { return remoteChangeNotificationsProperty.get(); }
+    public void setRemoteChangeNotifications(final Boolean value) { remoteChangeNotificationsProperty.set(value); }
 
     public List<DataMapAdapter> getDataMapAdapters()
     {
