@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -59,6 +60,9 @@ public class DataDomainLayout
     @FXML
     private CheckBox useSharedCacheCheckBox, remoteChangeNotificationsCheckBox;
 
+    @FXML
+    private Button remoteChangeConfigurationButton;
+
     private DataDomainAdapter dataDomainAdapter;
 
     public DataDomainLayout(final MainWindowSupport parentComponent) throws IOException
@@ -77,6 +81,11 @@ public class DataDomainLayout
         super.initializeLayout();
 
         objectCacheSizeSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, DataRowStore.SNAPSHOT_CACHE_SIZE_DEFAULT, 100));
+
+        useSharedCacheCheckBox.selectedProperty().addListener((obs, oldValue, newValue) ->
+        {
+            configureRemoteNotifications(newValue);
+        });
     }
 
     @Override
@@ -96,6 +105,8 @@ public class DataDomainLayout
         objectCacheSizeSpinner.getValueFactory().valueProperty().bindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
         useSharedCacheCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.useSharedCacheProperty());
         remoteChangeNotificationsCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
+
+        configureRemoteNotifications(dataDomainAdapter.getUseSharedCache());
     }
 
     @Deprecated
@@ -199,5 +210,20 @@ public class DataDomainLayout
 //            dataDomainNameTextField.setText(value);
         }
         // TODO Auto-generated method stub
+    }
+
+    private void configureRemoteNotifications(boolean enabled)
+    {
+        if (enabled)
+        {
+            enable(remoteChangeNotificationsCheckBox);
+            enable(remoteChangeConfigurationButton);
+        }
+        else
+        {
+            disable(remoteChangeNotificationsCheckBox);
+            disable(remoteChangeConfigurationButton);
+            dataDomainAdapter.setRemoteChangeNotifications(false);
+        }
     }
 }

@@ -77,7 +77,7 @@
                      <children>
                         <CheckBox fx:id="remoteChangeNotificationsCheckBox" mnemonicParsing="false" text="Remote Change Notifications" />
                         <Pane prefWidth="30.0" />
-                        <Button mnemonicParsing="false" text="Configure..." />
+                        <Button fx:id="remoteChangeConfigurationButton" mnemonicParsing="false" text="Configure..." />
                      </children>
                   </HBox>
                </children>
