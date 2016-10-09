@@ -82,6 +82,15 @@ public class MainWindowLayout
         super(new Stage(), "/layouts/MainWindowLayout.fxml");
 
         setMinimumWindowSize(900, 700);
+
+        getStage().setOnCloseRequest(event ->
+            {
+                LOGGER.debug("Window is closing!");
+                // ideas for checking if window should save before closing or cancel, etc:
+                // event.consume();  <- Prevents window from closing
+                // http://stackoverflow.com/questions/31540500/alert-box-for-when-user-attempts-to-close-application-using-setoncloserequest-in
+                // http://stackoverflow.com/questions/23160573/javafx-stage-setoncloserequest-without-function
+            });
     }
 
     @Override
@@ -137,37 +146,33 @@ public class MainWindowLayout
         // System.out.println(CayenneModelManager.getModels().size());
 
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-        {
-            LOGGER.debug("observable: " + observable + ", new: " + newValue + ", old: " + oldValue);
-
-            try
             {
-                if (oldValue != null)
+                LOGGER.debug("observable: " + observable + ", new: " + newValue + ", old: " + oldValue);
+
+                try
                 {
-                    final DetailEditorSupport<?> detailEditor = getDetailEditor(oldValue);
+                    if (oldValue != null)
+                    {
+                        final DetailEditorSupport<?> detailEditor = getDetailEditor(oldValue);
 
-                    if (detailEditor != null)
-                        detailEditor.endEditing();
-                }
+                        if (detailEditor != null)
+                            detailEditor.endEditing();
+                    }
 
-                if (newValue != null)
-                {
-                    observable.getValue().getParent();
-//                    System.out.println("observable: " + observable.getValue() + ", new: " + newValue.getValue() + ", old: " + oldValue.getValue());
+                    if (newValue != null)
+                    {
+                        observable.getValue().getParent();
 
-//                    LOGGER.debug(observable.getValue().getValue().getClass());
-//                    LOGGER.debug(newValue.getValue().getClass());
-
-                    if (newValue instanceof DataDomainTreeItem)
-                        displayDataDomain((DataDomainTreeItem) newValue);
-                    else if (newValue instanceof DataMapTreeItem)
-                        displayDataMap((DataMapTreeItem) newValue);
-                    else if (newValue instanceof ObjectEntityTreeItem)
-                        displayObjectEntity((ObjectEntityTreeItem) newValue);
-                    else if (newValue instanceof DatabaseEntityTreeItem)
-                        displayDatabaseEntity((DatabaseEntityTreeItem) newValue);
-                    else if (newValue instanceof DataNodeTreeItem)
-                        displayDataNode((DataNodeTreeItem) newValue);
+                        if (newValue instanceof DataDomainTreeItem)
+                            displayDataDomain((DataDomainTreeItem) newValue);
+                        else if (newValue instanceof DataMapTreeItem)
+                            displayDataMap((DataMapTreeItem) newValue);
+                        else if (newValue instanceof ObjectEntityTreeItem)
+                            displayObjectEntity((ObjectEntityTreeItem) newValue);
+                        else if (newValue instanceof DatabaseEntityTreeItem)
+                            displayDatabaseEntity((DatabaseEntityTreeItem) newValue);
+                        else if (newValue instanceof DataNodeTreeItem)
+                            displayDataNode((DataNodeTreeItem) newValue);
 //                    if (newValue.getValue() instanceof DataDomainTreeViewModel)
 //                        displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
 //                    else if (newValue.getValue() instanceof DataMapTreeViewModel)
@@ -179,17 +184,17 @@ public class MainWindowLayout
 //                        displayObjectEntity((ObjectEntityTreeViewModel) newValue.getValue());
 //                    else if (newValue.getValue() instanceof DatabaseEntityTreeViewModel)
 //                        displayDatabaseEntity((DatabaseEntityTreeViewModel) newValue.getValue());
+                    }
+                    else
+                    {
+                        treeView.getSelectionModel().select(0);
+                    }
                 }
-                else
+                catch (IOException e)
                 {
-                    treeView.getSelectionModel().select(0);
+                    LOGGER.fatal("Cannot load UI.");
                 }
-            }
-            catch (IOException e)
-            {
-                LOGGER.fatal("Cannot load UI.");
-            }
-        });
+            });
 
         setTitle();
 //        displayDataDomain(domain);

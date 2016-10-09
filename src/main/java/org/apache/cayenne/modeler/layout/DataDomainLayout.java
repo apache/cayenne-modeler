@@ -83,9 +83,9 @@ public class DataDomainLayout
         objectCacheSizeSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, DataRowStore.SNAPSHOT_CACHE_SIZE_DEFAULT, 100));
 
         useSharedCacheCheckBox.selectedProperty().addListener((obs, oldValue, newValue) ->
-        {
-            configureRemoteNotifications(newValue);
-        });
+            {
+                configureRemoteNotifications(newValue);
+            });
     }
 
     @Override
