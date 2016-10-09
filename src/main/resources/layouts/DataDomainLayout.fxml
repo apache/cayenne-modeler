@@ -72,10 +72,10 @@
                <children>
                   <Label alignment="CENTER_RIGHT" text="Size of Object Cache: " />
                   <Spinner fx:id="objectCacheSizeSpinner" editable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
-                  <CheckBox mnemonicParsing="false" text="Use Shared Cache" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <CheckBox fx:id="useSharedCacheCheckBox" mnemonicParsing="false" text="Use Shared Cache" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <CheckBox mnemonicParsing="false" text="Remote Change Notifications" />
+                        <CheckBox fx:id="remoteChangeNotificationsCheckBox" mnemonicParsing="false" text="Remote Change Notifications" />
                         <Pane prefWidth="30.0" />
                         <Button mnemonicParsing="false" text="Configure..." />
                      </children>

@@ -36,6 +36,7 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     private static final String DATA_DOMAIN_NAME   = "dataDomainName";
     private static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";
     private static final String OBJECT_CACHE_SIZE  = "sizeOfObjectCache";
+    private static final String USE_SHARED_CACHE   = "usingSharedCache";
 
     private final CayenneProject cayenneProject;
 
@@ -45,9 +46,9 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     private StringProperty  nameProperty;
     private BooleanProperty validatingObjectsProperty;
 
-    private IntegerProperty sizeOfObjectCache;
-    private BooleanProperty useSharedCache;
-    private BooleanProperty remoteChangeNotifications;
+    private IntegerProperty sizeOfObjectCacheProperty;
+    private BooleanProperty useSharedCacheProperty;
+    private BooleanProperty remoteChangeNotificationsProperty;
 
     public DataDomainAdapter(final CayenneProject cayenneProject)
     {
@@ -60,7 +61,8 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
         {
             nameProperty              = JavaBeanStringPropertyBuilder.create().bean(cayenneProject).name(DATA_DOMAIN_NAME).build();
             validatingObjectsProperty = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name(VALIDATING_OBJECTS).build();
-            sizeOfObjectCache         = JavaBeanIntegerPropertyBuilder.create().bean(cayenneProject).name(OBJECT_CACHE_SIZE).build();
+            sizeOfObjectCacheProperty = JavaBeanIntegerPropertyBuilder.create().bean(cayenneProject).name(OBJECT_CACHE_SIZE).build();
+            useSharedCacheProperty    = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name(USE_SHARED_CACHE).build();
         }
         catch (final NoSuchMethodException e)
         {
@@ -73,12 +75,16 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     public void setName(final String value) { nameProperty.set(value); }
 
     public BooleanProperty validatingObjectsProperty() { return validatingObjectsProperty; }
-    public Boolean getValidatingObjectsProperty() { return validatingObjectsProperty.get(); }
-    public void setValidatingObjectsProperty(final Boolean value) { validatingObjectsProperty.set(value); }
+    public Boolean getValidatingObjects() { return validatingObjectsProperty.get(); }
+    public void setValidatingObjects(final Boolean value) { validatingObjectsProperty.set(value); }
 
-    public IntegerProperty sizeOfObjectCacheProperty() { return sizeOfObjectCache; }
-    public Integer getSizeOfObjectCache() { return sizeOfObjectCache.get(); }
-    public void setSizeOfObjectCache(final Integer value) { sizeOfObjectCache.set(value); }
+    public IntegerProperty sizeOfObjectCacheProperty() { return sizeOfObjectCacheProperty; }
+    public Integer getSizeOfObjectCache() { return sizeOfObjectCacheProperty.get(); }
+    public void setSizeOfObjectCache(final Integer value) { sizeOfObjectCacheProperty.set(value); }
+
+    public BooleanProperty useSharedCacheProperty() { return useSharedCacheProperty; }
+    public Boolean getUseSharedCache() { return useSharedCacheProperty.get(); }
+    public void setUseSharedCache(final Boolean value) { useSharedCacheProperty.set(value); }
 
     public List<DataMapAdapter> getDataMapAdapters()
     {

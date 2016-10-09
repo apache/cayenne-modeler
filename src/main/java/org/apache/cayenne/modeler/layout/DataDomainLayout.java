@@ -56,6 +56,8 @@ public class DataDomainLayout
     @FXML
     private Spinner<Integer> objectCacheSizeSpinner;
 
+    @FXML
+    private CheckBox useSharedCacheCheckBox, remoteChangeNotificationsCheckBox;
 
     private DataDomainAdapter dataDomainAdapter;
 
@@ -92,6 +94,7 @@ public class DataDomainLayout
         objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 
         objectCacheSizeSpinner.getValueFactory().valueProperty().bindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
+        useSharedCacheCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.useSharedCacheProperty());
     }
 
     public void beginEditingNotCalled()

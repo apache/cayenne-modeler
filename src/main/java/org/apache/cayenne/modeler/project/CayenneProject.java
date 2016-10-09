@@ -136,17 +136,12 @@ public class CayenneProject
 
     public boolean isDataDomainValidatingObjects()
     {
-        return getDomainBooleanProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY,
-                                        Boolean.toString(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT));
+        return getDomainBooleanProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY, DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT);
     }
 
     public void setDataDomainValidatingObjects(final boolean validatingObjects)
     {
-        final String value = validatingObjects ? "true" : "false";
-
-        setDomainProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY,
-                          value,
-                          Boolean.toString(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT));
+        setDomainBooleanProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY, validatingObjects, DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT);
     }
 
     public Integer getSizeOfObjectCache()
@@ -156,7 +151,17 @@ public class CayenneProject
 
     public void setSizeOfObjectCache(Integer cacheSize)
     {
-        setDomainProperty(DataRowStore.SNAPSHOT_CACHE_SIZE_PROPERTY, String.valueOf(cacheSize), DataRowStore.SNAPSHOT_CACHE_SIZE_PROPERTY);
+        setDomainStringProperty(DataRowStore.SNAPSHOT_CACHE_SIZE_PROPERTY, String.valueOf(cacheSize), DataRowStore.SNAPSHOT_CACHE_SIZE_PROPERTY);
+    }
+
+    public boolean isUsingSharedCache()
+    {
+        return getDomainBooleanProperty(DataDomain.SHARED_CACHE_ENABLED_PROPERTY, DataDomain.SHARED_CACHE_ENABLED_DEFAULT);
+    }
+
+    public void setUsingSharedCache(final boolean usingSharedCache)
+    {
+        setDomainBooleanProperty(DataDomain.SHARED_CACHE_ENABLED_PROPERTY, usingSharedCache, DataDomain.SHARED_CACHE_ENABLED_DEFAULT);
     }
 
     public Collection<DataMap> getDataMaps()
@@ -173,7 +178,7 @@ public class CayenneProject
      * Helper method that updates domain properties. If a value equals to
      * default, null value is used instead.
      */
-    protected void setDomainProperty(final String property, String value, final String defaultValue)
+    private void setDomainStringProperty(final String property, String value, final String defaultValue)
     {
         if (getDataDomain() == null)
             return;
@@ -199,7 +204,7 @@ public class CayenneProject
         }
     }
 
-    public String getDomainProperty(final String property, final String defaultValue)
+    private String getDomainProperty(final String property, final String defaultValue)
     {
         if (getDataDomain() == null)
             return null;
@@ -208,12 +213,17 @@ public class CayenneProject
         return value != null ? value : defaultValue;
     }
 
-    public boolean getDomainBooleanProperty(final String property, final String defaultValue)
+    private boolean getDomainBooleanProperty(final String property, final boolean defaultValue)
     {
-        return "true".equalsIgnoreCase(getDomainProperty(property, defaultValue));
+        return "true".equalsIgnoreCase(getDomainProperty(property, Boolean.toString(defaultValue)));
     }
 
-    public int getDomainIntegerProperty(final String property, final int defaultValue)
+    private void setDomainBooleanProperty(final String property, final boolean value, final boolean defaultValue)
+    {
+        setDomainStringProperty(property, Boolean.toString(value), Boolean.toString(defaultValue));
+    }
+
+    private int getDomainIntegerProperty(final String property, final int defaultValue)
     {
         try
         {
@@ -224,7 +234,6 @@ public class CayenneProject
             return defaultValue;
         }
     }
-
 
     public DataDomainAdapter getDataDomainAdapter()
     {
