@@ -19,7 +19,27 @@
 
 package org.apache.cayenne.modeler.adapters;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
+
 public abstract class CayennePropertyAdapter
 {
+    public static BooleanProperty bindBoolean(Object bean, String property) throws NoSuchMethodException
+    {
+        return JavaBeanBooleanPropertyBuilder.create().bean(bean).name(property).build();
+    }
 
+    public static IntegerProperty bindInteger(Object bean, String property) throws NoSuchMethodException
+    {
+        return JavaBeanIntegerPropertyBuilder.create().bean(bean).name(property).build();
+    }
+
+    public static StringProperty bindString(Object bean, String property) throws NoSuchMethodException
+    {
+        return JavaBeanStringPropertyBuilder.create().bean(bean).name(property).build();
+    }
 }
