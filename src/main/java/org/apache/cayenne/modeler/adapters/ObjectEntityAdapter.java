@@ -23,8 +23,6 @@ import org.apache.cayenne.map.ObjEntity;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -58,8 +56,8 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
 
         try
         {
-            nameProperty = JavaBeanStringPropertyBuilder.create().bean(objectEntity).name("name").build();
-            abstractClassProperty = JavaBeanBooleanPropertyBuilder.create().bean(objectEntity).name("abstract").build();
+            nameProperty          = bindString(objectEntity, "name");
+            abstractClassProperty = bindBoolean(objectEntity, "abstract");
 
 
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();

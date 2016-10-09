@@ -27,9 +27,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -63,22 +60,22 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
 
         try
         {
-            nameProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("name").build();
+            nameProperty = bindString(dataMap, "name");
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
 
             // TODO: Fix Cayenne?  The DEFAULT_QUOTE_SQL_IDENTIFIERS_PROPERTY constant is incorrect.
-            quoteSQLIdentifiersProperty = JavaBeanBooleanPropertyBuilder.create().bean(dataMap).name("quotingSQLIdentifiers").build();
+            quoteSQLIdentifiersProperty = bindBoolean(dataMap, "quotingSQLIdentifiers");
 
-            defaultCatalogProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_CATALOG_PROPERTY).build();
-            defaultSchemaProperty  = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_SCHEMA_PROPERTY).build();
-            defaultPackageProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_PACKAGE_PROPERTY).build();
+            defaultCatalogProperty = bindString(dataMap, DataMap.DEFAULT_CATALOG_PROPERTY);
+            defaultSchemaProperty  = bindString(dataMap, DataMap.DEFAULT_SCHEMA_PROPERTY);
+            defaultPackageProperty = bindString(dataMap, DataMap.DEFAULT_PACKAGE_PROPERTY);
 
-            defaultSuperclassProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_SUPERCLASS_PROPERTY).build();
-            defaultLockTypeProperty   = JavaBeanIntegerPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_LOCK_TYPE_PROPERTY).build();
+            defaultSuperclassProperty = bindString(dataMap, DataMap.DEFAULT_SUPERCLASS_PROPERTY);
+            defaultLockTypeProperty   = bindInteger(dataMap, DataMap.DEFAULT_LOCK_TYPE_PROPERTY);
 
-            clientSupportedProperty         = JavaBeanBooleanPropertyBuilder.create().bean(dataMap).name(DataMap.CLIENT_SUPPORTED_PROPERTY).build();
-            defaultClientPackageProperty    = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_CLIENT_PACKAGE_PROPERTY).build();
-            defaultClientSuperclassProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name(DataMap.DEFAULT_CLIENT_SUPERCLASS_PROPERTY).build();
+            clientSupportedProperty         = bindBoolean(dataMap, DataMap.CLIENT_SUPPORTED_PROPERTY);
+            defaultClientPackageProperty    = bindString(dataMap, DataMap.DEFAULT_CLIENT_PACKAGE_PROPERTY);
+            defaultClientSuperclassProperty = bindString(dataMap, DataMap.DEFAULT_CLIENT_SUPERCLASS_PROPERTY);
         }
         catch (final NoSuchMethodException e)
         {

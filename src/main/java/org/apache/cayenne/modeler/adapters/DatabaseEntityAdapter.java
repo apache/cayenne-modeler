@@ -27,7 +27,6 @@ import org.apache.cayenne.map.DbEntity;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
@@ -59,14 +58,12 @@ public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements 
 
         try
         {
-            nameProperty = JavaBeanStringPropertyBuilder.create().bean(databaseEntity).name("name").build();
+            nameProperty = bindString(databaseEntity, "name");
         }
         catch (final NoSuchMethodException e)
         {
             throw new RuntimeException("Fix the builder.", e);
         }
-
-//        this.dataMapAdapter = new BeanPathAdapter<DataMap>(dataMap);
     }
 
     public StringProperty nameProperty() { return nameProperty; }

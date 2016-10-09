@@ -22,7 +22,6 @@ package org.apache.cayenne.modeler.adapters;
 import org.apache.cayenne.configuration.DataNodeDescriptor;
 
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public class DataNodeAdapter extends CayennePropertyAdapter
 {
@@ -40,7 +39,7 @@ public class DataNodeAdapter extends CayennePropertyAdapter
 
         try
         {
-            nameProperty                 = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("name").build();
+            nameProperty                 = bindString(dataNode, "name");
 //            dataSourceLocationProperty       = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceLocation").build();
 //            dataSourceFactoryProperty        = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceFactory").build();
 //            schemaUpdateStrategyNameProperty = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("schemaUpdateStrategyName").build();

@@ -24,8 +24,6 @@ import org.apache.cayenne.map.ObjAttribute;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
@@ -57,10 +55,10 @@ public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements
 
         try
         {
-            nameProperty = JavaBeanStringPropertyBuilder.create().bean(objectAttribute).name("name").build();
-            javaTypeProperty = JavaBeanStringPropertyBuilder.create().bean(objectAttribute).name("type").build();
-            databaseAttributePathProperty = JavaBeanStringPropertyBuilder.create().bean(objectAttribute).name("dbAttributePath").build();
-            usedForLockingProperty = JavaBeanBooleanPropertyBuilder.create().bean(objectAttribute).name("usedForLocking").build();
+            nameProperty                  = bindString(objectAttribute, "name");
+            javaTypeProperty              = bindString(objectAttribute, "type");
+            databaseAttributePathProperty = bindString(objectAttribute, "dbAttributePath");
+            usedForLockingProperty        = bindBoolean(objectAttribute, "usedForLocking");
 
 
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
