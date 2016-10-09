@@ -25,12 +25,18 @@ import java.util.List;
 import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public class DataDomainAdapter extends CayennePropertyAdapter // implements AdapterSupport<CayenneProject>
 {
+    private static final String DATA_DOMAIN_NAME   = "dataDomainName";
+    private static final String VALIDATING_OBJECTS = "dataDomainValidatingObjects";
+    private static final String OBJECT_CACHE_SIZE  = "sizeOfObjectCache";
+
     private final CayenneProject cayenneProject;
 
     private final List<DataMapAdapter> dataMapAdapters = new ArrayList<>(); //FXCollections.emptyObservableList();
@@ -38,6 +44,10 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
     private StringProperty  nameProperty;
     private BooleanProperty validatingObjectsProperty;
+
+    private IntegerProperty sizeOfObjectCache;
+    private BooleanProperty useSharedCache;
+    private BooleanProperty remoteChangeNotifications;
 
     public DataDomainAdapter(final CayenneProject cayenneProject)
     {
@@ -48,8 +58,9 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
         try
         {
-            nameProperty              = JavaBeanStringPropertyBuilder.create().bean(cayenneProject).name("dataDomainName").build();
-            validatingObjectsProperty = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name("dataDomainValidatingObjects").build();
+            nameProperty              = JavaBeanStringPropertyBuilder.create().bean(cayenneProject).name(DATA_DOMAIN_NAME).build();
+            validatingObjectsProperty = JavaBeanBooleanPropertyBuilder.create().bean(cayenneProject).name(VALIDATING_OBJECTS).build();
+            sizeOfObjectCache         = JavaBeanIntegerPropertyBuilder.create().bean(cayenneProject).name(OBJECT_CACHE_SIZE).build();
         }
         catch (final NoSuchMethodException e)
         {
@@ -64,6 +75,10 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     public BooleanProperty validatingObjectsProperty() { return validatingObjectsProperty; }
     public Boolean getValidatingObjectsProperty() { return validatingObjectsProperty.get(); }
     public void setValidatingObjectsProperty(final Boolean value) { validatingObjectsProperty.set(value); }
+
+    public IntegerProperty sizeOfObjectCacheProperty() { return sizeOfObjectCache; }
+    public Integer getSizeOfObjectCache() { return sizeOfObjectCache.get(); }
+    public void setSizeOfObjectCache(final Integer value) { sizeOfObjectCache.set(value); }
 
     public List<DataMapAdapter> getDataMapAdapters()
     {

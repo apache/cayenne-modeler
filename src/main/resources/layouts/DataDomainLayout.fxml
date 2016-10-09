@@ -44,13 +44,11 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label alignment="CENTER_RIGHT" text="Name: " />
                   <TextField fx:id="dataDomainNameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
                   <CheckBox fx:id="objectValidationCheckBox" mnemonicParsing="false" text="Object Validation" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <CheckBox mnemonicParsing="false" text="Container-Managed Transactions" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Label text="Cache Configuration">
@@ -73,7 +71,7 @@
                </rowConstraints>
                <children>
                   <Label alignment="CENTER_RIGHT" text="Size of Object Cache: " />
-                  <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <Spinner fx:id="objectCacheSizeSpinner" editable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
                   <CheckBox mnemonicParsing="false" text="Use Shared Cache" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>

@@ -21,6 +21,7 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
+import org.apache.cayenne.access.DataRowStore;
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
@@ -30,6 +31,8 @@ import org.apache.commons.logging.LogFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 
 // org.apache.cayenne.modeler.controller.DataDomainViewController
@@ -50,6 +53,9 @@ public class DataDomainLayout
     @FXML
     private CheckBox objectValidationCheckBox;
 
+    @FXML
+    private Spinner<Integer> objectCacheSizeSpinner;
+
 
     private DataDomainAdapter dataDomainAdapter;
 
@@ -64,6 +70,14 @@ public class DataDomainLayout
 //        };
 
     @Override
+    public void initializeLayout()
+    {
+        super.initializeLayout();
+
+        objectCacheSizeSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, DataRowStore.SNAPSHOT_CACHE_SIZE_DEFAULT, 100));
+    }
+
+    @Override
     public void setPropertyAdapter(final DataDomainAdapter dataDomainAdapter)
     {
         this.dataDomainAdapter = dataDomainAdapter;
@@ -76,8 +90,8 @@ public class DataDomainLayout
 
         dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.nameProperty());
         objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.validatingObjectsProperty());
-//        accessibleHelpProperty()setText(getMainWindow().getCayenneProject().getDataDomainName());
-//        dataDomainNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
+
+        objectCacheSizeSpinner.getValueFactory().valueProperty().bindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
     }
 
     public void beginEditingNotCalled()
@@ -131,6 +145,8 @@ public class DataDomainLayout
 
         dataDomainNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.nameProperty());
         objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.validatingObjectsProperty());
+
+        objectCacheSizeSpinner.getValueFactory().valueProperty().unbindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
 
 //        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
 ////        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());

@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.cayenne.access.DataDomain;
+import org.apache.cayenne.access.DataRowStore;
 import org.apache.cayenne.configuration.DataChannelDescriptor;
 import org.apache.cayenne.configuration.DataNodeDescriptor;
 import org.apache.cayenne.map.DataMap;
@@ -128,6 +129,11 @@ public class CayenneProject
         return root.getName();
     }
 
+    public void setDataDomainName(final String name)
+    {
+        root.setName(name);
+    }
+
     public boolean isDataDomainValidatingObjects()
     {
         return getDomainBooleanProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY,
@@ -143,10 +149,16 @@ public class CayenneProject
                           Boolean.toString(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT));
     }
 
-    public void setDataDomainName(final String name)
+    public Integer getSizeOfObjectCache()
     {
-        root.setName(name);
+        return getDomainIntegerProperty(DataRowStore.SNAPSHOT_CACHE_SIZE_PROPERTY, DataRowStore.SNAPSHOT_CACHE_SIZE_DEFAULT);
     }
+
+    public void setSizeOfObjectCache(Integer cacheSize)
+    {
+        setDomainProperty(DataRowStore.SNAPSHOT_CACHE_SIZE_PROPERTY, String.valueOf(cacheSize), DataRowStore.SNAPSHOT_CACHE_SIZE_PROPERTY);
+    }
+
     public Collection<DataMap> getDataMaps()
     {
         return root.getDataMaps();
@@ -199,6 +211,18 @@ public class CayenneProject
     public boolean getDomainBooleanProperty(final String property, final String defaultValue)
     {
         return "true".equalsIgnoreCase(getDomainProperty(property, defaultValue));
+    }
+
+    public int getDomainIntegerProperty(final String property, final int defaultValue)
+    {
+        try
+        {
+            return Integer.valueOf(getDomainProperty(property, String.valueOf(defaultValue)));
+        }
+        catch (NumberFormatException e)
+        {
+            return defaultValue;
+        }
     }
 
 
