@@ -30,6 +30,8 @@ import javafx.beans.property.StringProperty;
 
 public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
+    private static final String DATAASE_ENTITY_NAME = "name";
+
     private final DbEntity databaseEntity;
 //    private BeanPathAdapter<DataMap> dataMapAdapter;
 
@@ -59,7 +61,7 @@ public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements 
 
         try
         {
-            nameProperty = bindString("name");
+            nameProperty = bindString(DATAASE_ENTITY_NAME);
         }
         catch (final NoSuchMethodException e)
         {

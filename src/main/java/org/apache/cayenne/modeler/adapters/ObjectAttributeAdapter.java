@@ -27,6 +27,11 @@ import javafx.beans.property.StringProperty;
 
 public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
+    private static final String DATABASE_ATTRIBUTE_PATH = "dbAttributePath";
+    private static final String OBJECT_ATTRIBUTE_NAME   = "name";
+    private static final String OBJECT_ATTRIBUTE_TYPE   = "type";
+    private static final String USED_FOR_LOCKING        = "usedForLocking";
+
     private final ObjAttribute objectAttribute;
 
     private StringProperty nameProperty;
@@ -56,10 +61,10 @@ public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements
 
         try
         {
-            nameProperty                  = bindString("name");
-            javaTypeProperty              = bindString("type");
-            databaseAttributePathProperty = bindString("dbAttributePath");
-            usedForLockingProperty        = bindBoolean("usedForLocking");
+            nameProperty                  = bindString(OBJECT_ATTRIBUTE_NAME);
+            javaTypeProperty              = bindString(OBJECT_ATTRIBUTE_TYPE);
+            databaseAttributePathProperty = bindString(DATABASE_ATTRIBUTE_PATH);
+            usedForLockingProperty        = bindBoolean(USED_FOR_LOCKING);
 
 
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();

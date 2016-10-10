@@ -32,6 +32,9 @@ import javafx.collections.ObservableList;
 
 public class DataMapAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
+    private static final String DATA_MAP_NAME         = "name";
+    private static final String QUOTE_SQL_IDENTIFIERS = "quotingSQLIdentifiers";
+
     private final DataMap dataMap;
 
     private final ObservableList<ObjectEntityAdapter>   objectEntityAdapters   = FXCollections.observableArrayList();
@@ -61,11 +64,11 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
 
         try
         {
-            nameProperty = bindString("name");
+            nameProperty = bindString(DATA_MAP_NAME);
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();
 
             // TODO: Fix Cayenne?  The DEFAULT_QUOTE_SQL_IDENTIFIERS_PROPERTY constant is incorrect.
-            quoteSQLIdentifiersProperty = bindBoolean("quotingSQLIdentifiers");
+            quoteSQLIdentifiersProperty = bindBoolean(QUOTE_SQL_IDENTIFIERS);
 
             defaultCatalogProperty = bindString(DataMap.DEFAULT_CATALOG_PROPERTY);
             defaultSchemaProperty  = bindString(DataMap.DEFAULT_SCHEMA_PROPERTY);

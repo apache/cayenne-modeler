@@ -28,6 +28,9 @@ import javafx.collections.ObservableList;
 
 public class ObjectEntityAdapter extends CayennePropertyAdapter // implements AdapterSupport<DataMap>
 {
+    private static final String ABSTRACT_CLASS     = "abstract";
+    private static final String OBJECT_ENTITY_NAME = "name";
+
     private final ObjEntity objectEntity;
 
     private final ObservableList<ObjectAttributeAdapter> objectAttributeAdapters = FXCollections.observableArrayList();
@@ -57,8 +60,8 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
 
         try
         {
-            nameProperty          = bindString("name");
-            abstractClassProperty = bindBoolean("abstract");
+            nameProperty          = bindString(OBJECT_ENTITY_NAME);
+            abstractClassProperty = bindBoolean(ABSTRACT_CLASS);
 
 
 //            locationProperty = JavaBeanStringPropertyBuilder.create().bean(dataMap).name("map").build();

@@ -25,6 +25,8 @@ import javafx.beans.property.StringProperty;
 
 public class DataNodeAdapter extends CayennePropertyAdapter
 {
+    private static final String DATA_NODE_NAME = "name";
+
     private StringProperty  nameProperty;
 
     private StringProperty  dataSourceLocationProperty;
@@ -40,7 +42,7 @@ public class DataNodeAdapter extends CayennePropertyAdapter
 
         try
         {
-            nameProperty                 = bindString("name");
+            nameProperty                 = bindString(DATA_NODE_NAME);
 //            dataSourceLocationProperty       = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceLocation").build();
 //            dataSourceFactoryProperty        = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("dataSourceFactory").build();
 //            schemaUpdateStrategyNameProperty = JavaBeanStringPropertyBuilder.create().bean(dataNode).name("schemaUpdateStrategyName").build();
