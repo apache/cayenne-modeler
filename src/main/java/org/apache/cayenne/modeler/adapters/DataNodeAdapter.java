@@ -20,6 +20,7 @@
 package org.apache.cayenne.modeler.adapters;
 
 import org.apache.cayenne.configuration.DataNodeDescriptor;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.beans.property.StringProperty;
 
@@ -34,6 +35,8 @@ public class DataNodeAdapter extends CayennePropertyAdapter
     private StringProperty  schemaUpdateStrategyNameProperty;
 
     private final DataNodeDescriptor dataNode;
+
+    private DataDomainAdapter dataDomainAdapter;
 
     public DataNodeAdapter(final DataNodeDescriptor dataNode)
     {
@@ -53,9 +56,25 @@ public class DataNodeAdapter extends CayennePropertyAdapter
         }
     }
 
+    public DataDomainAdapter getDataDomainAdapter()
+    {
+        return dataDomainAdapter;
+    }
+
+    public void setDataDomainAdapter(DataDomainAdapter dataDomainAdapter)
+    {
+        this.dataDomainAdapter = dataDomainAdapter;
+    }
+
     public StringProperty nameProperty() { return nameProperty; }
     public String getName() { return nameProperty.get(); }
     public void setName(final String value) { nameProperty.set(value); }
+
+    @Override
+    public CayenneProject getCayennePropject()
+    {
+        return dataDomainAdapter.getCayennePropject();
+    }
 
     @Override
     public Object getWrappedObject()

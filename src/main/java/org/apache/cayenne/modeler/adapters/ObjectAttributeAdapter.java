@@ -21,6 +21,7 @@ package org.apache.cayenne.modeler.adapters;
 
 import org.apache.cayenne.dba.TypesMapping;
 import org.apache.cayenne.map.ObjAttribute;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
@@ -33,6 +34,8 @@ public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements
     private static final String USED_FOR_LOCKING        = "usedForLocking";
 
     private final ObjAttribute objectAttribute;
+
+    private ObjectEntityAdapter objectEntityAdapter;
 
     private StringProperty nameProperty;
     private StringProperty javaTypeProperty;
@@ -90,6 +93,16 @@ public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements
 //        objectAttribute.getDbAttribute().getName();
     }
 
+    public ObjectEntityAdapter getObjectEntityAdapter()
+    {
+        return objectEntityAdapter;
+    }
+
+    public void setObjectEntityAdapter(ObjectEntityAdapter objectEntityAdapter)
+    {
+        this.objectEntityAdapter = objectEntityAdapter;
+    }
+
     public StringProperty nameProperty() { return nameProperty; }
     public String getName() { return nameProperty.get(); }
     public void setName(final String value) { nameProperty.set(value); }
@@ -110,12 +123,19 @@ public class ObjectAttributeAdapter extends CayennePropertyAdapter // implements
     {
         return TypesMapping.getSqlNameByType(objectAttribute.getDbAttribute().getType());
     }
+
     /**
      * @return The underlying ObjAttribute fronted by this property adapter.
      */
     public ObjAttribute getObjAttribute()
     {
         return objectAttribute;
+    }
+
+    @Override
+    public CayenneProject getCayennePropject()
+    {
+        return objectEntityAdapter.getCayennePropject();
     }
 
     @Override

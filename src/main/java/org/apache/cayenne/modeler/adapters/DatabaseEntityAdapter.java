@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cayenne.map.DbEntity;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -34,6 +35,8 @@ public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements 
 
     private final DbEntity databaseEntity;
 //    private BeanPathAdapter<DataMap> dataMapAdapter;
+
+    private DataMapAdapter dataMapAdapter;
 
     private final List<ObjectEntityAdapter> objectEntityAdapters = new ArrayList<>();
 
@@ -69,6 +72,16 @@ public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements 
         }
     }
 
+    public DataMapAdapter getDataMapAdapter()
+    {
+        return dataMapAdapter;
+    }
+
+    public void setDataMapAdapter(DataMapAdapter dataMapAdapter)
+    {
+        this.dataMapAdapter = dataMapAdapter;
+    }
+
     public StringProperty nameProperty() { return nameProperty; }
     public String getName() { return nameProperty.get(); }
     public void setName(final String value) { nameProperty.set(value); }
@@ -76,6 +89,12 @@ public class DatabaseEntityAdapter extends CayennePropertyAdapter // implements 
     public StringProperty locationProperty() { return locationProperty; }
     public String getLocationProperty() { return locationProperty.get(); }
     public void setLocationProperty(final String value) { locationProperty.set(value); }
+
+    @Override
+    public CayenneProject getCayennePropject()
+    {
+        return dataMapAdapter.getCayennePropject();
+    }
 
     @Override
     public Object getWrappedObject()

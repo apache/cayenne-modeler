@@ -20,6 +20,7 @@
 package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
@@ -39,8 +40,13 @@ import org.apache.cayenne.modeler.project.ObjectEntityTreeItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -75,7 +81,7 @@ public class MainWindowLayout
 
     private CayenneProject cayenneProject;
 
-    private boolean dirty;
+    private StringProperty titleProperty = new SimpleStringProperty();
 
     public MainWindowLayout() throws IOException
     {
@@ -90,6 +96,26 @@ public class MainWindowLayout
                 // event.consume();  <- Prevents window from closing
                 // http://stackoverflow.com/questions/31540500/alert-box-for-when-user-attempts-to-close-application-using-setoncloserequest-in
                 // http://stackoverflow.com/questions/23160573/javafx-stage-setoncloserequest-without-function
+
+                if (cayenneProject.isDirty())
+                {
+                    Alert alert = new Alert(AlertType.CONFIRMATION);
+                    alert.setTitle("Close Window");
+                    alert.setHeaderText("Unsaved Changes");
+                    alert.setContentText("Are you sure you want to close this window and lose your changes?");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    if (result.get() == ButtonType.OK)
+                    {
+                        // ... user chose OK
+                    }
+                    else
+                    {
+                        // ... user chose CANCEL or closed the dialog
+                        event.consume();
+                    }
+                }
             });
     }
 
@@ -104,15 +130,15 @@ public class MainWindowLayout
         return cayenneProject;
     }
 
-    public void setTitle()
+    private void setTitle()
     {
-        final String edited = isDirty() ? "[edited] " : "";
+        final String edited = cayenneProject.isDirty() ? "[edited] " : "";
         String title = edited + "Cayenne Modeler";
 
         if (cayenneProject != null)
             title += " - " + cayenneProject.getPath();
 
-        super.setTitle(title);
+        titleProperty.set(title);
     }
 
 //    private DataDomainAdapter dataDomainAdapter;
@@ -138,9 +164,14 @@ public class MainWindowLayout
         this.cayenneProject    = cayenneProject;
 //        this.dataDomainAdapter = new DataDomainAdapter(cayenneProject);
 
-      treeRoot.setExpanded(true);
-      treeView.setRoot(treeRoot);
-      treeView.setShowRoot(false);
+        // Wire up the window's title bar to be aware of changes to the dirty indicator.
+        getStage().titleProperty().bind(titleProperty);
+        cayenneProject.dirtyProperty().addListener((observable, oldValue, newValue) -> setTitle());
+        setTitle();
+
+        treeRoot.setExpanded(true);
+        treeView.setRoot(treeRoot);
+        treeView.setShowRoot(false);
 
         // addDataDomain(CayenneModelManager.getModels().get(0));
         // System.out.println(CayenneModelManager.getModels().size());
@@ -377,22 +408,11 @@ public class MainWindowLayout
         CayenneModeler.openPreferences();
     }
 
-    public boolean isDirty()
-    {
-        return dirty;
-    }
-
-    public void setDirty(final boolean dirty)
-    {
-        this.dirty = dirty;
-        setTitle();
-    }
-
     @Override
     public void handleDataDomainChange(final DataDomainChangeEvent event)
     {
         LOGGER.debug("Handling DataDomain Chain Event (Main Window)");
-        setDirty(true);
+//        setDirty(true);
 
         if (event.getEventType() == Type.NAME)
         {

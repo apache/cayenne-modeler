@@ -44,12 +44,21 @@ import org.apache.cayenne.util.Util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class CayenneProject
 {
     private static final Log LOGGER = LogFactory.getLog(CayenneProject.class);
 
     private final String path;
     private final DataDomainAdapter dataDomainAdapter;
+
+    private final BooleanProperty dirtyProperty = new SimpleBooleanProperty(false);
+
+    public BooleanProperty dirtyProperty() { return dirtyProperty; };
+    public boolean isDirty() { return dirtyProperty.get(); }
+    public void setDirty(boolean value) { dirtyProperty.set(value); }
 
     public String getPath()
     {

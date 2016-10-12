@@ -22,6 +22,7 @@ package org.apache.cayenne.modeler.adapters;
 import java.util.List;
 
 import org.apache.cayenne.map.DataMap;
+import org.apache.cayenne.modeler.project.CayenneProject;
 import org.apache.commons.lang3.ObjectUtils;
 
 import javafx.beans.property.BooleanProperty;
@@ -39,6 +40,8 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
 
     private final ObservableList<ObjectEntityAdapter>   objectEntityAdapters   = FXCollections.observableArrayList();
     private final ObservableList<DatabaseEntityAdapter> databaseEntityAdapters = FXCollections.observableArrayList();
+
+    private DataDomainAdapter dataDomainAdapter;
 
     private StringProperty nameProperty;
 
@@ -89,6 +92,8 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
         // Create ObjectEntityAdapters for all object entities.
         dataMap.getObjEntities().stream().forEach(objEntity -> objectEntityAdapters.add(new ObjectEntityAdapter(objEntity)));
 
+        objectEntityAdapters.stream().forEach(objectEntityAdapter -> objectEntityAdapter.setDataMapAdapter(this));
+
         // Sort the ObjectEntityAdapters (by their name).
         sortObjectEntities();
 
@@ -98,6 +103,18 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
 
         // Create DatabaseEntityAdapters for all database entities.
         dataMap.getDbEntities().stream().forEach(dbEntity -> databaseEntityAdapters.add(new DatabaseEntityAdapter(dbEntity)));
+
+        databaseEntityAdapters.stream().forEach(databaseEntityAdapter -> databaseEntityAdapter.setDataMapAdapter(this));
+    }
+
+    public DataDomainAdapter getDataDomainAdapter()
+    {
+        return dataDomainAdapter;
+    }
+
+    public void setDataDomainAdapter(DataDomainAdapter dataDomainAdapter)
+    {
+        this.dataDomainAdapter = dataDomainAdapter;
     }
 
     public StringProperty nameProperty() { return nameProperty; }
@@ -166,5 +183,11 @@ public class DataMapAdapter extends CayennePropertyAdapter // implements Adapter
     public Object getWrappedObject()
     {
         return dataMap;
+    }
+
+    @Override
+    public CayenneProject getCayennePropject()
+    {
+        return dataDomainAdapter.getCayennePropject();
     }
 }

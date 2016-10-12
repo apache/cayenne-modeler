@@ -19,6 +19,10 @@
 
 package org.apache.cayenne.modeler.adapters;
 
+import org.apache.cayenne.modeler.project.CayenneProject;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
@@ -28,20 +32,40 @@ import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 public abstract class CayennePropertyAdapter
 {
+    private static final Log LOGGER = LogFactory.getLog(CayennePropertyAdapter.class);
+
     public BooleanProperty bindBoolean(String property) throws NoSuchMethodException
     {
-        return JavaBeanBooleanPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
+        BooleanProperty boundProperty = JavaBeanBooleanPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
+
+        boundProperty.addListener((observable, newValue, oldValue) -> markProjectDirty());
+
+        return boundProperty;
     }
 
     public IntegerProperty bindInteger(String property) throws NoSuchMethodException
     {
-        return JavaBeanIntegerPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
+        IntegerProperty boundProperty = JavaBeanIntegerPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
+
+        boundProperty.addListener((observable, newValue, oldValue) -> markProjectDirty());
+
+        return boundProperty;
     }
 
     public StringProperty bindString(String property) throws NoSuchMethodException
     {
-        return JavaBeanStringPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
+        StringProperty boundProperty = JavaBeanStringPropertyBuilder.create().bean(getWrappedObject()).name(property).build();
+
+        boundProperty.addListener((observable, newValue, oldValue) -> markProjectDirty());
+
+        return boundProperty;
     }
 
+    private void markProjectDirty()
+    {
+        getCayennePropject().setDirty(true);
+    }
+
+    public abstract CayenneProject getCayennePropject();
     public abstract Object getWrappedObject();
 }

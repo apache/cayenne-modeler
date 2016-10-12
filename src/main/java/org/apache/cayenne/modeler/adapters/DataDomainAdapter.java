@@ -53,8 +53,13 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
         // Must be assigned before property binding.
         this.cayenneProject = cayenneProject;
 
+        // Create adapters for all DataMaps and DataNodes.
         cayenneProject.getDataMaps().stream().forEach(dataMap -> dataMapAdapters.add(new DataMapAdapter(dataMap)));
         cayenneProject.getDataNodes().stream().forEach(dataNode -> dataNodeAdapters.add(new DataNodeAdapter(dataNode)));
+
+        // Associate all DataMaps and DataNodes with this DataDomainAdapter.
+        dataMapAdapters.stream().forEach(dataMapAdapter -> dataMapAdapter.setDataDomainAdapter(this));
+        dataNodeAdapters.stream().forEach(dataNodeAdapter -> dataNodeAdapter.setDataDomainAdapter(this));
 
         try
         {
@@ -98,6 +103,12 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     public List<DataNodeAdapter> getDataNodeAdapters()
     {
         return dataNodeAdapters;
+    }
+
+    @Override
+    public CayenneProject getCayennePropject()
+    {
+        return cayenneProject;
     }
 
     @Override

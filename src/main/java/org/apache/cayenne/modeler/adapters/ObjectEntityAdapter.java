@@ -20,6 +20,7 @@
 package org.apache.cayenne.modeler.adapters;
 
 import org.apache.cayenne.map.ObjEntity;
+import org.apache.cayenne.modeler.project.CayenneProject;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
@@ -32,6 +33,8 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
     private static final String OBJECT_ENTITY_NAME = "name";
 
     private final ObjEntity objectEntity;
+
+    private DataMapAdapter dataMapAdapter;
 
     private final ObservableList<ObjectAttributeAdapter> objectAttributeAdapters = FXCollections.observableArrayList();
 
@@ -85,6 +88,18 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
         }
 
         objectEntity.getAttributes().stream().forEach(objAttribute -> objectAttributeAdapters.add(new ObjectAttributeAdapter(objAttribute)));
+
+        objectAttributeAdapters.stream().forEach(objectAttributeAdapter -> objectAttributeAdapter.setObjectEntityAdapter(this));
+    }
+
+    public DataMapAdapter getDataMapAdapter()
+    {
+        return dataMapAdapter;
+    }
+
+    public void setDataMapAdapter(DataMapAdapter dataMapAdapter)
+    {
+        this.dataMapAdapter = dataMapAdapter;
     }
 
     public StringProperty nameProperty() { return nameProperty; }
@@ -104,5 +119,11 @@ public class ObjectEntityAdapter extends CayennePropertyAdapter // implements Ad
     public Object getWrappedObject()
     {
         return objectEntity;
+    }
+
+    @Override
+    public CayenneProject getCayennePropject()
+    {
+        return dataMapAdapter.getCayennePropject();
     }
 }
