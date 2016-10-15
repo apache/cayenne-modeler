@@ -34,7 +34,6 @@ import javafx.scene.layout.GridPane;
 public class DataNodePasswordEncoderTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DataNodeAdapter>
-
 {
     private static final Log LOGGER = LogFactory.getLog(DataNodePasswordEncoderTabLayout.class);
 
@@ -83,24 +82,17 @@ public class DataNodePasswordEncoderTabLayout
         passwordLocationChoiceBox.getItems().add(passwordLocationExecutableSetting);
         passwordLocationChoiceBox.getItems().add(passwordLocationUrlSetting);
 
-        passwordLocationChoiceBox.valueProperty().addListener((obs, oldValue, newValue) ->
+        passwordLocationChoiceBox.valueProperty().addListener((observable, oldValue, newValue) ->
         {
             final boolean model      = newValue.equals(passwordLocationModelSetting);
             final boolean classpath  = newValue.equals(passwordLocationClasspathSetting);
             final boolean executable = newValue.equals(passwordLocationExecutableSetting);
             final boolean url        = newValue.equals(passwordLocationUrlSetting);
 
-            passwordSourceGridPane.setVisible(model);
-            passwordSourceGridPane.setManaged(model);
-
-            passwordFilenameGridPane.setVisible(classpath);
-            passwordFilenameGridPane.setManaged(classpath);
-
-            passwordExecutableGridPane.setVisible(executable);
-            passwordExecutableGridPane.setManaged(executable);
-
-            passwordUrlGridPane.setVisible(url);
-            passwordUrlGridPane.setManaged(url);
+            setVisibility(passwordSourceGridPane, model);
+            setVisibility(passwordFilenameGridPane, classpath);
+            setVisibility(passwordExecutableGridPane, executable);
+            setVisibility(passwordUrlGridPane, url);
         });
 
         passwordLocationChoiceBox.getSelectionModel().select(0);
