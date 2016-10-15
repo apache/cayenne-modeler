@@ -27,18 +27,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="-Infinity" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0">
          <children>
-            <Label text="DataDomain Configuration">
+            <Label text="DataDomain Configuration" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
             <GridPane>
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
               </columnConstraints>
               <rowConstraints>
@@ -59,9 +59,9 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </Label>
-            <GridPane>
+            <GridPane VBox.vgrow="ALWAYS">
                <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
                </columnConstraints>
                <rowConstraints>
@@ -73,15 +73,105 @@
                   <Label alignment="CENTER_RIGHT" text="Size of Object Cache: " />
                   <Spinner fx:id="objectCacheSizeSpinner" editable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
                   <CheckBox fx:id="useSharedCacheCheckBox" mnemonicParsing="false" text="Use Shared Cache" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <children>
-                        <CheckBox fx:id="remoteChangeNotificationsCheckBox" mnemonicParsing="false" text="Remote Change Notifications" />
-                        <Pane prefWidth="30.0" />
-                        <Button fx:id="remoteChangeConfigurationButton" mnemonicParsing="false" text="Configure..." />
-                     </children>
-                  </HBox>
+                  <ChoiceBox fx:id="remoteChangeNotificationsChoiceBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label alignment="CENTER_RIGHT" text="Remote Change Notifications: " GridPane.rowIndex="2" />
                </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
             </GridPane>
+            <VBox fx:id="javaGroupsConfiguration" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="JavaGroups Multicast Configuration">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <RadioButton mnemonicParsing="false" text="Standard Configuration">
+                     <padding>
+                        <Insets left="20.0" top="5.0" />
+                     </padding>
+                  </RadioButton>
+                  <GridPane VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" text="Multicast Address: " />
+                        <TextField fx:id="dataDomainNameTextField1" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                        <Label alignment="CENTER_RIGHT" text="Multicast Port: " GridPane.rowIndex="1" />
+                        <TextField fx:id="dataDomainNameTextField11" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <RadioButton mnemonicParsing="false" text="File Configuration">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </RadioButton>
+                  <GridPane VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" text="JGroups File: " />
+                        <TextField fx:id="dataDomainNameTextField111" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+            <VBox fx:id="jmsConfiguration" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="JMS Transport Configuration">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <GridPane VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" text="Connection Factory Name: " />
+                        <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+            <VBox fx:id="customConfiguration">
+               <children>
+                  <Label text="Custom Transport Configuration" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <GridPane VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Factory Class: " />
+                        <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

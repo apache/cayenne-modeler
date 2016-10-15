@@ -81,7 +81,7 @@ public class MainWindowLayout
 
     private CayenneProject cayenneProject;
 
-    private StringProperty titleProperty = new SimpleStringProperty();
+    private final StringProperty titleProperty = new SimpleStringProperty();
 
     public MainWindowLayout() throws IOException
     {
@@ -99,12 +99,12 @@ public class MainWindowLayout
 
                 if (cayenneProject.isDirty())
                 {
-                    Alert alert = new Alert(AlertType.CONFIRMATION);
+                    final Alert alert = new Alert(AlertType.CONFIRMATION);
                     alert.setTitle("Close Window");
                     alert.setHeaderText("Unsaved Changes");
                     alert.setContentText("Are you sure you want to close this window and lose your changes?");
 
-                    Optional<ButtonType> result = alert.showAndWait();
+                    final Optional<ButtonType> result = alert.showAndWait();
 
                     if (result.get() == ButtonType.OK)
                     {
@@ -221,9 +221,9 @@ public class MainWindowLayout
                         treeView.getSelectionModel().select(0);
                     }
                 }
-                catch (IOException e)
+                catch (final IOException e)
                 {
-                    LOGGER.fatal("Cannot load UI.");
+                    LOGGER.fatal("Cannot load UI.", e);
                 }
             });
 

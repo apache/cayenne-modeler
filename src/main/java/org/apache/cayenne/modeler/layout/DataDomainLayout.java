@@ -30,11 +30,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 // org.apache.cayenne.modeler.controller.DataDomainViewController
 public class DataDomainLayout
@@ -58,12 +59,31 @@ public class DataDomainLayout
     private Spinner<Integer> objectCacheSizeSpinner;
 
     @FXML
-    private CheckBox useSharedCacheCheckBox, remoteChangeNotificationsCheckBox;
+    private CheckBox useSharedCacheCheckBox; // , remoteChangeNotificationsCheckBox;
+
+//    @FXML
+//    private Button remoteChangeConfigurationButton;
 
     @FXML
-    private Button remoteChangeConfigurationButton;
+    private VBox javaGroupsConfiguration, jmsConfiguration, customConfiguration;
+
+    @FXML
+    private ChoiceBox<String> remoteChangeNotificationsChoiceBox;
 
     private DataDomainAdapter dataDomainAdapter;
+
+    private static final String RCN_NONE        = "None";
+    private static final String RCN_JAVA_GROUPS = "JavaGroups Multicast";
+    private static final String RCN_JMS         = "JMS Transport";
+    private static final String RCN_CUSTOM      = "Custom Transport";
+
+    private static final String[] remoteChangeNotificationOptions =
+        {
+            RCN_NONE,
+            RCN_JAVA_GROUPS,
+            RCN_JMS,
+            RCN_CUSTOM
+        };
 
     public DataDomainLayout(final MainWindowSupport parentComponent) throws IOException
     {
@@ -86,6 +106,33 @@ public class DataDomainLayout
             {
                 configureRemoteNotifications(newValue);
             });
+
+        hide(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
+
+        remoteChangeNotificationsChoiceBox.getItems().addAll(remoteChangeNotificationOptions);
+        remoteChangeNotificationsChoiceBox.getSelectionModel().select(0);
+        remoteChangeNotificationsChoiceBox.valueProperty().addListener((observable, oldValue, newValue) ->
+            {
+                if (newValue == RCN_NONE)
+                {
+                    hide(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
+                }
+                else if (newValue == RCN_JAVA_GROUPS)
+                {
+                    hide(jmsConfiguration, customConfiguration);
+                    show(javaGroupsConfiguration);
+                }
+                else if (newValue == RCN_JMS)
+                {
+                    hide(javaGroupsConfiguration, customConfiguration);
+                    show(jmsConfiguration);
+                }
+                else if (newValue == RCN_CUSTOM)
+                {
+                    hide(javaGroupsConfiguration, jmsConfiguration);
+                    show(customConfiguration);
+                }
+            });
     }
 
     @Override
@@ -99,12 +146,14 @@ public class DataDomainLayout
     {
         LOGGER.debug("begin editing " + this);
 
+//        show(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
+
         dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.nameProperty());
         objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 
         objectCacheSizeSpinner.getValueFactory().valueProperty().bindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
         useSharedCacheCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.useSharedCacheProperty());
-        remoteChangeNotificationsCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
+//        remoteChangeNotificationsCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
 
         configureRemoteNotifications(dataDomainAdapter.getUseSharedCache());
     }
@@ -164,7 +213,7 @@ public class DataDomainLayout
 
         objectCacheSizeSpinner.getValueFactory().valueProperty().unbindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
         useSharedCacheCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.useSharedCacheProperty());
-        remoteChangeNotificationsCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
+//        remoteChangeNotificationsCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
 
 //        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
 ////        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());
@@ -212,17 +261,17 @@ public class DataDomainLayout
         // TODO Auto-generated method stub
     }
 
-    private void configureRemoteNotifications(boolean enabled)
+    private void configureRemoteNotifications(final boolean enabled)
     {
         if (enabled)
         {
-            enable(remoteChangeNotificationsCheckBox);
-            enable(remoteChangeConfigurationButton);
+//            enable(remoteChangeNotificationsCheckBox);
+//            enable(remoteChangeConfigurationButton);
         }
         else
         {
-            disable(remoteChangeNotificationsCheckBox);
-            disable(remoteChangeConfigurationButton);
+//            disable(remoteChangeNotificationsCheckBox);
+//            disable(remoteChangeConfigurationButton);
             dataDomainAdapter.setRemoteChangeNotifications(false);
         }
     }
