@@ -20,10 +20,12 @@
 package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class AbstractViewLayout
@@ -46,6 +48,27 @@ public abstract class AbstractViewLayout
     protected void loadTab(final AnchorPane source, final AnchorPane destination)
     {
         displayView(destination, source);
+    }
+
+    public void setVisibility(final Node item, final boolean state)
+    {
+        item.setVisible(state);
+        item.setManaged(state);
+    }
+
+    public void setVisibility(final Node[] items, final boolean state)
+    {
+        Arrays.stream(items).forEach(item -> setVisibility(item, state));
+    }
+
+    public void show(final Node... items)
+    {
+        setVisibility(items, true);
+    }
+
+    public void hide(final Node... items)
+    {
+        setVisibility(items, false);
     }
 
     @Override
