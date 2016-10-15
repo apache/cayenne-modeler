@@ -87,21 +87,21 @@ public class DataNodeConfigurationTabLayout
 //    private final DataNodeLayout parent;
 
     private static final String[] standardSchemaUpdateStrategies =
-                    {
-                        SkipSchemaUpdateStrategy.class.getName(),
-                        CreateIfNoSchemaStrategy.class.getName(),
-                        ThrowOnPartialSchemaStrategy.class.getName(),
-                        ThrowOnPartialOrCreateSchemaStrategy.class.getName()
-                    };
+        {
+            SkipSchemaUpdateStrategy.class.getName(),
+            CreateIfNoSchemaStrategy.class.getName(),
+            ThrowOnPartialSchemaStrategy.class.getName(),
+            ThrowOnPartialOrCreateSchemaStrategy.class.getName()
+        };
 
     private static final String DBCP_DATA_SOURCE_FACTORY = "org.apache.cayenne.configuration.server.DBCPDataSourceFactory";
 
     private static final String[] standardDataSourceFactories =
-                    {
-                        XMLPoolingDataSourceFactory.class.getName(),
-                        JNDIDataSourceFactory.class.getName(),
-                        DBCP_DATA_SOURCE_FACTORY
-                    };
+        {
+            XMLPoolingDataSourceFactory.class.getName(),
+            JNDIDataSourceFactory.class.getName(),
+            DBCP_DATA_SOURCE_FACTORY
+        };
 
     public DataNodeConfigurationTabLayout(final DataNodeLayout parentComponent) throws IOException
     {
