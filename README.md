@@ -13,6 +13,9 @@ Why re-write Cayenne Modeler?  While Cayenne Modeler is stable and works well, i
 * Add custom Velocity template editing and management.
 * Add multiple window support so multiple projects, including the same project, can be open at the same time.
 
+### Status
+This project is about 15-20% finished.
+
 ### Appearance
 
 What will it look like?  Well, it has the same basic layout as the current Cayenne Modeler, but with upgrades.
