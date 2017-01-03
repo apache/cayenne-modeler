@@ -44,6 +44,17 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     private StringProperty  nameProperty;
     private BooleanProperty validatingObjectsProperty;
 
+    /*
+     * The following are DM properties that have to be handled specially:
+     *   Shared Cache
+     *   Remote Change Notification
+     *   Validating Objects on Commit
+     *   Event Bridge Factory
+     *   Multicast Address
+     *   Multicast Ports
+     *
+     */
+
     private IntegerProperty sizeOfObjectCacheProperty;
     private BooleanProperty useSharedCacheProperty;
     private BooleanProperty remoteChangeNotificationsProperty;
