@@ -224,19 +224,6 @@ public class DataDomainLayout
 ////        dataDomainAdapter.unBindBidirectional("dataDomainValidatingObjects", objectValidationCheckBox.selectedProperty());
     }
 
-//    private BeanPathAdapter<CayenneProject> getDataDomainPropertyAdapterMap(final CayenneProject cayenneProject)
-//    {
-//        BeanPathAdapter<CayenneProject> dataDomainAdapter = dataDomainPropertyAdapterMap.get(cayenneProject);
-//
-//        if (dataDomainAdapter == null)
-//        {
-//            dataDomainAdapter = new BeanPathAdapter<CayenneProject>(getMainWindow().getCayenneProject());
-//
-//            dataDomainPropertyAdapterMap.put(cayenneProject, dataDomainAdapter);
-//        }
-//
-//        return dataDomainAdapter;
-//    }
 
     @Override
     public void handleDataDomainChange(final DataDomainChangeEvent event)
@@ -258,18 +245,24 @@ public class DataDomainLayout
             }
 //            dataDomainNameTextField.setText(value);
         }
-        // TODO Auto-generated method stub
     }
 
     private void configureRemoteNotifications(final boolean enabled)
     {
         if (enabled)
         {
+            enable(remoteChangeNotificationsChoiceBox);
+            remoteChangeNotificationsChoiceBox.getSelectionModel().select(0);
+//            hide(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
+
 //            enable(remoteChangeNotificationsCheckBox);
 //            enable(remoteChangeConfigurationButton);
         }
         else
         {
+            disable(remoteChangeNotificationsChoiceBox);
+            remoteChangeNotificationsChoiceBox.getSelectionModel().select(0);
+//            hide(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
 //            disable(remoteChangeNotificationsCheckBox);
 //            disable(remoteChangeConfigurationButton);
             dataDomainAdapter.setRemoteChangeNotifications(false);
