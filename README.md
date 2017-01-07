@@ -39,74 +39,15 @@ The following screenshots show how the prototype is shaping up.  They'll be upda
 
 ## Development
 
-### Prerequisites
-
-* Java 8
-* [Scene Builder](http://gluonhq.com/open-source/scene-builder/) (to edit FXML files)
-* Eclipse
-  * e(fx)clipse (install from Eclipse Marketplace)
-  * If you get `Access restriction: The type ... is not API (restriction on required library ...` for JavaFX, do the following:
-    * Select the project
-    * Right-click and choose "Properties"
-    * Select "Java Build Path"
-    * Select "Libraries" tab
-    * Expand Java System Library
-    * Select "Access Rules"
-    * Click "Edit"
-    * Click "Add"
-    * Set "Resolution" to "Accessible"
-    * Set "Rule Pattern" to "javafx/**"
-    * OK/Accept everything
-
-* IntelliJ
-    * TBD
-* Netbeans
-    * TBD
-
-### Running Inside Eclipse
-
-Right-click on the main application,
-`src/main/java/org/apache/cayenne/modeler/CayenneModeler.java`,
-and choose `Run As` => `Java Application`.
-
-### Running With Maven
-
-From the top-level project, where the `pom.xml` file is located:
-
-`mvn exec:java -Dexec.mainClass=org.apache.cayenne.modeler.CayenneModeler`
-
-### Project Layout
-
-The project is Maven-based and has a typical Maven layout with `src/main/java` containing the Java source code and `src/main/resources` containing project resources.
-
-### Property Adapters
-
-JavaFX utilizes **properties** and **bindings** instead of the traditional JavaBean convention which allows the UI to be kept synchroized with the underlying data model.  Cayenne's underlying model, however, is not written to the JavaFX property model, therefore it is necessary to bridge the JavaFX property model to the Cayenne model.  This is done with property adapters, which are found in `src/main/java/org/apache/cayenne/modeler/adapters`.  This is the only place where direct access to the underlying Cayenne data model should be performed.
-
-### UI Layouts
-
-The term **layout** is used throughout the application to refer to JavaFX FXML files and Java Controllers for either UI windows or components which are composited into windows.  These UI files can be found under:
-
-* `src/main/resources/layouts` -- FXML files for the UI (edit with Scene Builder).
-* `src/main/java/org/apache/cayenne/modeler/layout` -- Java controllers for the FXML (names match).
-
-Currently all layouts are in the same respective folder, but this might change to sub-folders as more layouts are added.
-
-UI Starting points:
-
-* `SplashLayout` -- Initial splash window to open existing projects or create a new project.  When a project is opened or created, the main window is then loaded.  Singleton.
-* `MainWindowLayout` -- Cayenne Modeler window which loads in many other layouts to create the main UI.
-* `PreferencesLayout` -- Application preferences window.  Singleton.
-
-For more detailed information, see [Working With Layouts](https://github.com/mrg/CMP/wiki/Working-With-Layouts).
-
-### Sample Model
-
-A sample model exists at `src/main/resources/cayenne-analytic.xml` and can be opened from the Splash Panel on startup for testing purposes.
-
-### To-Do
-
-There are so many things needing to be done.  See the [issues](https://github.com/mrg/CMP/issues) for some of them.
+* [Prerequisites](docs/Prerequisites.md)
+* [Project Layout](docs/Project-Layout.md)
+* [Running Inside Eclipse](docs/Running-Eclipse.md)
+* [Running With Maven](docs/Running-Maven.md)
+* [Property Adapters](docs/Property-Adapters.md)
+* [UI Layouts](docs/UI-Layouts.md)
+* [XML Extensions Format](docs/XML-Extensions.md)
+* [Sample Model](docs/Sample-Model.md)
+* [To-Do/Issues](docs/To-Do.md)
 
 ## Thanks
 
