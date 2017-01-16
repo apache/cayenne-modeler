@@ -21,7 +21,7 @@
 	<name>Cayenne Modeler Prototype</name>
 
 	<properties>
-		<cayenne.version>4.0.M3</cayenne.version>
+		<cayenne.version>4.0.M4</cayenne.version>
 		<fontawesomefx.version>8.9</fontawesomefx.version>
 		<java.version>1.8</java.version>
 		<jfxtras.version>8.0-r4</jfxtras.version>
