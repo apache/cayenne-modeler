@@ -30,8 +30,8 @@ import org.apache.cayenne.access.DataRowStore;
 import org.apache.cayenne.configuration.DataChannelDescriptor;
 import org.apache.cayenne.configuration.DataNodeDescriptor;
 import org.apache.cayenne.map.DataMap;
-import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
+import org.apache.cayenne.modeler.di.Injection;
 import org.apache.cayenne.project.Project;
 import org.apache.cayenne.project.ProjectLoader;
 import org.apache.cayenne.project.upgrade.ProjectUpgrader;
@@ -74,15 +74,15 @@ public class CayenneProject
     private DataChannelDescriptor root;
 
     // TODO: Handle this exception.
-    public CayenneProject(final String path) throws MalformedURLException
+    public CayenneProject(String path) throws MalformedURLException
     {
 //        this.path = path;
 //        URL url = CayenneModeler.class.getResource(path);
-        final URL url = new File(path).toURI().toURL();
-        final Resource rootSource = new URLResource(url);
-        final ProjectUpgrader upgrader = CayenneModeler.getInjector().getInstance(ProjectUpgrader.class);
-        final UpgradeHandler handler = upgrader.getUpgradeHandler(rootSource);
-        final UpgradeMetaData md = handler.getUpgradeMetaData();
+        URL url = new File(path).toURI().toURL();
+        Resource rootSource = new URLResource(url);
+        ProjectUpgrader upgrader = Injection.getInjector().getInstance(ProjectUpgrader.class);
+        UpgradeHandler handler = upgrader.getUpgradeHandler(rootSource);
+        UpgradeMetaData md = handler.getUpgradeMetaData();
 
         this.path = url.getPath();
 
@@ -119,9 +119,9 @@ public class CayenneProject
     }
 
     // private Project openProjectResourse(Resource resource, CayenneModelerController controller)
-    private Project openProjectResourse(final Resource resource)
+    private Project openProjectResourse(Resource resource)
     {
-        final Project project = CayenneModeler.getInjector().getInstance(ProjectLoader.class).loadProject(resource);
+        Project project = Injection.getInjector().getInstance(ProjectLoader.class).loadProject(resource);
 
         // controller.projectOpenedAction(project);
 
@@ -138,7 +138,7 @@ public class CayenneProject
         return root.getName();
     }
 
-    public void setDataDomainName(final String name)
+    public void setDataDomainName(String name)
     {
         root.setName(name);
     }
@@ -148,7 +148,7 @@ public class CayenneProject
         return getDomainBooleanProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY, DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT);
     }
 
-    public void setDataDomainValidatingObjects(final boolean validatingObjects)
+    public void setDataDomainValidatingObjects(boolean validatingObjects)
     {
         setDomainBooleanProperty(DataDomain.VALIDATING_OBJECTS_ON_COMMIT_PROPERTY, validatingObjects, DataDomain.VALIDATING_OBJECTS_ON_COMMIT_DEFAULT);
     }
@@ -168,7 +168,7 @@ public class CayenneProject
         return getDomainBooleanProperty(DataDomain.SHARED_CACHE_ENABLED_PROPERTY, DataDomain.SHARED_CACHE_ENABLED_DEFAULT);
     }
 
-    public void setUsingSharedCache(final boolean usingSharedCache)
+    public void setUsingSharedCache(boolean usingSharedCache)
     {
         setDomainBooleanProperty(DataDomain.SHARED_CACHE_ENABLED_PROPERTY, usingSharedCache, DataDomain.SHARED_CACHE_ENABLED_DEFAULT);
     }
@@ -178,7 +178,7 @@ public class CayenneProject
         return getDomainBooleanProperty(DataRowStore.REMOTE_NOTIFICATION_PROPERTY, DataRowStore.REMOTE_NOTIFICATION_DEFAULT);
     }
 
-    public void setRemoteChangeNotificationsEnabled(final boolean remoteChangeNotificationsEnabled)
+    public void setRemoteChangeNotificationsEnabled(boolean remoteChangeNotificationsEnabled)
     {
         setDomainBooleanProperty(DataRowStore.REMOTE_NOTIFICATION_PROPERTY, remoteChangeNotificationsEnabled, DataRowStore.REMOTE_NOTIFICATION_DEFAULT);
     }
@@ -197,7 +197,7 @@ public class CayenneProject
      * Helper method that updates domain properties. If a value equals to
      * default, null value is used instead.
      */
-    private void setDomainStringProperty(final String property, String value, final String defaultValue)
+    private void setDomainStringProperty(String property, String value, String defaultValue)
     {
         if (getDataDomain() == null)
             return;
@@ -210,9 +210,9 @@ public class CayenneProject
         if (value != null && value.equals(defaultValue))
             value = null;
 
-        final Map<String, String> properties = getDataDomain().getProperties();
+        Map<String, String> properties = getDataDomain().getProperties();
 
-        final Object oldValue = properties.get(property);
+        Object oldValue = properties.get(property);
 
         if (!Util.nullSafeEquals(value, oldValue))
         {
@@ -223,26 +223,26 @@ public class CayenneProject
         }
     }
 
-    private String getDomainProperty(final String property, final String defaultValue)
+    private String getDomainProperty(String property, String defaultValue)
     {
         if (getDataDomain() == null)
             return null;
 
-        final String value = getDataDomain().getProperties().get(property);
+        String value = getDataDomain().getProperties().get(property);
         return value != null ? value : defaultValue;
     }
 
-    private boolean getDomainBooleanProperty(final String property, final boolean defaultValue)
+    private boolean getDomainBooleanProperty(String property, boolean defaultValue)
     {
         return "true".equalsIgnoreCase(getDomainProperty(property, Boolean.toString(defaultValue)));
     }
 
-    private void setDomainBooleanProperty(final String property, final boolean value, final boolean defaultValue)
+    private void setDomainBooleanProperty(String property, boolean value, boolean defaultValue)
     {
         setDomainStringProperty(property, Boolean.toString(value), Boolean.toString(defaultValue));
     }
 
-    private int getDomainIntegerProperty(final String property, final int defaultValue)
+    private int getDomainIntegerProperty(String property, int defaultValue)
     {
         try
         {
