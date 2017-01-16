@@ -31,7 +31,7 @@ public class TestDataDomainAdapter
     {
         Injection.setInjector(DIBootstrap.createInjector(appendModules(new ArrayList<Module>())));
 
-        dataDomainAdapter = new DataDomainAdapter(CayenneProjectManager.projectForPath("src/main/resources/cayenne-analytic.xml"));
+        dataDomainAdapter = new DataDomainAdapter(CayenneProjectManager.projectForPath("src/test/resources/cayenne-analytic.xml"));
     }
 
     @Test
