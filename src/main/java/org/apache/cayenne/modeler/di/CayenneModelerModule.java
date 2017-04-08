@@ -21,14 +21,6 @@ package org.apache.cayenne.modeler.di;
 
 import org.apache.cayenne.di.Binder;
 import org.apache.cayenne.di.Module;
-//import org.apache.cayenne.modeler.Application;
-//import org.apache.cayenne.modeler.action.ActionManager;
-//import org.apache.cayenne.modeler.action.DefaultActionManager;
-//import org.apache.cayenne.modeler.init.platform.GenericPlatformInitializer;
-//import org.apache.cayenne.modeler.init.platform.PlatformInitializer;
-//import org.apache.cayenne.modeler.util.DefaultWidgetFactory;
-//import org.apache.cayenne.modeler.util.WidgetFactory;
-import org.apache.cayenne.modeler.CayenneModeler;
 
 /**
  * A DI module for bootstrapping CayenneModeler services.
@@ -36,8 +28,8 @@ import org.apache.cayenne.modeler.CayenneModeler;
 public class CayenneModelerModule implements Module
 {
     @Override
-    public void configure(Binder binder)
+    public void configure(final Binder binder)
     {
-        binder.bind(CayenneModeler.class).to(CayenneModeler.class);
+//        binder.bind(CayenneModeler.class).to(CayenneModeler.class);
     }
 }

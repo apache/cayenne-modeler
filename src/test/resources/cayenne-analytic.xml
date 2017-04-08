@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<domain project-version="7">
+<domain project-version="9">
 	<property name="cayenne.DataDomain.validatingObjectsOnCommit" value="false"/>
 	<property name="cayenne.DataRowStore.remote.notify" value="true"/>
 

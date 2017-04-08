@@ -23,19 +23,19 @@ What will it look like?  Well, it has the same basic layout as the current Cayen
 The following screenshots show how the prototype is shaping up.  They'll be updated as work progresses.
 
 **DataDomain Editor**
-![DataDomain](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/DataDomain.png)
+![DataDomain](https://people.apache.org/~mgentry/DataDomain.png)
 
 **DataMap Editor**
-![DataMap](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/DataMap.png)
+![DataMap](https://people.apache.org/~mgentry/DataMap.png)
 
 **ObjEntity Class Editor**
-![Object Entity Class Tab](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/ObjectEntity1.png)
+![Object Entity Class Tab](https://people.apache.org/~mgentry/ObjectEntity1.png)
 
 **ObjEntity Attributes Editor**
-![Object Entity Attributes Tab](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/ObjectEntity2.png)
+![Object Entity Attributes Tab](https://people.apache.org/~mgentry/ObjectEntity2.png)
 
 **Multiple Window Data Synchronization**
-![Multiple Window Data Synchronization](https://dl.dropboxusercontent.com/u/54311650/CayenneModelerPrototype/DataSynchronization.gif)
+![Multiple Window Data Synchronization](https://people.apache.org/~mgentry/DataSynchronization.gif)
 
 ## Development
 
