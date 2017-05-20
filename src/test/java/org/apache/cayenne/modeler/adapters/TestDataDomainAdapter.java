@@ -43,4 +43,14 @@ public class TestDataDomainAdapter
         Assert.assertEquals("analytic2", dataDomainAdapter.getName());
         Assert.assertEquals("analytic2", dataDomainAdapter.getCayennePropject().getDataDomainName());
     }
+
+    @Test
+    public void testValidatingObjects()
+    {
+        Assert.assertEquals(Boolean.FALSE, dataDomainAdapter.getValidatingObjects());
+        Assert.assertEquals(false, dataDomainAdapter.getCayennePropject().isDataDomainValidatingObjects());
+        dataDomainAdapter.setValidatingObjects(Boolean.TRUE);
+        Assert.assertEquals(Boolean.TRUE, dataDomainAdapter.getValidatingObjects());
+        Assert.assertEquals(true, dataDomainAdapter.getCayennePropject().isDataDomainValidatingObjects());
+    }
 }
