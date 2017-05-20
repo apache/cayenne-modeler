@@ -63,4 +63,14 @@ public class TestDataDomainAdapter
         Assert.assertEquals(20000, dataDomainAdapter.getSizeOfObjectCache().intValue());
         Assert.assertEquals(20000, dataDomainAdapter.getCayennePropject().getSizeOfObjectCache().intValue());
     }
+
+    @Test
+    public void testUseSharedObjectCache()
+    {
+        Assert.assertEquals(true, dataDomainAdapter.getUseSharedCache());
+        Assert.assertEquals(true, dataDomainAdapter.getCayennePropject().isUsingSharedCache());
+        dataDomainAdapter.setUseSharedCache(false);
+        Assert.assertEquals(false, dataDomainAdapter.getUseSharedCache());
+        Assert.assertEquals(false, dataDomainAdapter.getCayennePropject().isUsingSharedCache());
+    }
 }
