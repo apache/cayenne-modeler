@@ -53,4 +53,14 @@ public class TestDataDomainAdapter
         Assert.assertEquals(Boolean.TRUE, dataDomainAdapter.getValidatingObjects());
         Assert.assertEquals(true, dataDomainAdapter.getCayennePropject().isDataDomainValidatingObjects());
     }
+
+    @Test
+    public void testSizeOfObjectCache()
+    {
+        Assert.assertEquals(10000, dataDomainAdapter.getSizeOfObjectCache().intValue());
+        Assert.assertEquals(10000, dataDomainAdapter.getCayennePropject().getSizeOfObjectCache().intValue());
+        dataDomainAdapter.setSizeOfObjectCache(20000);
+        Assert.assertEquals(20000, dataDomainAdapter.getSizeOfObjectCache().intValue());
+        Assert.assertEquals(20000, dataDomainAdapter.getCayennePropject().getSizeOfObjectCache().intValue());
+    }
 }
