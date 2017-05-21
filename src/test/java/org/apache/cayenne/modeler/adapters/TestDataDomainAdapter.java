@@ -73,4 +73,14 @@ public class TestDataDomainAdapter
         Assert.assertEquals(false, dataDomainAdapter.getUseSharedCache());
         Assert.assertEquals(false, dataDomainAdapter.getCayennePropject().isUsingSharedCache());
     }
+
+    @Test
+    public void testRemoteChangeNotificationsEnabled()
+    {
+        Assert.assertEquals(true, dataDomainAdapter.getRemoteChangeNotifications());
+        Assert.assertEquals(true, dataDomainAdapter.getCayennePropject().isRemoteChangeNotificationsEnabled());
+        dataDomainAdapter.setRemoteChangeNotifications(false);
+        Assert.assertEquals(false, dataDomainAdapter.getRemoteChangeNotifications());
+        Assert.assertEquals(false, dataDomainAdapter.getCayennePropject().isRemoteChangeNotificationsEnabled());
+    }
 }
