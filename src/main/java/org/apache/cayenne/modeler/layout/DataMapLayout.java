@@ -20,6 +20,8 @@
 package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
 import org.apache.commons.logging.Log;
@@ -45,6 +47,8 @@ public class DataMapLayout
 
     private DataMapAdapter dataMapAdapter;
 
+    private List<Binding<?>> bindings;
+
     public DataMapLayout(final MainWindowSupport parentComponent) throws IOException
     {
         super(parentComponent, "/layouts/DataMapLayout.fxml");
@@ -57,20 +61,37 @@ public class DataMapLayout
     }
 
     @Override
-    public void beginEditing()
+    public void initializeBindings()
     {
-        LOGGER.debug("begin editing " + this);
+        bindings = new ArrayList<>();
 
-        dataMapNameTextField.textProperty().bindBidirectional(dataMapAdapter.nameProperty());
-        quoteSqlIdentifiersCheckBox.selectedProperty().bindBidirectional(dataMapAdapter.quoteSQLIdentifiersProperty());
+        bindings.add(new Binding<>(dataMapNameTextField.textProperty(), dataMapAdapter.nameProperty()));
+        bindings.add(new Binding<>(quoteSqlIdentifiersCheckBox.selectedProperty(), dataMapAdapter.quoteSQLIdentifiersProperty()));
     }
 
     @Override
-    public void endEditing()
+    public List<Binding<?>> getBindings()
     {
-        LOGGER.debug("end editing " + this);
-
-        dataMapNameTextField.textProperty().unbindBidirectional(dataMapAdapter.nameProperty());
-        quoteSqlIdentifiersCheckBox.selectedProperty().unbindBidirectional(dataMapAdapter.quoteSQLIdentifiersProperty());
+        return bindings;
     }
+
+//    @Override
+//    public void beginEditing()
+//    {
+//        LOGGER.debug("begin editing " + this);
+//
+//        DetailEditorSupport.super.beginEditing();
+////        dataMapNameTextField.textProperty().bindBidirectional(dataMapAdapter.nameProperty());
+////        quoteSqlIdentifiersCheckBox.selectedProperty().bindBidirectional(dataMapAdapter.quoteSQLIdentifiersProperty());
+//    }
+//
+//    @Override
+//    public void endEditing()
+//    {
+//        LOGGER.debug("end editing " + this);
+//
+//        DetailEditorSupport.super.endEditing();
+////        dataMapNameTextField.textProperty().unbindBidirectional(dataMapAdapter.nameProperty());
+////        quoteSqlIdentifiersCheckBox.selectedProperty().unbindBidirectional(dataMapAdapter.quoteSQLIdentifiersProperty());
+//    }
 }
