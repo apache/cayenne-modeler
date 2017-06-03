@@ -22,10 +22,13 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.access.DataRowStore;
+import org.apache.cayenne.event.JMSBridgeFactory;
+import org.apache.cayenne.event.JavaGroupsBridgeFactory;
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
 import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -50,7 +53,12 @@ public class DataDomainLayout
 //    private static Map<CayenneProject, BeanPathAdapter<CayenneProject>> dataDomainPropertyAdapterMap = new HashMap<CayenneProject, BeanPathAdapter<CayenneProject>>();
 
     @FXML
-    private TextField dataDomainNameTextField;
+    private TextField nameTextField,
+                      multicastAddressTextField,
+                      multicastPortTextField,
+                      jGroupsFileTextField,
+                      jmsConnectionFactoryNameTextField,
+                      customTransportFactoryClass;
 
     @FXML
     private CheckBox objectValidationCheckBox;
@@ -65,13 +73,16 @@ public class DataDomainLayout
 //    private Button remoteChangeConfigurationButton;
 
     @FXML
-    private VBox javaGroupsConfiguration, jmsConfiguration, customConfiguration;
+    private VBox javaGroupsConfiguration,
+                 jmsConfiguration,
+                 customConfiguration;
 
     @FXML
     private ChoiceBox<String> remoteChangeNotificationsChoiceBox;
 
     private DataDomainAdapter dataDomainAdapter;
 
+    // Remote Change Notification groups.
     private static final String RCN_NONE        = "None";
     private static final String RCN_JAVA_GROUPS = "JavaGroups Multicast";
     private static final String RCN_JMS         = "JMS Transport";
@@ -90,11 +101,6 @@ public class DataDomainLayout
         super(parentComponent, "/layouts/DataDomainLayout.fxml");
     }
 
-//    private final ChangeListener<FieldPathValue> changeObserver = (observable, oldValue, newValue) ->
-//        {
-//            LOGGER.debug("Observable: " + observable + ", oldValue: " + oldValue + ", newValue: " + newValue);
-//        };
-
     @Override
     public void initializeLayout()
     {
@@ -110,27 +116,34 @@ public class DataDomainLayout
         hide(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
 
         remoteChangeNotificationsChoiceBox.getItems().addAll(remoteChangeNotificationOptions);
-        remoteChangeNotificationsChoiceBox.getSelectionModel().select(0);
+        remoteChangeNotificationsChoiceBox.getSelectionModel().select(1);
         remoteChangeNotificationsChoiceBox.valueProperty().addListener((observable, oldValue, newValue) ->
             {
+                dataDomainAdapter.setRemoteChangeNotifications(newValue != RCN_NONE);
+
                 if (newValue == RCN_NONE)
                 {
                     hide(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
+                    dataDomainAdapter.setEventBridgeFactoryProperty(null);
                 }
                 else if (newValue == RCN_JAVA_GROUPS)
                 {
                     hide(jmsConfiguration, customConfiguration);
                     show(javaGroupsConfiguration);
+                    dataDomainAdapter.setEventBridgeFactoryProperty(null);
                 }
                 else if (newValue == RCN_JMS)
                 {
                     hide(javaGroupsConfiguration, customConfiguration);
                     show(jmsConfiguration);
+                    dataDomainAdapter.setEventBridgeFactoryProperty(JMSBridgeFactory.class.getName());
                 }
                 else if (newValue == RCN_CUSTOM)
                 {
                     hide(javaGroupsConfiguration, jmsConfiguration);
                     show(customConfiguration);
+                    if (StringUtils.equals(dataDomainAdapter.getEventBridgeFactoryProperty(), JMSBridgeFactory.class.getName()))
+                        dataDomainAdapter.setEventBridgeFactoryProperty("use.custom.Class");
                 }
             });
     }
@@ -148,7 +161,7 @@ public class DataDomainLayout
 
 //        show(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
 
-        dataDomainNameTextField.textProperty().bindBidirectional(dataDomainAdapter.nameProperty());
+        nameTextField.textProperty().bindBidirectional(dataDomainAdapter.nameProperty());
         objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 
         objectCacheSizeSpinner.getValueFactory().valueProperty().bindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
@@ -156,6 +169,11 @@ public class DataDomainLayout
 //        remoteChangeNotificationsCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
 
         configureRemoteNotifications(dataDomainAdapter.getUseSharedCache());
+
+        customTransportFactoryClass.textProperty().bindBidirectional(dataDomainAdapter.eventBridgeFactoryProperty());
+        multicastAddressTextField.textProperty().bindBidirectional(dataDomainAdapter.javaGroupsMulticastAddressProperty());
+        multicastPortTextField.textProperty().bindBidirectional(dataDomainAdapter.javaGroupsMulticastPortProperty());
+        jmsConnectionFactoryNameTextField.textProperty().bindBidirectional(dataDomainAdapter.jmsConnectionFactoryProperty());
     }
 
     @Deprecated
@@ -163,8 +181,8 @@ public class DataDomainLayout
     {
         LOGGER.debug("begin editing");
 
-        dataDomainNameTextField.setText(getMainWindow().getCayenneProject().getDataDomainName());
-        dataDomainNameTextField.textProperty().addListener((observable, oldValue, newValue) ->
+        nameTextField.setText(getMainWindow().getCayenneProject().getDataDomainName());
+        nameTextField.textProperty().addListener((observable, oldValue, newValue) ->
             {
                 getMainWindow().getCayenneProject().setDataDomainName(newValue);
                 final DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.NAME, oldValue, newValue);
@@ -208,12 +226,17 @@ public class DataDomainLayout
     {
         LOGGER.debug("end editing " + this);
 
-        dataDomainNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.nameProperty());
+        nameTextField.textProperty().unbindBidirectional(dataDomainAdapter.nameProperty());
         objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 
         objectCacheSizeSpinner.getValueFactory().valueProperty().unbindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
         useSharedCacheCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.useSharedCacheProperty());
 //        remoteChangeNotificationsCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
+
+        customTransportFactoryClass.textProperty().unbindBidirectional(dataDomainAdapter.eventBridgeFactoryProperty());
+        multicastAddressTextField.textProperty().unbindBidirectional(dataDomainAdapter.javaGroupsMulticastAddressProperty());
+        multicastPortTextField.textProperty().unbindBidirectional(dataDomainAdapter.javaGroupsMulticastPortProperty());
+        jmsConnectionFactoryNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.jmsConnectionFactoryProperty());
 
 //        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
 ////        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());
@@ -237,7 +260,7 @@ public class DataDomainLayout
                 case CACHE:
                     break;
                 case NAME: // Name Changed.
-                    dataDomainNameTextField.setText(getMainWindow().getCayenneProject().getDataDomainName());
+                    nameTextField.setText(getMainWindow().getCayenneProject().getDataDomainName());
                     break;
                 case VALIDATION: // Object Validation Changed
                     objectValidationCheckBox.setSelected((boolean) event.getNewValue());
@@ -252,7 +275,16 @@ public class DataDomainLayout
         if (enabled)
         {
             enable(remoteChangeNotificationsChoiceBox);
-            remoteChangeNotificationsChoiceBox.getSelectionModel().select(0);
+            String eventBridgefactory = dataDomainAdapter.getEventBridgeFactoryProperty();
+
+            if (StringUtils.equals(eventBridgefactory, JavaGroupsBridgeFactory.class.getName()))
+                remoteChangeNotificationsChoiceBox.getSelectionModel().select(1);
+            else if (StringUtils.equals(eventBridgefactory, JMSBridgeFactory.class.getName()))
+                remoteChangeNotificationsChoiceBox.getSelectionModel().select(2);
+            else
+                remoteChangeNotificationsChoiceBox.getSelectionModel().select(3);
+
+//            remoteChangeNotificationsChoiceBox.getSelectionModel().select(0);
 //            hide(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
 
 //            enable(remoteChangeNotificationsCheckBox);

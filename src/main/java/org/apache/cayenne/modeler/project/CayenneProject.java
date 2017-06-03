@@ -29,6 +29,8 @@ import org.apache.cayenne.access.DataDomain;
 import org.apache.cayenne.access.DataRowStore;
 import org.apache.cayenne.configuration.DataChannelDescriptor;
 import org.apache.cayenne.configuration.DataNodeDescriptor;
+import org.apache.cayenne.event.JMSBridgeFactory;
+import org.apache.cayenne.event.JavaGroupsBridgeFactory;
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
 import org.apache.cayenne.modeler.di.Injection;
@@ -181,6 +183,56 @@ public class CayenneProject
     public void setRemoteChangeNotificationsEnabled(boolean remoteChangeNotificationsEnabled)
     {
         setDomainBooleanProperty(DataRowStore.REMOTE_NOTIFICATION_PROPERTY, remoteChangeNotificationsEnabled, DataRowStore.REMOTE_NOTIFICATION_DEFAULT);
+    }
+
+    public String getEventBridgeFactory()
+    {
+        return getDomainProperty(DataRowStore.EVENT_BRIDGE_FACTORY_PROPERTY, DataRowStore.EVENT_BRIDGE_FACTORY_DEFAULT);
+    }
+
+    public void setEventBridgeFactory(String eventBridgeFactory)
+    {
+        setDomainStringProperty(DataRowStore.EVENT_BRIDGE_FACTORY_PROPERTY, eventBridgeFactory, DataRowStore.EVENT_BRIDGE_FACTORY_DEFAULT);
+    }
+
+    public String getJavaGroupsMulticastAddress()
+    {
+        return getDomainProperty(JavaGroupsBridgeFactory.MCAST_ADDRESS_PROPERTY, JavaGroupsBridgeFactory.MCAST_ADDRESS_DEFAULT);
+    }
+
+    public void setJavaGroupsMulticastAddress(String multicastAddress)
+    {
+        setDomainStringProperty(JavaGroupsBridgeFactory.MCAST_ADDRESS_PROPERTY, multicastAddress, JavaGroupsBridgeFactory.MCAST_ADDRESS_DEFAULT);
+    }
+
+    public String getJavaGroupsMulticastPort()
+    {
+        return getDomainProperty(JavaGroupsBridgeFactory.MCAST_PORT_PROPERTY, JavaGroupsBridgeFactory.MCAST_PORT_DEFAULT);
+    }
+
+    public void setJavaGroupsMulticastPort(String multicastPort)
+    {
+        setDomainStringProperty(JavaGroupsBridgeFactory.MCAST_PORT_PROPERTY, multicastPort, JavaGroupsBridgeFactory.MCAST_PORT_DEFAULT);
+    }
+
+    public String getJavaGroupsFile()
+    {
+        return getDomainProperty(JavaGroupsBridgeFactory.JGROUPS_CONFIG_URL_PROPERTY, "");
+    }
+
+    public void setJavaGroupsFile(String javaGroupsFile)
+    {
+        setDomainStringProperty(JavaGroupsBridgeFactory.JGROUPS_CONFIG_URL_PROPERTY, javaGroupsFile, "");
+    }
+
+    public String getJmsConnectionFactory()
+    {
+        return getDomainProperty(JMSBridgeFactory.TOPIC_CONNECTION_FACTORY_PROPERTY, JMSBridgeFactory.TOPIC_CONNECTION_FACTORY_DEFAULT);
+    }
+
+    public void setJmsConnectionFactory(String jmsConnectionFactory)
+    {
+        setDomainStringProperty(JMSBridgeFactory.TOPIC_CONNECTION_FACTORY_PROPERTY, jmsConnectionFactory, JMSBridgeFactory.TOPIC_CONNECTION_FACTORY_DEFAULT);
     }
 
     public Collection<DataMap> getDataMaps()

@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cayenne.modeler.project.CayenneProject;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -30,11 +32,18 @@ import javafx.beans.property.StringProperty;
 
 public class DataDomainAdapter extends CayennePropertyAdapter // implements AdapterSupport<CayenneProject>
 {
-    private static final String DATA_DOMAIN_NAME            = "dataDomainName";
-    private static final String VALIDATING_OBJECTS          = "dataDomainValidatingObjects";
-    private static final String OBJECT_CACHE_SIZE           = "sizeOfObjectCache";
-    private static final String USE_SHARED_CACHE            = "usingSharedCache";
-    private static final String REMOTE_CHANGE_NOTIFICATIONS = "remoteChangeNotificationsEnabled";
+    private static final Log LOGGER = LogFactory.getLog(DataDomainAdapter.class);
+
+    private static final String DATA_DOMAIN_NAME              = "dataDomainName";
+    private static final String VALIDATING_OBJECTS            = "dataDomainValidatingObjects";
+    private static final String OBJECT_CACHE_SIZE             = "sizeOfObjectCache";
+    private static final String USE_SHARED_CACHE              = "usingSharedCache";
+    private static final String REMOTE_CHANGE_NOTIFICATIONS   = "remoteChangeNotificationsEnabled";
+    private static final String EVENT_BRIDGE_FACTORY          = "eventBridgeFactory";
+    private static final String JAVA_GROUPS_MULTICAST_ADDRESS = "javaGroupsMulticastAddress";
+    private static final String JAVA_GROUPS_MULTICAST_PORT    = "javaGroupsMulticastPort";
+    private static final String JAVA_GROUPS_FILE              = "javaGroupsFile";
+    private static final String JMS_CONNECTION_FACTORY        = "jmsConnectionFactory";
 
     private final CayenneProject cayenneProject;
 
@@ -59,10 +68,18 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     private BooleanProperty useSharedCacheProperty;
     private BooleanProperty remoteChangeNotificationsProperty;
 
+    private StringProperty eventBridgeFactoryProperty;
+    private StringProperty javaGroupsMulticastAddressProperty;
+    private StringProperty javaGroupsMulticastPortProperty;
+    private StringProperty javaGroupsFileProperty;
+    private StringProperty jmsConnectionFactoryProperty;
+
     public DataDomainAdapter(final CayenneProject cayenneProject)
     {
         // Must be assigned before property binding.
         this.cayenneProject = cayenneProject;
+
+        cayenneProject.getDataDomain().getProperties().keySet().stream().forEach(key -> LOGGER.debug("DataDomain Properties: " + key + " = " + cayenneProject.getDataDomain().getProperties().get(key)));
 
         // Create adapters for all DataMaps and DataNodes.
         cayenneProject.getDataMaps().stream().forEach(dataMap -> dataMapAdapters.add(new DataMapAdapter(dataMap)));
@@ -74,15 +91,21 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
 
         try
         {
-            nameProperty                      = bindString(DATA_DOMAIN_NAME);
-            validatingObjectsProperty         = bindBoolean(VALIDATING_OBJECTS);
-            sizeOfObjectCacheProperty         = bindInteger(OBJECT_CACHE_SIZE);
-            useSharedCacheProperty            = bindBoolean(USE_SHARED_CACHE);
-            remoteChangeNotificationsProperty = bindBoolean(REMOTE_CHANGE_NOTIFICATIONS);
+            nameProperty                       = bindString(DATA_DOMAIN_NAME);
+            validatingObjectsProperty          = bindBoolean(VALIDATING_OBJECTS);
+            sizeOfObjectCacheProperty          = bindInteger(OBJECT_CACHE_SIZE);
+            useSharedCacheProperty             = bindBoolean(USE_SHARED_CACHE);
+            remoteChangeNotificationsProperty  = bindBoolean(REMOTE_CHANGE_NOTIFICATIONS);
+            eventBridgeFactoryProperty         = bindString(EVENT_BRIDGE_FACTORY);
+            javaGroupsMulticastAddressProperty = bindString(JAVA_GROUPS_MULTICAST_ADDRESS);
+            javaGroupsMulticastPortProperty    = bindString(JAVA_GROUPS_MULTICAST_PORT);
+            javaGroupsFileProperty             = bindString(JAVA_GROUPS_FILE);
+            jmsConnectionFactoryProperty       = bindString(JMS_CONNECTION_FACTORY);
+
         }
         catch (final NoSuchMethodException e)
         {
-            throw new RuntimeException("Fix the builder.");
+            throw new RuntimeException("Fix the builder.", e);
         }
     }
 
@@ -105,6 +128,27 @@ public class DataDomainAdapter extends CayennePropertyAdapter // implements Adap
     public BooleanProperty remoteChangeNotificationsProperty() { return remoteChangeNotificationsProperty; }
     public Boolean getRemoteChangeNotifications() { return remoteChangeNotificationsProperty.get(); }
     public void setRemoteChangeNotifications(final Boolean value) { remoteChangeNotificationsProperty.set(value); }
+
+    public StringProperty eventBridgeFactoryProperty() { return eventBridgeFactoryProperty; }
+    public String getEventBridgeFactoryProperty() { return eventBridgeFactoryProperty.get(); }
+    public void setEventBridgeFactoryProperty(final String value) { eventBridgeFactoryProperty.set(value); }
+
+    public StringProperty jmsConnectionFactoryProperty() { return jmsConnectionFactoryProperty; }
+    public String getJmsConnectionFactoryProperty() { return jmsConnectionFactoryProperty.get(); }
+    public void setJmsConnectionFactoryProperty(final String value) { jmsConnectionFactoryProperty.set(value); }
+
+    public StringProperty javaGroupsMulticastAddressProperty() { return javaGroupsMulticastAddressProperty; }
+    public String getJavaGroupsMulticastAddressProperty() { return javaGroupsMulticastAddressProperty.get(); }
+    public void setJavaGroupsMulticastAddressProperty(final String value) { javaGroupsMulticastAddressProperty.set(value); }
+
+    public StringProperty javaGroupsMulticastPortProperty() { return javaGroupsMulticastPortProperty; }
+    public String getJavaGroupsMulticastPortProperty() { return javaGroupsMulticastPortProperty.get(); }
+    public void setJavaGroupsMulticastPortProperty(final String value) { javaGroupsMulticastPortProperty.set(value); }
+
+    public StringProperty javaGroupsFileProperty() { return javaGroupsFileProperty; }
+    public String getJavaGroupsFileProperty() { return javaGroupsFileProperty.get(); }
+    public void setJavaGroupsFileProperty(final String value) { javaGroupsFileProperty.set(value); }
+
 
     public List<DataMapAdapter> getDataMapAdapters()
     {

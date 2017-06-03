@@ -27,9 +27,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root minHeight="-Infinity" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="-Infinity" prefWidth="750.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0">
+      <VBox maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="750.0">
          <children>
             <Label text="DataDomain Configuration" VBox.vgrow="ALWAYS">
                <font>
@@ -47,7 +47,7 @@
               </rowConstraints>
                <children>
                   <Label alignment="CENTER_RIGHT" text="Name: " />
-                  <TextField fx:id="dataDomainNameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="nameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
                   <CheckBox fx:id="objectValidationCheckBox" mnemonicParsing="false" text="Object Validation" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
@@ -103,9 +103,9 @@
                     </rowConstraints>
                      <children>
                         <Label alignment="CENTER_RIGHT" text="Multicast Address: " />
-                        <TextField fx:id="dataDomainNameTextField1" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="multicastAddressTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
                         <Label alignment="CENTER_RIGHT" text="Multicast Port: " GridPane.rowIndex="1" />
-                        <TextField fx:id="dataDomainNameTextField11" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="multicastPortTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <RadioButton mnemonicParsing="false" text="File Configuration">
@@ -123,10 +123,13 @@
                     </rowConstraints>
                      <children>
                         <Label alignment="CENTER_RIGHT" text="JGroups File: " />
-                        <TextField fx:id="dataDomainNameTextField111" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="jGroupsFileTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>
+               <VBox.margin>
+                  <Insets left="200.0" />
+               </VBox.margin>
             </VBox>
             <VBox fx:id="jmsConfiguration" VBox.vgrow="ALWAYS">
                <children>
@@ -145,10 +148,13 @@
                     </rowConstraints>
                      <children>
                         <Label alignment="CENTER_RIGHT" text="Connection Factory Name: " />
-                        <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="jmsConnectionFactoryNameTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>
+               <VBox.margin>
+                  <Insets left="200.0" />
+               </VBox.margin>
             </VBox>
             <VBox fx:id="customConfiguration">
                <children>
@@ -167,10 +173,13 @@
                     </rowConstraints>
                      <children>
                         <Label text="Factory Class: " />
-                        <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" GridPane.columnIndex="1" />
+                        <TextField fx:id="customTransportFactoryClass" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>
+               <VBox.margin>
+                  <Insets left="200.0" />
+               </VBox.margin>
             </VBox>
          </children>
          <padding>
