@@ -29,6 +29,7 @@ import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanBooleanPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanProperty;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 
 /**
@@ -101,7 +102,14 @@ public abstract class CayennePropertyAdapter
      */
     private <T extends Property<?>> T observePropertyChanges(T property)
     {
-        property.addListener((observable, newValue, oldValue) -> getCayennePropject().setDirty(true));
+        property.addListener((observable, oldValue, newValue) ->
+            {
+                JavaBeanProperty<?> changedProperty = (JavaBeanProperty<?>) observable;
+
+                getCayennePropject().setDirty(true);
+
+                LOGGER.debug("Property Changed: [" + changedProperty.getBean().getClass().getSimpleName() + " " + changedProperty.getName() + "] " + oldValue + " -> " + newValue);
+            });
 
         return property;
     }
