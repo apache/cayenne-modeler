@@ -60,10 +60,6 @@ public class SplashLayout extends AbstractWindowLayout
 
     public void initialize()
     {
-//        final List<String> arr = ModelerPreferences.getLastProjFiles();
-
-//        URL url = CayenneModeler.class.getResource("/cayenne-analytic.xml");
-
         final ObservableList<String> projects =
             FXCollections.observableArrayList(ModelerPreferences.getLastProjFiles());
 
