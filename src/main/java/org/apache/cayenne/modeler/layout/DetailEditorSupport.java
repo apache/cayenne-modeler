@@ -19,11 +19,47 @@
 
 package org.apache.cayenne.modeler.layout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.cayenne.modeler.adapters.CayennePropertyAdapter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public interface DetailEditorSupport<T extends CayennePropertyAdapter>
 {
+    static final Log LOGGER = LogFactory.getLog(DetailEditorSupport.class);
+
+    default void showLayout(final T propertyAdapter)
+    {
+        setPropertyAdapter(propertyAdapter);
+        initializeBindings();
+        beginEditing();
+    }
+
+    default void initializeBindings()
+    {
+        // Implementors should override.
+    }
+
+    default List<Binding<?>> getBindings()
+    {
+        return new ArrayList<>();
+    }
+
     void setPropertyAdapter(final T propertyAdapter);
-    void beginEditing();
-    void endEditing();
+
+    default void beginEditing()
+    {
+        LOGGER.debug("begin editing " + this);
+
+        getBindings().stream().forEach(binding -> binding.bind());
+    }
+
+    default void endEditing()
+    {
+        LOGGER.debug("end editing " + this);
+
+        getBindings().stream().forEach(binding -> binding.unbind());
+    }
 }
