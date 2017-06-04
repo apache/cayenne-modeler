@@ -30,7 +30,7 @@ public interface DetailEditorSupport<T extends CayennePropertyAdapter>
 {
     static final Log LOGGER = LogFactory.getLog(DetailEditorSupport.class);
 
-    default void showLayout(final T propertyAdapter)
+    default void showEditor(final T propertyAdapter)
     {
         setPropertyAdapter(propertyAdapter);
         initializeBindings();
@@ -47,7 +47,7 @@ public interface DetailEditorSupport<T extends CayennePropertyAdapter>
         return new ArrayList<>();
     }
 
-    void setPropertyAdapter(final T propertyAdapter);
+    void setPropertyAdapter(T propertyAdapter);
 
     default void beginEditing()
     {

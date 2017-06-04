@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import org.apache.cayenne.modeler.CayenneModeler;
+import org.apache.cayenne.modeler.adapters.CayennePropertyAdapter;
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
 import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
 import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
@@ -194,16 +195,21 @@ public class MainWindowLayout
                     {
                         observable.getValue().getParent();
 
+//                      displayDataDomain((DataDomainTreeItem) newValue);
+//                      displayObjectEntity((ObjectEntityTreeItem) newValue);
+//                      displayDatabaseEntity((DatabaseEntityTreeItem) newValue);
+//                      displayDataNode((DataNodeTreeItem) newValue);
+
                         if (newValue instanceof DataDomainTreeItem)
-                            displayDataDomain((DataDomainTreeItem) newValue);
+                            displayDetailEditor(getDataDomainDetail(), ((DataDomainTreeItem) newValue).getPropertyAdapter());
                         else if (newValue instanceof DataMapTreeItem)
                             displayDataMap((DataMapTreeItem) newValue);
                         else if (newValue instanceof ObjectEntityTreeItem)
-                            displayObjectEntity((ObjectEntityTreeItem) newValue);
+                            displayDetailEditor(getObjectEntityDetail(), ((ObjectEntityTreeItem) newValue).getPropertyAdapter());
                         else if (newValue instanceof DatabaseEntityTreeItem)
-                            displayDatabaseEntity((DatabaseEntityTreeItem) newValue);
+                            displayDetailEditor(getDatabaseEntityDetail(), ((DatabaseEntityTreeItem) newValue).getPropertyAdapter());
                         else if (newValue instanceof DataNodeTreeItem)
-                            displayDataNode((DataNodeTreeItem) newValue);
+                            displayDetailEditor(getDataNodeDetail(), ((DataNodeTreeItem) newValue).getPropertyAdapter());
 //                    if (newValue.getValue() instanceof DataDomainTreeViewModel)
 //                        displayDataDomain((DataDomainTreeViewModel) newValue.getValue());
 //                    else if (newValue.getValue() instanceof DataMapTreeViewModel)
@@ -303,41 +309,54 @@ public class MainWindowLayout
     {
         final DataNodeTreeItem dataMapBranch = new DataNodeTreeItem(dataNodeAdapter, dataDomainBranch);
     }
-//    private void displayDataDomain(final DataDomainTreeViewModel domain)
-    private void displayDataDomain(final DataDomainTreeItem dataDomainTreeItem) throws IOException
+
+    private <T extends CayennePropertyAdapter> void displayDetailEditor(DetailEditorSupport<T> des, T cpa)
     {
-        displayDetailView(getDataDomainDetail());
-        getDataDomainDetail().setPropertyAdapter(dataDomainTreeItem.getPropertyAdapter());
-        getDataDomainDetail().beginEditing();
+//        @SuppressWarnings("unchecked")
+//        DetailEditorSupport<? extends CayennePropertyAdapter> des = (DetailEditorSupport<? extends CayennePropertyAdapter>) avl;
+
+//        T<? extends CayennePropertyAdapter> cpa2;
+
+        displayDetailView((Node) des);
+        des.setPropertyAdapter(cpa);
+        des.beginEditing();
     }
+//    private void displayDataDomain(final DataDomainTreeViewModel domain)
+//    private void displayDataDomain(final DataDomainTreeItem dataDomainTreeItem) throws IOException
+//    {
+//        displayDetailView(getDataDomainDetail());
+//        getDataDomainDetail().setPropertyAdapter(dataDomainTreeItem.getPropertyAdapter());
+//        getDataDomainDetail().beginEditing();
+//    }
 
     private void displayDataMap(final DataMapTreeItem dataMapTreeItem) throws IOException
     {
         displayDetailView(getDataMapDetail());
-        getDataMapDetail().setPropertyAdapter(dataMapTreeItem.getPropertyAdapter());
-        getDataMapDetail().beginEditing();
+        getDataMapDetail().showEditor(dataMapTreeItem.getPropertyAdapter());
+//        getDataMapDetail().setPropertyAdapter(dataMapTreeItem.getPropertyAdapter());
+//        getDataMapDetail().beginEditing();
     }
 
-    private void displayDataNode(final DataNodeTreeItem dataNodeTreeItem) throws IOException
-    {
-        displayDetailView(getDataNodeDetail());
-        getDataNodeDetail().setPropertyAdapter(dataNodeTreeItem.getPropertyAdapter());
-        getDataNodeDetail().beginEditing();
-    }
+//    private void displayDataNode(final DataNodeTreeItem dataNodeTreeItem) throws IOException
+//    {
+//        displayDetailView(getDataNodeDetail());
+//        getDataNodeDetail().setPropertyAdapter(dataNodeTreeItem.getPropertyAdapter());
+//        getDataNodeDetail().beginEditing();
+//    }
 
-    private void displayObjectEntity(final ObjectEntityTreeItem objectEntityTreeItem) throws IOException
-    {
-        displayDetailView(getObjectEntityDetail());
-        getObjectEntityDetail().setPropertyAdapter(objectEntityTreeItem.getPropertyAdapter());
-        getObjectEntityDetail().beginEditing();
-    }
+//    private void displayObjectEntity(final ObjectEntityTreeItem objectEntityTreeItem) throws IOException
+//    {
+//        displayDetailView(getObjectEntityDetail());
+//        getObjectEntityDetail().setPropertyAdapter(objectEntityTreeItem.getPropertyAdapter());
+//        getObjectEntityDetail().beginEditing();
+//    }
 
-    private void displayDatabaseEntity(final DatabaseEntityTreeItem databaseEntityTreeItem) throws IOException
-    {
-        displayDetailView(getDatabaseEntityDetail());
-        getDatabaseEntityDetail().setPropertyAdapter(databaseEntityTreeItem.getPropertyAdapter());
-        getDatabaseEntityDetail().beginEditing();
-    }
+//    private void displayDatabaseEntity(final DatabaseEntityTreeItem databaseEntityTreeItem) throws IOException
+//    {
+//        displayDetailView(getDatabaseEntityDetail());
+//        getDatabaseEntityDetail().setPropertyAdapter(databaseEntityTreeItem.getPropertyAdapter());
+//        getDatabaseEntityDetail().beginEditing();
+//    }
 
     private void displayDetailView(final Node detailView)
     {
