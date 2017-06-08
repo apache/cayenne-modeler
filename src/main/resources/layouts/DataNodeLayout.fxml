@@ -36,7 +36,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab onSelectionChanged="#tabChanged" text="Database Adapter">
+            <Tab text="Database Adapter">
                <content>
                   <AnchorPane fx:id="databaseAdapterTabAnchorPane" minHeight="0.0" prefWidth="200.0">
                      <children>

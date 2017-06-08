@@ -38,7 +38,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab onSelectionChanged="#tabChanged" text="Columns">
+          <Tab text="Columns">
             <content>
               <AnchorPane fx:id="columnsTabAnchorPane" minHeight="0.0" prefWidth="200.0">
                      <children>

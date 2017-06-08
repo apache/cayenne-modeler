@@ -38,7 +38,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab closable="false" onSelectionChanged="#tabChanged" text="Attributes">
+          <Tab closable="false" text="Attributes">
             <content>
               <AnchorPane fx:id="attributesTabAnchorPane" minHeight="0.0" prefWidth="200.0">
                      <children>
