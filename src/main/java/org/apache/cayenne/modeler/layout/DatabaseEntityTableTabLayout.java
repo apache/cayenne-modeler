@@ -48,13 +48,13 @@ public class DatabaseEntityTableTabLayout
         this.databaseEntityAdapter = databaseEntityAdapter;
     }
 
-    @Override
-    public void beginEditing()
-    {
-    }
-
-    @Override
-    public void endEditing()
-    {
-    }
+//    @Override
+//    public void beginEditing()
+//    {
+//    }
+//
+//    @Override
+//    public void endEditing()
+//    {
+//    }
 }

@@ -20,6 +20,8 @@
 package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 import org.apache.commons.logging.Log;
@@ -47,6 +49,8 @@ public class ObjectEntityClassTabLayout
 
     private ObjectEntityAdapter objectEntityAdapter;
 
+    private List<Binding<?>> bindings;
+
     public ObjectEntityClassTabLayout(final MainWindowSupport parentComponent) throws IOException
     {
         super(parentComponent, "/layouts/ObjectEntityClassTabLayout.fxml");
@@ -70,21 +74,34 @@ public class ObjectEntityClassTabLayout
         this.objectEntityAdapter = objectEntityAdapter;
     }
 
-
     @Override
-    public void beginEditing()
+    public void initializeBindings()
     {
-        LOGGER.debug("begin editing " + this);
+        bindings = new ArrayList<>();
 
-        abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.abstractClassProperty());
+        bindings.add(new Binding<>(abstractClassCheckbox.selectedProperty(), objectEntityAdapter.abstractClassProperty()));
     }
 
-
     @Override
-    public void endEditing()
+    public List<Binding<?>> getBindings()
     {
-        LOGGER.debug("end editing " + this);
-
-        abstractClassCheckbox.selectedProperty().unbindBidirectional(objectEntityAdapter.abstractClassProperty());
+        return bindings;
     }
+
+//    @Override
+//    public void beginEditing()
+//    {
+//        LOGGER.debug("begin editing " + this);
+//
+//        abstractClassCheckbox.selectedProperty().bindBidirectional(objectEntityAdapter.abstractClassProperty());
+//    }
+
+
+//    @Override
+//    public void endEditing()
+//    {
+//        LOGGER.debug("end editing " + this);
+//
+//        abstractClassCheckbox.selectedProperty().unbindBidirectional(objectEntityAdapter.abstractClassProperty());
+//    }
 }

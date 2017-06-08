@@ -47,19 +47,29 @@ public interface DetailEditorSupport<T extends CayennePropertyAdapter>
         return new ArrayList<>();
     }
 
-    void setPropertyAdapter(T propertyAdapter);
-
     default void beginEditing()
     {
         LOGGER.debug("begin editing " + this);
 
-        getBindings().stream().forEach(binding -> binding.bind());
+        bind(getBindings());
     }
 
     default void endEditing()
     {
         LOGGER.debug("end editing " + this);
 
-        getBindings().stream().forEach(binding -> binding.unbind());
+        unbind(getBindings());
     }
+
+    default void bind(List<Binding<?>> bindings)
+    {
+        bindings.stream().forEach(binding -> binding.bind());
+    }
+
+    default void unbind(List<Binding<?>> bindings)
+    {
+        bindings.stream().forEach(binding -> binding.unbind());
+    }
+
+    void setPropertyAdapter(T propertyAdapter);
 }

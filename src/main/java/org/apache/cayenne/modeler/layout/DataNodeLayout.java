@@ -25,7 +25,6 @@ import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
@@ -83,36 +82,40 @@ public class DataNodeLayout
     {
         this.dataNodeAdapter = dataNodeAdapter;
 
-        dataNodeConfigurationTabLayout.setPropertyAdapter(dataNodeAdapter);
-        dataNodeDatabaseAdapterTabLayout.setPropertyAdapter(dataNodeAdapter);
-        dataNodePasswordEncoderTabLayout.setPropertyAdapter(dataNodeAdapter);
+//        dataNodeConfigurationTabLayout.setPropertyAdapter(dataNodeAdapter);
+//        dataNodeDatabaseAdapterTabLayout.setPropertyAdapter(dataNodeAdapter);
+//        dataNodePasswordEncoderTabLayout.setPropertyAdapter(dataNodeAdapter);
     }
 
     @Override
     public void beginEditing()
     {
-        LOGGER.debug("begin editing " + this);
+        DetailEditorSupport.super.beginEditing();
 
-        dataNodeConfigurationTabLayout.beginEditing();
-        dataNodeDatabaseAdapterTabLayout.beginEditing();
-        dataNodePasswordEncoderTabLayout.beginEditing();
+        dataNodeConfigurationTabLayout.showEditor(dataNodeAdapter);
+        dataNodeDatabaseAdapterTabLayout.showEditor(dataNodeAdapter);
+        dataNodePasswordEncoderTabLayout.showEditor(dataNodeAdapter);
+
+//        dataNodeConfigurationTabLayout.beginEditing();
+//        dataNodeDatabaseAdapterTabLayout.beginEditing();
+//        dataNodePasswordEncoderTabLayout.beginEditing();
     }
 
     @Override
     public void endEditing()
     {
-        LOGGER.debug("end editing " + this);
+        DetailEditorSupport.super.endEditing();
 
         dataNodeConfigurationTabLayout.endEditing();
         dataNodeDatabaseAdapterTabLayout.endEditing();
         dataNodePasswordEncoderTabLayout.endEditing();
     }
 
-    public void tabChanged(final Event event)
-    {
-        LOGGER.debug("event: " + event);
-        getMainWindow().getCayenneProject().getDataMaps();
-    }
+//    public void tabChanged(final Event event)
+//    {
+//        LOGGER.debug("event: " + event);
+//        getMainWindow().getCayenneProject().getDataMaps();
+//    }
 
     public void disablePasswordEncoderTab()
     {

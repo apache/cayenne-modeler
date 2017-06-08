@@ -32,7 +32,6 @@ import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 
@@ -170,11 +169,11 @@ public class DatabaseEntityColumnsTabLayout
     }
 
 //    public void tabChanged(ActionEvent event)
-    public void tabChanged(final Event event)
-    {
-        LOGGER.debug("event: " + event);
-        getMainWindow().getCayenneProject().getDataMaps();
-    }
+//    public void tabChanged(final Event event)
+//    {
+//        LOGGER.debug("event: " + event);
+//        getMainWindow().getCayenneProject().getDataMaps();
+//    }
 
     @Override
     public void setPropertyAdapter(final DatabaseEntityAdapter databaseEntityAdapter)
@@ -182,13 +181,13 @@ public class DatabaseEntityColumnsTabLayout
         this.databaseEntityAdapter = databaseEntityAdapter;
     }
 
-    @Override
-    public void beginEditing()
-    {
-    }
-
-    @Override
-    public void endEditing()
-    {
-    }
+//    @Override
+//    public void beginEditing()
+//    {
+//    }
+//
+//    @Override
+//    public void endEditing()
+//    {
+//    }
 }

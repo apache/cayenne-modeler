@@ -20,12 +20,13 @@
 package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.cayenne.access.DataRowStore;
 import org.apache.cayenne.event.JMSBridgeFactory;
 import org.apache.cayenne.event.JavaGroupsBridgeFactory;
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
-import org.apache.cayenne.modeler.notification.NotificationCenter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
 import org.apache.commons.lang3.StringUtils;
@@ -81,6 +82,8 @@ public class DataDomainLayout
     private ChoiceBox<String> remoteChangeNotificationsChoiceBox;
 
     private DataDomainAdapter dataDomainAdapter;
+
+    private List<Binding<?>> bindings;
 
     // Remote Change Notification groups.
     private static final String RCN_NONE        = "None";
@@ -155,97 +158,74 @@ public class DataDomainLayout
     }
 
     @Override
+    public void initializeBindings()
+    {
+        bindings = new ArrayList<>();
+
+        bindings.add(new Binding<>(nameTextField.textProperty(), dataDomainAdapter.nameProperty()));
+        bindings.add(new Binding<>(objectValidationCheckBox.selectedProperty(), dataDomainAdapter.validatingObjectsProperty()));
+        bindings.add(new Binding<>(objectCacheSizeSpinner.getValueFactory().valueProperty(), dataDomainAdapter.sizeOfObjectCacheProperty().asObject()));
+        bindings.add(new Binding<>(useSharedCacheCheckBox.selectedProperty(), dataDomainAdapter.useSharedCacheProperty()));
+
+        bindings.add(new Binding<>(customTransportFactoryClass.textProperty(), dataDomainAdapter.eventBridgeFactoryProperty()));
+        bindings.add(new Binding<>(multicastAddressTextField.textProperty(), dataDomainAdapter.javaGroupsMulticastAddressProperty()));
+        bindings.add(new Binding<>(multicastPortTextField.textProperty(), dataDomainAdapter.javaGroupsMulticastPortProperty()));
+        bindings.add(new Binding<>(jmsConnectionFactoryNameTextField.textProperty(), dataDomainAdapter.jmsConnectionFactoryProperty()));
+    }
+
+    @Override
+    public List<Binding<?>> getBindings()
+    {
+        return bindings;
+    }
+
+    @Override
     public void beginEditing()
     {
-        LOGGER.debug("begin editing " + this);
-
+//        LOGGER.debug("begin editing " + this);
+        DetailEditorSupport.super.beginEditing();
 //        show(javaGroupsConfiguration, jmsConfiguration, customConfiguration);
 
-        nameTextField.textProperty().bindBidirectional(dataDomainAdapter.nameProperty());
-        objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.validatingObjectsProperty());
+//        nameTextField.textProperty().bindBidirectional(dataDomainAdapter.nameProperty());
+//        objectValidationCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 
-        objectCacheSizeSpinner.getValueFactory().valueProperty().bindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
-        useSharedCacheCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.useSharedCacheProperty());
+//        objectCacheSizeSpinner.getValueFactory().valueProperty().bindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
+//        useSharedCacheCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.useSharedCacheProperty());
 //        remoteChangeNotificationsCheckBox.selectedProperty().bindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
 
         configureRemoteNotifications(dataDomainAdapter.getUseSharedCache());
 
-        customTransportFactoryClass.textProperty().bindBidirectional(dataDomainAdapter.eventBridgeFactoryProperty());
-        multicastAddressTextField.textProperty().bindBidirectional(dataDomainAdapter.javaGroupsMulticastAddressProperty());
-        multicastPortTextField.textProperty().bindBidirectional(dataDomainAdapter.javaGroupsMulticastPortProperty());
-        jmsConnectionFactoryNameTextField.textProperty().bindBidirectional(dataDomainAdapter.jmsConnectionFactoryProperty());
+//        customTransportFactoryClass.textProperty().bindBidirectional(dataDomainAdapter.eventBridgeFactoryProperty());
+//        multicastAddressTextField.textProperty().bindBidirectional(dataDomainAdapter.javaGroupsMulticastAddressProperty());
+//        multicastPortTextField.textProperty().bindBidirectional(dataDomainAdapter.javaGroupsMulticastPortProperty());
+//        jmsConnectionFactoryNameTextField.textProperty().bindBidirectional(dataDomainAdapter.jmsConnectionFactoryProperty());
     }
 
-    @Deprecated
-    private void beginEditingNotCalled()
-    {
-        LOGGER.debug("begin editing");
-
-        nameTextField.setText(getMainWindow().getCayenneProject().getDataDomainName());
-        nameTextField.textProperty().addListener((observable, oldValue, newValue) ->
-            {
-                getMainWindow().getCayenneProject().setDataDomainName(newValue);
-                final DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.NAME, oldValue, newValue);
-                NotificationCenter.broadcastProjectEvent(getMainWindow().getCayenneProject(), ddce);
-//            System.out.println("DataDomain Name Text Changed (newValue: " + newValue + ")");
-            });
-
-        objectValidationCheckBox.setSelected(getMainWindow().getCayenneProject().isDataDomainValidatingObjects());
-        objectValidationCheckBox.setOnAction((event) ->
-        {
-            final Boolean selected = objectValidationCheckBox.isSelected();
-            getMainWindow().getCayenneProject().setDataDomainValidatingObjects(selected);
-            final DataDomainChangeEvent ddce = new DataDomainChangeEvent(getMainWindow().getCayenneProject(), this, DataDomainChangeEvent.Type.VALIDATION, !selected, selected);
-            NotificationCenter.broadcastProjectEvent(getMainWindow().getCayenneProject(), ddce);
-        });
-
-
-//        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());
+//    @Override
+//    public void endEditing()
+//    {
+//        LOGGER.debug("end editing " + this);
 //
-//        dataDomainAdapter.bindBidirectional("dataDomainName", dataDomainNameTextField.textProperty());
-//        dataDomainAdapter.bindBidirectional("dataDomainValidatingObjects", objectValidationCheckBox.selectedProperty());
+//        nameTextField.textProperty().unbindBidirectional(dataDomainAdapter.nameProperty());
+//        objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.validatingObjectsProperty());
 //
-////        new ChangeListener<FieldPathValue>() {
-////            @Override
-////            public void changed(
-////                            ObservableValue<? extends FieldPathValue> observable,
-////                            FieldPathValue oldValue,
-////                            FieldPathValue newValue) {
-////                    dumpPojo(oldValue, newValue, personPA);
-////            }
-////    });
+//        objectCacheSizeSpinner.getValueFactory().valueProperty().unbindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
+//        useSharedCacheCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.useSharedCacheProperty());
+////        remoteChangeNotificationsCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
 //
-//        dataDomainAdapter.fieldPathValueProperty().addListener(changeObserver);
-
-        // Register for notifications.
-        NotificationCenter.addProjectListener(getMainWindow().getCayenneProject(), this);
-    }
-
-    @Override
-    public void endEditing()
-    {
-        LOGGER.debug("end editing " + this);
-
-        nameTextField.textProperty().unbindBidirectional(dataDomainAdapter.nameProperty());
-        objectValidationCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.validatingObjectsProperty());
-
-        objectCacheSizeSpinner.getValueFactory().valueProperty().unbindBidirectional(dataDomainAdapter.sizeOfObjectCacheProperty().asObject());
-        useSharedCacheCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.useSharedCacheProperty());
-//        remoteChangeNotificationsCheckBox.selectedProperty().unbindBidirectional(dataDomainAdapter.remoteChangeNotificationsProperty());
-
-        customTransportFactoryClass.textProperty().unbindBidirectional(dataDomainAdapter.eventBridgeFactoryProperty());
-        multicastAddressTextField.textProperty().unbindBidirectional(dataDomainAdapter.javaGroupsMulticastAddressProperty());
-        multicastPortTextField.textProperty().unbindBidirectional(dataDomainAdapter.javaGroupsMulticastPortProperty());
-        jmsConnectionFactoryNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.jmsConnectionFactoryProperty());
-
-//        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
-////        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());
-////
-////        dataDomainAdapter.fieldPathValueProperty().removeListener(changeObserver);
-////
-////        dataDomainAdapter.unBindBidirectional("dataDomainName", dataDomainNameTextField.textProperty());
-////        dataDomainAdapter.unBindBidirectional("dataDomainValidatingObjects", objectValidationCheckBox.selectedProperty());
-    }
+//        customTransportFactoryClass.textProperty().unbindBidirectional(dataDomainAdapter.eventBridgeFactoryProperty());
+//        multicastAddressTextField.textProperty().unbindBidirectional(dataDomainAdapter.javaGroupsMulticastAddressProperty());
+//        multicastPortTextField.textProperty().unbindBidirectional(dataDomainAdapter.javaGroupsMulticastPortProperty());
+//        jmsConnectionFactoryNameTextField.textProperty().unbindBidirectional(dataDomainAdapter.jmsConnectionFactoryProperty());
+//
+////        NotificationCenter.removeProjectListener(getMainWindow().getCayenneProject(), this);
+//////        BeanPathAdapter<CayenneModel> dataDomainAdapter = getDataDomainPropertyAdapterMap(getMainWindow().getCayenneModel());
+//////
+//////        dataDomainAdapter.fieldPathValueProperty().removeListener(changeObserver);
+//////
+//////        dataDomainAdapter.unBindBidirectional("dataDomainName", dataDomainNameTextField.textProperty());
+//////        dataDomainAdapter.unBindBidirectional("dataDomainValidatingObjects", objectValidationCheckBox.selectedProperty());
+//    }
 
 
     @Override

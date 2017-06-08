@@ -25,8 +25,6 @@ import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javafx.event.Event;
-
 public class DataNodeDatabaseAdapterTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DataNodeAdapter>
@@ -47,11 +45,11 @@ public class DataNodeDatabaseAdapterTabLayout
 //        super.initializeView();
 //    }
 
-    public void tabChanged(final Event event)
-    {
-        LOGGER.debug("event: " + event);
-        getMainWindow().getCayenneProject().getDataMaps();
-    }
+//    public void tabChanged(final Event event)
+//    {
+//        LOGGER.debug("event: " + event);
+//        getMainWindow().getCayenneProject().getDataMaps();
+//    }
 
     @Override
     public void setPropertyAdapter(final DataNodeAdapter dataNodeAdapter)
@@ -59,13 +57,13 @@ public class DataNodeDatabaseAdapterTabLayout
         this.dataNodeAdapter = dataNodeAdapter;
     }
 
-    @Override
-    public void beginEditing()
-    {
-    }
-
-    @Override
-    public void endEditing()
-    {
-    }
+//    @Override
+//    public void beginEditing()
+//    {
+//    }
+//
+//    @Override
+//    public void endEditing()
+//    {
+//    }
 }

@@ -21,12 +21,10 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
@@ -72,43 +70,47 @@ public class ObjectEntityLayout
         }
     }
 
-    @Deprecated // Unused?
-    public void display(final ObjEntity objEntity)
-    {
-        LOGGER.debug("trying to display: " + objEntity);
-    }
+//    @Deprecated // Unused?
+//    public void display(final ObjEntity objEntity)
+//    {
+//        LOGGER.debug("trying to display: " + objEntity);
+//    }
 
 //    public void tabChanged(ActionEvent event)
-    public void tabChanged(final Event event)
-    {
-        LOGGER.debug("event: " + event);
-        getMainWindow().getCayenneProject().getDataMaps();
-    }
+//    public void tabChanged(final Event event)
+//    {
+//        LOGGER.debug("event: " + event);
+//        getMainWindow().getCayenneProject().getDataMaps();
+//    }
 
     @Override
     public void setPropertyAdapter(final ObjectEntityAdapter objectEntityAdapter)
     {
         this.objectEntityAdapter = objectEntityAdapter;
 
-        objectEntityClassTabLayout.setPropertyAdapter(objectEntityAdapter);
-        objectEntityAttributesTabLayout.setPropertyAdapter(objectEntityAdapter);
-        objectEntityRelationshipsTabLayout.setPropertyAdapter(objectEntityAdapter);
+//        objectEntityClassTabLayout.setPropertyAdapter(objectEntityAdapter);
+//        objectEntityAttributesTabLayout.setPropertyAdapter(objectEntityAdapter);
+//        objectEntityRelationshipsTabLayout.setPropertyAdapter(objectEntityAdapter);
     }
 
     @Override
     public void beginEditing()
     {
-        LOGGER.debug("begin editing " + this);
+        DetailEditorSupport.super.beginEditing();
 
-        objectEntityClassTabLayout.beginEditing();
-        objectEntityAttributesTabLayout.beginEditing();
-        objectEntityRelationshipsTabLayout.beginEditing();
+        objectEntityClassTabLayout.showEditor(objectEntityAdapter);
+        objectEntityAttributesTabLayout.showEditor(objectEntityAdapter);
+        objectEntityRelationshipsTabLayout.showEditor(objectEntityAdapter);
+
+//        objectEntityClassTabLayout.beginEditing();
+//        objectEntityAttributesTabLayout.beginEditing();
+//        objectEntityRelationshipsTabLayout.beginEditing();
     }
 
     @Override
     public void endEditing()
     {
-        LOGGER.debug("end editing " + this);
+        DetailEditorSupport.super.endEditing();
 
         objectEntityClassTabLayout.endEditing();
         objectEntityAttributesTabLayout.endEditing();

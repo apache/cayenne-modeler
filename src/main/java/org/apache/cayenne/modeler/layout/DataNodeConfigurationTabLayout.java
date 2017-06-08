@@ -20,6 +20,8 @@
 package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.cayenne.access.dbsync.CreateIfNoSchemaStrategy;
 import org.apache.cayenne.access.dbsync.SkipSchemaUpdateStrategy;
@@ -33,7 +35,6 @@ import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -85,6 +86,8 @@ public class DataNodeConfigurationTabLayout
 
     private DataNodeAdapter dataNodeAdapter;
 //    private final DataNodeLayout parent;
+
+    private List<Binding<?>> bindings;
 
     private static final String[] standardSchemaUpdateStrategies =
         {
@@ -162,11 +165,11 @@ public class DataNodeConfigurationTabLayout
             });
     }
 
-    public void tabChanged(final Event event)
-    {
-        LOGGER.debug("event: " + event);
-        getMainWindow().getCayenneProject().getDataMaps();
-    }
+//    public void tabChanged(final Event event)
+//    {
+//        LOGGER.debug("event: " + event);
+//        getMainWindow().getCayenneProject().getDataMaps();
+//    }
 
     @Override
     public void setPropertyAdapter(final DataNodeAdapter dataNodeAdapter)
@@ -175,14 +178,28 @@ public class DataNodeConfigurationTabLayout
     }
 
     @Override
-    public void beginEditing()
+    public void initializeBindings()
     {
-        nameTextField.textProperty().bindBidirectional(dataNodeAdapter.nameProperty());
+        bindings = new ArrayList<>();
+
+        bindings.add(new Binding<>(nameTextField.textProperty(), dataNodeAdapter.nameProperty()));
     }
 
     @Override
-    public void endEditing()
+    public List<Binding<?>> getBindings()
     {
-        nameTextField.textProperty().unbindBidirectional(dataNodeAdapter.nameProperty());
+        return bindings;
     }
+
+//    @Override
+//    public void beginEditing()
+//    {
+//        nameTextField.textProperty().bindBidirectional(dataNodeAdapter.nameProperty());
+//    }
+//
+//    @Override
+//    public void endEditing()
+//    {
+//        nameTextField.textProperty().unbindBidirectional(dataNodeAdapter.nameProperty());
+//    }
 }

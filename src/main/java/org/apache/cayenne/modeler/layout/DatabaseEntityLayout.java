@@ -25,7 +25,6 @@ import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
@@ -70,31 +69,38 @@ public class DatabaseEntityLayout
         }
     }
 
-    public void tabChanged(final Event event)
-    {
-        LOGGER.debug("event: " + event);
-        getMainWindow().getCayenneProject().getDataMaps();
-    }
+//    public void tabChanged(final Event event)
+//    {
+//        LOGGER.debug("event: " + event);
+//        getMainWindow().getCayenneProject().getDataMaps();
+//    }
 
     @Override
     public void setPropertyAdapter(final DatabaseEntityAdapter databaseEntityAdapter)
     {
         this.databaseEntityAdapter = databaseEntityAdapter;
 
-        databaseEntityTableTabLayout.setPropertyAdapter(databaseEntityAdapter);
-        databaseEntityColumnsTabLayout.setPropertyAdapter(databaseEntityAdapter);
+//        databaseEntityTableTabLayout.setPropertyAdapter(databaseEntityAdapter);
+//        databaseEntityColumnsTabLayout.setPropertyAdapter(databaseEntityAdapter);
     }
 
     @Override
     public void beginEditing()
     {
-        databaseEntityTableTabLayout.beginEditing();
-        databaseEntityColumnsTabLayout.beginEditing();
+        DetailEditorSupport.super.beginEditing();
+
+        databaseEntityTableTabLayout.showEditor(databaseEntityAdapter);
+        databaseEntityColumnsTabLayout.showEditor(databaseEntityAdapter);
+
+//        databaseEntityTableTabLayout.beginEditing();
+//        databaseEntityColumnsTabLayout.beginEditing();
     }
 
     @Override
     public void endEditing()
     {
+        DetailEditorSupport.super.endEditing();
+
         databaseEntityTableTabLayout.endEditing();
         databaseEntityColumnsTabLayout.endEditing();
     }

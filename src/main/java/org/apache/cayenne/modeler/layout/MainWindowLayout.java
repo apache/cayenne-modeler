@@ -196,6 +196,7 @@ public class MainWindowLayout
                         observable.getValue().getParent();
 
 //                      displayDataDomain((DataDomainTreeItem) newValue);
+//                      displayDataMap((DataMapTreeItem) newValue);
 //                      displayObjectEntity((ObjectEntityTreeItem) newValue);
 //                      displayDatabaseEntity((DatabaseEntityTreeItem) newValue);
 //                      displayDataNode((DataNodeTreeItem) newValue);
@@ -203,7 +204,7 @@ public class MainWindowLayout
                         if (newValue instanceof DataDomainTreeItem)
                             displayDetailEditor(getDataDomainDetail(), ((DataDomainTreeItem) newValue).getPropertyAdapter());
                         else if (newValue instanceof DataMapTreeItem)
-                            displayDataMap((DataMapTreeItem) newValue);
+                            displayDetailEditor(getDataMapDetail(), ((DataMapTreeItem) newValue).getPropertyAdapter());
                         else if (newValue instanceof ObjectEntityTreeItem)
                             displayDetailEditor(getObjectEntityDetail(), ((ObjectEntityTreeItem) newValue).getPropertyAdapter());
                         else if (newValue instanceof DatabaseEntityTreeItem)
@@ -310,16 +311,10 @@ public class MainWindowLayout
         final DataNodeTreeItem dataMapBranch = new DataNodeTreeItem(dataNodeAdapter, dataDomainBranch);
     }
 
-    private <T extends CayennePropertyAdapter> void displayDetailEditor(DetailEditorSupport<T> des, T cpa)
+    private <T extends CayennePropertyAdapter> void displayDetailEditor(DetailEditorSupport<T> detailEditor, T propertyAdapter)
     {
-//        @SuppressWarnings("unchecked")
-//        DetailEditorSupport<? extends CayennePropertyAdapter> des = (DetailEditorSupport<? extends CayennePropertyAdapter>) avl;
-
-//        T<? extends CayennePropertyAdapter> cpa2;
-
-        displayDetailView((Node) des);
-        des.setPropertyAdapter(cpa);
-        des.beginEditing();
+        displayDetailView((Node) detailEditor);
+        detailEditor.showEditor(propertyAdapter);
     }
 //    private void displayDataDomain(final DataDomainTreeViewModel domain)
 //    private void displayDataDomain(final DataDomainTreeItem dataDomainTreeItem) throws IOException
@@ -329,13 +324,13 @@ public class MainWindowLayout
 //        getDataDomainDetail().beginEditing();
 //    }
 
-    private void displayDataMap(final DataMapTreeItem dataMapTreeItem) throws IOException
-    {
-        displayDetailView(getDataMapDetail());
-        getDataMapDetail().showEditor(dataMapTreeItem.getPropertyAdapter());
-//        getDataMapDetail().setPropertyAdapter(dataMapTreeItem.getPropertyAdapter());
-//        getDataMapDetail().beginEditing();
-    }
+//    private void displayDataMap(final DataMapTreeItem dataMapTreeItem) throws IOException
+//    {
+//        displayDetailView(getDataMapDetail());
+//        getDataMapDetail().showEditor(dataMapTreeItem.getPropertyAdapter());
+////        getDataMapDetail().setPropertyAdapter(dataMapTreeItem.getPropertyAdapter());
+////        getDataMapDetail().beginEditing();
+//    }
 
 //    private void displayDataNode(final DataNodeTreeItem dataNodeTreeItem) throws IOException
 //    {

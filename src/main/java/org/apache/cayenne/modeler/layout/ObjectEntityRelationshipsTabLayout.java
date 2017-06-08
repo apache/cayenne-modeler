@@ -20,6 +20,8 @@
 package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.cayenne.modeler.adapters.ObjectAttributeAdapter;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
@@ -193,15 +195,28 @@ public class ObjectEntityRelationshipsTabLayout
         this.objectEntityAdapter = objectEntityAdapter;
     }
 
-    private final ChangeListener<ObjectAttributeAdapter> attributesTableViewSelectionListener = (obs, oldSelection, newSelection) ->
+    private List<Binding<?>> getSelectedAttributeBindings(ObjectAttributeAdapter adapter)
+    {
+        List<Binding<?>> bindings = new ArrayList<>();
+
+        bindings.add(new Binding<>(javaAttributeNameTextField.textProperty(), adapter.nameProperty()));
+        bindings.add(new Binding<>(javaTypeComboBox.valueProperty(), adapter.javaTypeProperty()));
+        bindings.add(new Binding<>(optimisticLockingCheckBox.selectedProperty(), adapter.usedForLockingProperty()));
+
+        return bindings;
+    }
+
+    private final ChangeListener<ObjectAttributeAdapter> attributesTableViewSelectionListener = (observable, oldSelection, newSelection) ->
         {
             final String[] javaTypes = ObjectEntityUtilities.getRegisteredTypeNames();
 
             if (oldSelection != null)
             {
-                javaAttributeNameTextField.textProperty().unbindBidirectional(oldSelection.nameProperty());
-                javaTypeComboBox.valueProperty().unbindBidirectional(oldSelection.javaTypeProperty());
-                optimisticLockingCheckBox.selectedProperty().unbindBidirectional(oldSelection.usedForLockingProperty());
+                unbind(getSelectedAttributeBindings(oldSelection));
+
+//                javaAttributeNameTextField.textProperty().unbindBidirectional(oldSelection.nameProperty());
+//                javaTypeComboBox.valueProperty().unbindBidirectional(oldSelection.javaTypeProperty());
+//                optimisticLockingCheckBox.selectedProperty().unbindBidirectional(oldSelection.usedForLockingProperty());
             }
 
             javaTypeComboBox.getItems().clear();
@@ -210,9 +225,11 @@ public class ObjectEntityRelationshipsTabLayout
             {
                 javaTypeComboBox.getItems().addAll(javaTypes);
 
-                javaAttributeNameTextField.textProperty().bindBidirectional(newSelection.nameProperty());
-                javaTypeComboBox.valueProperty().bindBidirectional(newSelection.javaTypeProperty());
-                optimisticLockingCheckBox.selectedProperty().bindBidirectional(newSelection.usedForLockingProperty());
+                bind(getSelectedAttributeBindings(newSelection));
+
+//                javaAttributeNameTextField.textProperty().bindBidirectional(newSelection.nameProperty());
+//                javaTypeComboBox.valueProperty().bindBidirectional(newSelection.javaTypeProperty());
+//                optimisticLockingCheckBox.selectedProperty().bindBidirectional(newSelection.usedForLockingProperty());
                 databaseTypeLabel.setText(newSelection.getDatabaseType());
             }
 
@@ -224,6 +241,8 @@ public class ObjectEntityRelationshipsTabLayout
     @Override
     public void beginEditing()
     {
+        DetailEditorSupport.super.beginEditing();
+
         disable(javaAttributeNameTextField);
         javaAttributeNameTextField.setText(null);
 
@@ -247,13 +266,17 @@ public class ObjectEntityRelationshipsTabLayout
     @Override
     public void endEditing()
     {
+        DetailEditorSupport.super.endEditing();
+
         final ObjectAttributeAdapter currentObjectAttributeAdapter = relationshipsTableView.getSelectionModel().getSelectedItem();
 
         if (currentObjectAttributeAdapter != null)
         {
-            javaAttributeNameTextField.textProperty().unbindBidirectional(currentObjectAttributeAdapter.nameProperty());
-            javaTypeComboBox.valueProperty().unbindBidirectional(currentObjectAttributeAdapter.javaTypeProperty());
-            optimisticLockingCheckBox.selectedProperty().unbindBidirectional(currentObjectAttributeAdapter.usedForLockingProperty());
+            unbind(getSelectedAttributeBindings(currentObjectAttributeAdapter));
+
+//            javaAttributeNameTextField.textProperty().unbindBidirectional(currentObjectAttributeAdapter.nameProperty());
+//            javaTypeComboBox.valueProperty().unbindBidirectional(currentObjectAttributeAdapter.javaTypeProperty());
+//            optimisticLockingCheckBox.selectedProperty().unbindBidirectional(currentObjectAttributeAdapter.usedForLockingProperty());
         }
 
         relationshipsTableView.getSelectionModel().selectedItemProperty().removeListener(attributesTableViewSelectionListener);
