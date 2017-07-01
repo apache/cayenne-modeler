@@ -19,14 +19,22 @@
 
 package org.apache.cayenne.modeler.project;
 
+import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 
 public class ObjectEntityTreeItem extends TreeItem<String> implements CayenneTreeItem<ObjectEntityAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(DataDomainTreeItem.class);
+
     private final ObjectEntityAdapter objectEntityAdapter;
 
     public ObjectEntityTreeItem(final ObjectEntityAdapter objectEntityAdapter, final TreeItem<String> parent)
@@ -43,5 +51,30 @@ public class ObjectEntityTreeItem extends TreeItem<String> implements CayenneTre
     public ObjectEntityAdapter getPropertyAdapter()
     {
         return objectEntityAdapter;
+    }
+
+    @Override
+    public ContextMenu getContextMenu()
+    {
+        ContextMenu contextMenu  = new ContextMenu();
+        ObjEntity   objectEntity = (ObjEntity) getPropertyAdapter().getWrappedObject();
+
+        getPropertyAdapter().getDataMapAdapter().getDatabaseEntityAdapters().stream().forEach(databaseEntity ->
+            {
+                if (StringUtils.equals(databaseEntity.getName(), objectEntity.getDbEntityName()))
+                {
+                    MenuItem jumpTo = new MenuItem("Jump To Database Entity: " + databaseEntity.getName());
+
+                    jumpTo.setMnemonicParsing(false);
+                    jumpTo.setOnAction(event ->
+                        {
+                            LOGGER.debug("Jumping to DB Entity: " + databaseEntity.getName());
+                        });
+
+                    contextMenu.getItems().add(jumpTo);
+                }
+            });
+
+      return contextMenu;
     }
 }

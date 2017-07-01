@@ -20,14 +20,20 @@
 package org.apache.cayenne.modeler.project;
 
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 
 //public class DataDomainTreeItem extends CayenneTreeItem<String>
 public class DataDomainTreeItem extends TreeItem<String> implements CayenneTreeItem<DataDomainAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(DataDomainTreeItem.class);
+
     private final DataDomainAdapter dataDomainAdapter;
 
     public DataDomainTreeItem(final DataDomainAdapter dataDomainAdapter, final TreeItem<String> treeRoot)
@@ -51,5 +57,13 @@ public class DataDomainTreeItem extends TreeItem<String> implements CayenneTreeI
     public DataDomainAdapter getPropertyAdapter()
     {
         return dataDomainAdapter;
+    }
+
+    @Override
+    public ContextMenu getContextMenu()
+    {
+      MenuItem addInbox = new MenuItem("Data Domain Menu");
+      addInbox.setOnAction(event -> LOGGER.debug("Data Domain Context Menu Event: " + event));
+      return new ContextMenu(addInbox);
     }
 }

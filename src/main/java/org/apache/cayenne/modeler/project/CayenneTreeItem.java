@@ -21,10 +21,23 @@ package org.apache.cayenne.modeler.project;
 
 import org.apache.cayenne.modeler.adapters.CayennePropertyAdapter;
 
+import javafx.scene.control.ContextMenu;
+
 //public class CayenneTreeItem<T> extends TreeItem<T>
 public interface CayenneTreeItem<T extends CayennePropertyAdapter>
 {
+//    static final Log LOGGER = LogFactory.getLog(CayenneTreeItem.class);
+
     public static final String TREE_ICON_SIZE = "16px";
 
     T getPropertyAdapter();
+
+    ContextMenu getContextMenu();
+
+//    default ContextMenu getContextMenu()
+//    {
+//        MenuItem addInbox = new MenuItem("add inbox");
+//        addInbox.setOnAction(event -> LOGGER.debug("default context menu - event: " + event));
+//        return new ContextMenu(addInbox);
+//    }
 }

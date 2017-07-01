@@ -38,6 +38,7 @@ import org.apache.cayenne.modeler.project.DataMapTreeItem;
 import org.apache.cayenne.modeler.project.DataNodeTreeItem;
 import org.apache.cayenne.modeler.project.DatabaseEntityTreeItem;
 import org.apache.cayenne.modeler.project.ObjectEntityTreeItem;
+import org.apache.cayenne.modeler.project.ProjectTreeCell;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,10 +49,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class MainWindowLayout
     extends AbstractWindowLayout
@@ -173,6 +176,15 @@ public class MainWindowLayout
         treeRoot.setExpanded(true);
         treeView.setRoot(treeRoot);
         treeView.setShowRoot(false);
+
+        treeView.setCellFactory(new Callback<TreeView<String>, TreeCell<String>>()
+        {
+            @Override
+            public TreeCell<String> call(TreeView<String> p)
+            {
+                return new ProjectTreeCell();
+            }
+        });
 
         // addDataDomain(CayenneModelManager.getModels().get(0));
         // System.out.println(CayenneModelManager.getModels().size());

@@ -20,13 +20,19 @@
 package org.apache.cayenne.modeler.project;
 
 import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 
 public class DatabaseEntityTreeItem extends TreeItem<String> implements CayenneTreeItem<DatabaseEntityAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(DatabaseEntityTreeItem.class);
+
     private final DatabaseEntityAdapter databaseEntityAdapter;
 
     public DatabaseEntityTreeItem(final DatabaseEntityAdapter databaseEntityAdapter, final TreeItem<String> parent)
@@ -43,5 +49,13 @@ public class DatabaseEntityTreeItem extends TreeItem<String> implements CayenneT
     public DatabaseEntityAdapter getPropertyAdapter()
     {
         return databaseEntityAdapter;
+    }
+
+    @Override
+    public ContextMenu getContextMenu()
+    {
+      MenuItem addInbox = new MenuItem("Database Entity Menu");
+      addInbox.setOnAction(event -> LOGGER.debug("Database Entity Context Menu Event: " + event));
+      return new ContextMenu(addInbox);
     }
 }

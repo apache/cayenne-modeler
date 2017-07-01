@@ -20,13 +20,19 @@
 package org.apache.cayenne.modeler.project;
 
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 
 public class DataMapTreeItem extends TreeItem<String> implements CayenneTreeItem<DataMapAdapter>
 {
+    private static final Log LOGGER = LogFactory.getLog(DataMapTreeItem.class);
+
     private final DataMapAdapter dataMapAdapter;
 
     public DataMapTreeItem(final DataMapAdapter dataMapAdapter, final TreeItem<String> parent)
@@ -43,5 +49,13 @@ public class DataMapTreeItem extends TreeItem<String> implements CayenneTreeItem
     public DataMapAdapter getPropertyAdapter()
     {
         return dataMapAdapter;
+    }
+
+    @Override
+    public ContextMenu getContextMenu()
+    {
+      MenuItem addInbox = new MenuItem("Data Map Menu");
+      addInbox.setOnAction(event -> LOGGER.debug("Data Map Context Menu Event: " + event));
+      return new ContextMenu(addInbox);
     }
 }
