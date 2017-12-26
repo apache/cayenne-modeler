@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cayenne.modeler.project.CayenneProject;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -32,7 +32,7 @@ import javafx.beans.property.StringProperty;
 
 public class DataDomainAdapter extends CayennePropertyAdapter // implements AdapterSupport<CayenneProject>
 {
-    private static final Log LOGGER = LogFactory.getLog(DataDomainAdapter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataDomainAdapter.class);
 
     private static final String DATA_DOMAIN_NAME              = "dataDomainName";
     private static final String VALIDATING_OBJECTS            = "dataDomainValidatingObjects";

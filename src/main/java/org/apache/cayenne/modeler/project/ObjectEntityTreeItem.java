@@ -22,8 +22,8 @@ package org.apache.cayenne.modeler.project;
 import org.apache.cayenne.map.ObjEntity;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -33,7 +33,7 @@ import javafx.scene.control.TreeItem;
 
 public class ObjectEntityTreeItem extends TreeItem<String> implements CayenneTreeItem<ObjectEntityAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(DataDomainTreeItem.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataDomainTreeItem.class);
 
     private final ObjectEntityAdapter objectEntityAdapter;
 

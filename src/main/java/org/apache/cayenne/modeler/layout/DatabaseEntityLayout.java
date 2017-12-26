@@ -22,8 +22,8 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
@@ -32,7 +32,7 @@ public class DatabaseEntityLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DatabaseEntityAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(DatabaseEntityLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseEntityLayout.class);
 
     @FXML
     private AnchorPane tableTabAnchorPane, columnsTabAnchorPane;

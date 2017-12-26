@@ -25,8 +25,8 @@ import org.apache.cayenne.map.DbAttribute;
 import org.apache.cayenne.map.DbEntity;
 import org.apache.cayenne.modeler.adapters.DatabaseEntityAdapter;
 import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -40,7 +40,7 @@ public class DatabaseEntityColumnsTabLayout
     implements DetailEditorSupport<DatabaseEntityAdapter>
 
 {
-    private static final Log LOGGER = LogFactory.getLog(DatabaseEntityColumnsTabLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseEntityColumnsTabLayout.class);
 
 //    @FXML
 //    private TableView<ObjAttribute> attributesTableView;

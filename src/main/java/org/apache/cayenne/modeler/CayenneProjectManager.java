@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cayenne.modeler.project.CayenneProject;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CayenneProjectManager
 {
-    private static final Log LOGGER = LogFactory.getLog(CayenneProjectManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CayenneProjectManager.class);
 
-    private static List<CayenneProject> projects = new ArrayList<CayenneProject>();
+    private static List<CayenneProject> projects = new ArrayList<>();
 
     public static CayenneProject projectForPath(final String path)
     {

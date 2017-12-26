@@ -22,8 +22,8 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -32,7 +32,7 @@ public abstract class AbstractViewLayout
     extends AnchorPane
     implements LayoutSupport, MainWindowSupport
 {
-    private static final Log LOGGER = LogFactory.getLog(AbstractViewLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractViewLayout.class);
 
     private final MainWindowSupport parentLayout;
 

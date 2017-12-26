@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -35,7 +35,7 @@ public class DataMapLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DataMapAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(DataMapLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataMapLayout.class);
 
 //    private MainWindowLayout mainWindow;
 

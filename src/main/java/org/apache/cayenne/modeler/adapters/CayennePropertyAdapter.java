@@ -20,8 +20,8 @@
 package org.apache.cayenne.modeler.adapters;
 
 import org.apache.cayenne.modeler.project.CayenneProject;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -39,7 +39,7 @@ import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
  */
 public abstract class CayennePropertyAdapter
 {
-    private static final Log LOGGER = LogFactory.getLog(CayennePropertyAdapter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CayennePropertyAdapter.class);
 
     /**
      * Binds a Java/Bean String property to a JavaFX property. Note: The JavaFX

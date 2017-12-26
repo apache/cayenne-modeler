@@ -20,8 +20,8 @@
 package org.apache.cayenne.modeler.project;
 
 import org.apache.cayenne.modeler.adapters.DataMapAdapter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -31,7 +31,7 @@ import javafx.scene.control.TreeItem;
 
 public class DataMapTreeItem extends TreeItem<String> implements CayenneTreeItem<DataMapAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(DataMapTreeItem.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataMapTreeItem.class);
 
     private final DataMapAdapter dataMapAdapter;
 

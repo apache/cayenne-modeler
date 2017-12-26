@@ -29,11 +29,11 @@ import java.util.prefs.Preferences;
 import org.apache.cayenne.modeler.CayenneProjectManager;
 import org.apache.cayenne.modeler.utility.CayenneUserDir;
 import org.apache.commons.collections.ExtendedProperties;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UpgradeCayennePreference extends PreferenceDecorator {
-    private static final Log LOGGER = LogFactory.getLog(CayenneProjectManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CayenneProjectManager.class);
 
     /** Name of the preferences file. */
     public static final String PREFERENCES_NAME_OLD = "modeler.preferences";
@@ -90,10 +90,10 @@ public class UpgradeCayennePreference extends PreferenceDecorator {
                         }
                     }
                     catch (FileNotFoundException e) {
-                        LOGGER.error(e);
+                        LOGGER.error("", e);
                     }
                     catch (IOException e) {
-                        LOGGER.error(e);
+                        LOGGER.error("", e);
                     }
                 }
             }

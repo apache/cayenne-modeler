@@ -22,15 +22,15 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DataNodeDatabaseAdapterTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DataNodeAdapter>
 
 {
-    private static final Log LOGGER = LogFactory.getLog(DataNodeDatabaseAdapterTabLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataNodeDatabaseAdapterTabLayout.class);
 
     private DataNodeAdapter dataNodeAdapter;
 

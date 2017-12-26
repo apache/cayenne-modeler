@@ -30,17 +30,16 @@ import org.apache.cayenne.modeler.layout.MainWindowLayout;
 import org.apache.cayenne.modeler.layout.PreferencesLayout;
 import org.apache.cayenne.modeler.layout.SplashLayout;
 import org.apache.cayenne.modeler.project.CayenneProject;
-import org.apache.cayenne.project.CayenneProjectModule;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.cayenne.project.ProjectModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class CayenneModeler extends Application
 {
-    private static final Log LOGGER = LogFactory.getLog(CayenneModeler.class);
-//    private static final Logger LOGGER = LogManager.getLogger(CayenneModeler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CayenneModeler.class);
 
 //    private Stage      primaryStage;
     private SplashLayout splashLayout;
@@ -177,7 +176,8 @@ public class CayenneModeler extends Application
     protected static Collection<Module> appendModules(final Collection<Module> modules)
     {
         modules.add(new ServerModule("CayenneModeler"));
-        modules.add(new CayenneProjectModule());
+//        modules.add(ServerRuntime.builder().addConfig("CayenneModeler").build());
+        modules.add(new ProjectModule());
 //        modules.add(new CayenneModelerModule());
 
         return modules;

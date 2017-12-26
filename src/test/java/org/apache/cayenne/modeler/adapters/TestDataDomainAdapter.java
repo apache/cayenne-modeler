@@ -8,7 +8,7 @@ import org.apache.cayenne.di.DIBootstrap;
 import org.apache.cayenne.di.Module;
 import org.apache.cayenne.modeler.CayenneProjectManager;
 import org.apache.cayenne.modeler.di.Injection;
-import org.apache.cayenne.project.CayenneProjectModule;
+import org.apache.cayenne.project.ProjectModule;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class TestDataDomainAdapter
     protected static Collection<Module> appendModules(final Collection<Module> modules)
     {
         modules.add(new ServerModule());
-        modules.add(new CayenneProjectModule());
+        modules.add(new ProjectModule());
 //        modules.add(new CayenneModelerModule());
 
         return modules;

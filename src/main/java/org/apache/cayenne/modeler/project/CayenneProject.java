@@ -29,8 +29,8 @@ import org.apache.cayenne.access.DataDomain;
 import org.apache.cayenne.access.DataRowStore;
 import org.apache.cayenne.configuration.DataChannelDescriptor;
 import org.apache.cayenne.configuration.DataNodeDescriptor;
-import org.apache.cayenne.event.JMSBridgeFactory;
-import org.apache.cayenne.event.JavaGroupsBridgeFactory;
+import org.apache.cayenne.event.JMSBridge;
+import org.apache.cayenne.event.JavaGroupsBridge;
 import org.apache.cayenne.map.DataMap;
 import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
 import org.apache.cayenne.modeler.di.Injection;
@@ -43,15 +43,15 @@ import org.apache.cayenne.project.upgrade.UpgradeType;
 import org.apache.cayenne.resource.Resource;
 import org.apache.cayenne.resource.URLResource;
 import org.apache.cayenne.util.Util;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class CayenneProject
 {
-    private static final Log LOGGER = LogFactory.getLog(CayenneProject.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CayenneProject.class);
 
     private final String path;
     private final DataDomainAdapter dataDomainAdapter;
@@ -91,15 +91,15 @@ public class CayenneProject
         // FIXME: These should be handled better.
         if (UpgradeType.DOWNGRADE_NEEDED == md.getUpgradeType())
         {
-            LOGGER.fatal("Can't open project - it was created using a newer version of Cayenne Modeler");
+            LOGGER.error("Can't open project - it was created using a newer version of Cayenne Modeler");
         }
         else if (UpgradeType.INTERMEDIATE_UPGRADE_NEEDED == md.getUpgradeType())
         {
-            LOGGER.fatal("Can't open project - it was created using an older version of Cayenne Modeler");
+            LOGGER.error("Can't open project - it was created using an older version of Cayenne Modeler");
         }
         else if (UpgradeType.UPGRADE_NEEDED == md.getUpgradeType())
         {
-            LOGGER.fatal("Can't open project - it was created using an older version of Cayenne Modeler");
+            LOGGER.error("Can't open project - it was created using an older version of Cayenne Modeler");
         }
         else
         {
@@ -197,42 +197,42 @@ public class CayenneProject
 
     public String getJavaGroupsMulticastAddress()
     {
-        return getDomainProperty(JavaGroupsBridgeFactory.MCAST_ADDRESS_PROPERTY, JavaGroupsBridgeFactory.MCAST_ADDRESS_DEFAULT);
+        return getDomainProperty(JavaGroupsBridge.MCAST_ADDRESS_PROPERTY, JavaGroupsBridge.MCAST_ADDRESS_DEFAULT);
     }
 
     public void setJavaGroupsMulticastAddress(String multicastAddress)
     {
-        setDomainStringProperty(JavaGroupsBridgeFactory.MCAST_ADDRESS_PROPERTY, multicastAddress, JavaGroupsBridgeFactory.MCAST_ADDRESS_DEFAULT);
+        setDomainStringProperty(JavaGroupsBridge.MCAST_ADDRESS_PROPERTY, multicastAddress, JavaGroupsBridge.MCAST_ADDRESS_DEFAULT);
     }
 
     public String getJavaGroupsMulticastPort()
     {
-        return getDomainProperty(JavaGroupsBridgeFactory.MCAST_PORT_PROPERTY, JavaGroupsBridgeFactory.MCAST_PORT_DEFAULT);
+        return getDomainProperty(JavaGroupsBridge.MCAST_PORT_PROPERTY, JavaGroupsBridge.MCAST_PORT_DEFAULT);
     }
 
     public void setJavaGroupsMulticastPort(String multicastPort)
     {
-        setDomainStringProperty(JavaGroupsBridgeFactory.MCAST_PORT_PROPERTY, multicastPort, JavaGroupsBridgeFactory.MCAST_PORT_DEFAULT);
+        setDomainStringProperty(JavaGroupsBridge.MCAST_PORT_PROPERTY, multicastPort, JavaGroupsBridge.MCAST_PORT_DEFAULT);
     }
 
     public String getJavaGroupsFile()
     {
-        return getDomainProperty(JavaGroupsBridgeFactory.JGROUPS_CONFIG_URL_PROPERTY, "");
+        return getDomainProperty(JavaGroupsBridge.JGROUPS_CONFIG_URL_PROPERTY, "");
     }
 
     public void setJavaGroupsFile(String javaGroupsFile)
     {
-        setDomainStringProperty(JavaGroupsBridgeFactory.JGROUPS_CONFIG_URL_PROPERTY, javaGroupsFile, "");
+        setDomainStringProperty(JavaGroupsBridge.JGROUPS_CONFIG_URL_PROPERTY, javaGroupsFile, "");
     }
 
     public String getJmsConnectionFactory()
     {
-        return getDomainProperty(JMSBridgeFactory.TOPIC_CONNECTION_FACTORY_PROPERTY, JMSBridgeFactory.TOPIC_CONNECTION_FACTORY_DEFAULT);
+        return getDomainProperty(JMSBridge.TOPIC_CONNECTION_FACTORY_PROPERTY, JMSBridge.TOPIC_CONNECTION_FACTORY_DEFAULT);
     }
 
     public void setJmsConnectionFactory(String jmsConnectionFactory)
     {
-        setDomainStringProperty(JMSBridgeFactory.TOPIC_CONNECTION_FACTORY_PROPERTY, jmsConnectionFactory, JMSBridgeFactory.TOPIC_CONNECTION_FACTORY_DEFAULT);
+        setDomainStringProperty(JMSBridge.TOPIC_CONNECTION_FACTORY_PROPERTY, jmsConnectionFactory, JMSBridge.TOPIC_CONNECTION_FACTORY_DEFAULT);
     }
 
     public Collection<DataMap> getDataMaps()

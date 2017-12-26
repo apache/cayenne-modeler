@@ -26,8 +26,8 @@ import java.util.List;
 import org.apache.cayenne.modeler.adapters.ObjectAttributeAdapter;
 import org.apache.cayenne.modeler.adapters.ObjectEntityAdapter;
 import org.apache.cayenne.modeler.utility.ObjectEntityUtilities;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -49,7 +49,7 @@ public class ObjectEntityRelationshipsTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<ObjectEntityAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(ObjectEntityRelationshipsTabLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectEntityRelationshipsTabLayout.class);
 
     @FXML
     private Button newRelationshipButton;

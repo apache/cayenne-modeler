@@ -30,8 +30,8 @@ import org.apache.cayenne.access.dbsync.ThrowOnPartialSchemaStrategy;
 import org.apache.cayenne.configuration.server.JNDIDataSourceFactory;
 import org.apache.cayenne.configuration.server.XMLPoolingDataSourceFactory;
 import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -47,7 +47,7 @@ public class DataNodeConfigurationTabLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DataNodeAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(DataNodeConfigurationTabLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataNodeConfigurationTabLayout.class);
 
     @FXML
     private TextField nameTextField;

@@ -24,8 +24,8 @@ import java.io.IOException;
 
 import org.apache.cayenne.modeler.CayenneModeler;
 import org.apache.cayenne.modeler.preferences.ModelerPreferences;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -42,7 +42,7 @@ import javafx.stage.StageStyle;
 
 public class SplashLayout extends AbstractWindowLayout
 {
-    private static final Log LOGGER = LogFactory.getLog(SplashLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SplashLayout.class);
 
     @FXML
     private ListView<String> projectListView;

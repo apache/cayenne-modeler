@@ -39,8 +39,8 @@ import org.apache.cayenne.modeler.project.DataNodeTreeItem;
 import org.apache.cayenne.modeler.project.DatabaseEntityTreeItem;
 import org.apache.cayenne.modeler.project.ObjectEntityTreeItem;
 import org.apache.cayenne.modeler.project.ProjectTreeCell;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -61,7 +61,7 @@ public class MainWindowLayout
     implements DataDomainListener,
                MainWindowSupport
 {
-    private static final Log LOGGER = LogFactory.getLog(MainWindowLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainWindowLayout.class);
 
     @FXML
     private TreeView<String> treeView;
@@ -242,7 +242,7 @@ public class MainWindowLayout
                 }
                 catch (final IOException e)
                 {
-                    LOGGER.fatal("Cannot load UI.", e);
+                    LOGGER.error("Cannot load UI.", e);
                 }
             });
 

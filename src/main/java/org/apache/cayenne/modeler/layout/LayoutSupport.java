@@ -21,8 +21,8 @@ package org.apache.cayenne.modeler.layout;
 
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -30,7 +30,7 @@ import javafx.scene.layout.AnchorPane;
 
 public interface LayoutSupport
 {
-    static final Log LOGGER = LogFactory.getLog(LayoutSupport.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(LayoutSupport.class);
 
     default FXMLLoader loadFXML(final String fxmlPath) throws IOException
     {

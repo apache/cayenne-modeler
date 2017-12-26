@@ -21,7 +21,7 @@
 	<name>Cayenne Modeler Prototype</name>
 
 	<properties>
-		<cayenne.version>4.0.M5</cayenne.version>
+		<cayenne.version>4.0.B1</cayenne.version>
 		<fontawesomefx.version>8.9</fontawesomefx.version>
 		<java.version>1.8</java.version>
 		<jfxtras.version>8.0-r4</jfxtras.version>
@@ -54,11 +54,31 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
+        </dependency>
 		<dependency>
 			<groupId>org.apache.cayenne</groupId>
 			<artifactId>cayenne-server</artifactId>
 			<version>${cayenne.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.cayenne</groupId>
+            <artifactId>cayenne-jgroups</artifactId>
+            <version>${cayenne.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cayenne</groupId>
+            <artifactId>cayenne-jms</artifactId>
+            <version>${cayenne.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cayenne</groupId>
+            <artifactId>cayenne-xmpp</artifactId>
+            <version>${cayenne.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>org.apache.cayenne</groupId>
 			<artifactId>cayenne-project</artifactId>

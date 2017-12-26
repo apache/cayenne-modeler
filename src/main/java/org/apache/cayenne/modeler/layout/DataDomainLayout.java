@@ -30,8 +30,8 @@ import org.apache.cayenne.modeler.adapters.DataDomainAdapter;
 import org.apache.cayenne.modeler.notification.event.DataDomainChangeEvent;
 import org.apache.cayenne.modeler.notification.listener.DataDomainListener;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -47,7 +47,7 @@ public class DataDomainLayout
     implements DataDomainListener,
                DetailEditorSupport<DataDomainAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(DataDomainLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataDomainLayout.class);
 
 //    private MainWindowLayout mainWindow;
 

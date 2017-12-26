@@ -27,8 +27,8 @@ import java.util.prefs.PreferenceChangeEvent;
 import java.util.prefs.PreferenceChangeListener;
 import java.util.prefs.Preferences;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ModelerPreferences class supports persistent user preferences. Preferences are saved in
@@ -41,7 +41,7 @@ public class ModelerPreferences implements PreferenceChangeListener {
 
     private static Preferences cayennePrefs;
 
-    private static final Log logObj = LogFactory.getLog(ModelerPreferences.class);
+    private static final Logger logObj = LoggerFactory.getLogger(ModelerPreferences.class);
 
     /** Name of the log file. */
     public static final String LOGFILE_NAME = "modeler.log";
@@ -81,7 +81,7 @@ public class ModelerPreferences implements PreferenceChangeListener {
 
     public static List<String> getLastProjFiles() {
         Preferences filesPrefs = getLastProjFilesPref();
-        ArrayList<String> arrayLastProjFiles = new ArrayList<String>();
+        ArrayList<String> arrayLastProjFiles = new ArrayList<>();
         String[] keys = null;
         try {
             keys = filesPrefs.keys();
@@ -93,7 +93,7 @@ public class ModelerPreferences implements PreferenceChangeListener {
         if (keys != null) {
             int len = keys.length;
 
-            ArrayList<Integer> keysInteger = new ArrayList<Integer>();
+            ArrayList<Integer> keysInteger = new ArrayList<>();
             for (int i = 0; i < len; i++) {
                 keysInteger.add(new Integer(i));
             }

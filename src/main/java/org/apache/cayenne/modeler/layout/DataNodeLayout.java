@@ -22,8 +22,8 @@ package org.apache.cayenne.modeler.layout;
 import java.io.IOException;
 
 import org.apache.cayenne.modeler.adapters.DataNodeAdapter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -33,7 +33,7 @@ public class DataNodeLayout
     extends AbstractViewLayout
     implements DetailEditorSupport<DataNodeAdapter>
 {
-    private static final Log LOGGER = LogFactory.getLog(DataNodeLayout.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataNodeLayout.class);
 
     @FXML
     private AnchorPane configurationTabAnchorPane, databaseAdapterTabAnchorPane, passwordEncoderTabAnchorPane;
