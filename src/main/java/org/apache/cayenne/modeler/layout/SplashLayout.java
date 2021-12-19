@@ -40,16 +40,39 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * The "splash" page for the application. Shown on modeler launch and gives the
+ * choice of opening recent/existing projects or creating a new project.
+ */
 public class SplashLayout extends AbstractWindowLayout
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(SplashLayout.class);
 
+    /**
+     * Outlet to the recent projects ListView.
+     */
     @FXML
-    private ListView<String> projectListView;
+    private ListView<String> recentProjectsListView;
 
+    /**
+     * Outlet to the New Project Button.
+     */
     @FXML
-    private Button newProjectButton, openProjectButton;
+    private Button newProjectButton;
 
+    /**
+     * Outlet to the OpenProject Button.
+     */
+    @FXML
+    private Button openProjectButton;
+
+
+    /**
+     * Create a new splash layout.
+     *
+     * @param initialStage
+     * @throws IOException
+     */
     public SplashLayout(final Stage initialStage) throws IOException
     {
         super(initialStage, "/layouts/SplashLayout.fxml");
@@ -58,19 +81,28 @@ public class SplashLayout extends AbstractWindowLayout
         setResizable(false);
     }
 
+    /**
+     * Initialize the layout with a list of recent projects.
+     */
     public void initialize()
     {
+        // Load the recent projects.
         final ObservableList<String> projects =
             FXCollections.observableArrayList(ModelerPreferences.getLastProjFiles());
 
-        projectListView.setItems(projects);
-        projectListView.getSelectionModel().select(0);
+        // Set the recent projects and pre-select the first entry.
+        recentProjectsListView.setItems(projects);
+        recentProjectsListView.getSelectionModel().select(0);
 
+        // Set the graphics for the new/open button.
         newProjectButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PLUS_SQUARE, "16px"));
         openProjectButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.FOLDER_OPEN, "16px"));
     }
 
-    public void onOpenClicked()
+    /**
+     * Callback handler for when the Open Project button is clicked.
+     */
+    public void onOpenProjectClicked()
     {
         try
         {
@@ -104,29 +136,41 @@ public class SplashLayout extends AbstractWindowLayout
         }
     }
 
-    public void onNewClicked()
+    /**
+     * Callback handler for when the New Project button is clicked.
+     */
+    public void onNewProjectClicked()
     {
-        LOGGER.debug("new clicked");
+        LOGGER.debug("new project clicked -- but not implemented");
     }
 
-    public void onOpenProjectSelected(final MouseEvent event)
+    /**
+     * Callback handler for when a recent project is double-clicked.
+     */
+    public void onOpenRecentProject(final MouseEvent event)
     {
-        if (event.getClickCount() == 2)
-            if (projectListView.getItems().size() > 0)
-                openSelectedModel();
+        if (event.getClickCount() == 2 && recentProjectsListView.getItems().size() > 0)
+            openSelectedProject();
     }
 
+    /**
+     * Callback handler for when return/enter is pressed (to open the recent
+     * project).
+     */
     public void onKeyTyped(final KeyEvent event)
     {
-        if (event.getCharacter().equals("\r"))
-            openSelectedModel();
+        if (event.getCharacter().equals("\r") && recentProjectsListView.getItems().size() > 0)
+            openSelectedProject();
     }
 
-    private void openSelectedModel()
+    /**
+     * Opens the selected recent project.
+     */
+    private void openSelectedProject()
     {
         try
         {
-            CayenneModeler.openProject(projectListView.getSelectionModel().getSelectedItem());
+            CayenneModeler.openProject(recentProjectsListView.getSelectionModel().getSelectedItem());
             hide();
         }
         catch (final Exception exception)
