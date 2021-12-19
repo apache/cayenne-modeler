@@ -25,6 +25,7 @@ import java.util.Collection;
 import org.apache.cayenne.configuration.server.ServerModule;
 import org.apache.cayenne.di.DIBootstrap;
 import org.apache.cayenne.di.Module;
+import org.apache.cayenne.event.JGroupsModule;
 import org.apache.cayenne.modeler.di.Injection;
 import org.apache.cayenne.modeler.layout.MainWindowLayout;
 import org.apache.cayenne.modeler.layout.PreferencesLayout;
@@ -178,6 +179,7 @@ public class CayenneModeler extends Application
         modules.add(new ServerModule("CayenneModeler"));
 //        modules.add(ServerRuntime.builder().addConfig("CayenneModeler").build());
         modules.add(new ProjectModule());
+        modules.add(new JGroupsModule());
 //        modules.add(new CayenneModelerModule());
 
         return modules;
@@ -187,7 +189,7 @@ public class CayenneModeler extends Application
     {
 //        Font.loadFont(CayenneModeler.class.getResource("/font/fontawesome-webfont.ttf").toExternalForm(), 10);
 
-        Injection.setInjector(DIBootstrap.createInjector(appendModules(new ArrayList<Module>())));
+        Injection.setInjector(DIBootstrap.createInjector(appendModules(new ArrayList<>())));
 
         launch(args);
     }

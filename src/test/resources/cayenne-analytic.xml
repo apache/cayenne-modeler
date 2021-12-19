@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <domain project-version="9">
 	<property name="cayenne.DataDomain.validatingObjectsOnCommit" value="false"/>
+	<property name="cayenne.DataRowStore.EventBridge.factory" value="org.apache.cayenne.event.JavaGroupsBridgeFactory"/>
 	<property name="cayenne.DataRowStore.remote.notify" value="true"/>
+	<property name="cayenne.JMSBridge.topic.connection.factory" value="JmsTopicConnectionFactory"/>
+	<property name="javagroupsbridge.config.url" value="mrg"/>
 
 	<map name="analytic"/>
 
