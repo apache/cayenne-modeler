@@ -1,6 +1,6 @@
 # Development > Prerequisites
 
-* Java 8
+* Java 11
 * [Scene Builder](http://gluonhq.com/open-source/scene-builder/) (to edit FXML files)
 * An IDE
   * Eclipse
