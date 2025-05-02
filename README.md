@@ -23,19 +23,19 @@ What will it look like?  Well, it has the same basic layout as the current Cayen
 The following screenshots show how the prototype is shaping up.  They'll be updated as work progresses.
 
 **DataDomain Editor**
-![DataDomain](https://people.apache.org/~mgentry/DataDomain.png)
+![DataDomain](docs/screenshots/DataDomain.png)
 
 **DataMap Editor**
-![DataMap](https://people.apache.org/~mgentry/DataMap.png)
+![DataMap](docs/screenshots/DataMap.png)
 
 **ObjEntity Class Editor**
-![Object Entity Class Tab](https://people.apache.org/~mgentry/ObjectEntity1.png)
+![Object Entity Class Tab](docs/screenshots/ObjectEntity1.png)
 
 **ObjEntity Attributes Editor**
-![Object Entity Attributes Tab](https://people.apache.org/~mgentry/ObjectEntity2.png)
+![Object Entity Attributes Tab](docs/screenshots/ObjectEntity2.png)
 
 **Multiple Window Data Synchronization**
-![Multiple Window Data Synchronization](https://people.apache.org/~mgentry/DataSynchronization.gif)
+![Multiple Window Data Synchronization](docs/screenshots/DataSynchronization.gif)
 
 ## Development
 
@@ -56,4 +56,3 @@ The [FontAwesomeFX](https://bitbucket.org/Jerady/fontawesomefx) library is used 
 ## License
 
 [Apache Software Foundation](http://www.apache.org/licenses/LICENSE-2.0)
-
